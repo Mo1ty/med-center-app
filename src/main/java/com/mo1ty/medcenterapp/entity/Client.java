@@ -3,8 +3,13 @@ package com.mo1ty.medcenterapp.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -47,5 +52,18 @@ public class Client {
         this.email = email;
         this.password = password;
         this.address = addressId;
+    }
+
+    public List<Visit> getCancellableVisits(){
+        List<Visit> pendingVisits = new ArrayList<>();
+        LocalDate date = LocalDate.now();
+
+        for(Visit visit : this.allVisits){
+            if(date.isBefore(visit.getDate().toLocalDate())){
+                pendingVisits.add(visit);
+            }
+        }
+
+        return pendingVisits;
     }
 }

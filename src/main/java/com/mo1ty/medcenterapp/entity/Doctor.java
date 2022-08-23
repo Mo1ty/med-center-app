@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -55,5 +58,17 @@ public class Doctor {
         this.address = addressId;
         this.serviceType = serviceTypeId;
         this.qualificationLevel = qualificationLevel;
+    }
+
+    public List<Visit> allPendingVisits(Date date, Time time){
+        List<Visit> pendingVisits = new ArrayList<>();
+
+        for(Visit visit : this.allVisits){
+            if(!(date.after(visit.getDate()))){
+                pendingVisits.add(visit);
+            }
+        }
+
+        return pendingVisits;
     }
 }
