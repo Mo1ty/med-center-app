@@ -3,6 +3,8 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     DoctorRepository doctorRepository;
 
     @Override
-    public List<Doctor> findByServiceTypeAndQualiLevel(int serviceTypeId, int qualificationLevel) {
+    public List<Doctor> findByTreatmentTypeAndQualificationLevel(int treatmentType, int qualificationLevel) {
 
         List<Doctor> result =
-                doctorRepository.findByServiceTypeAndQualiLevel(serviceTypeId, qualificationLevel);
+                doctorRepository.findByTreatmentTypeAndQualificationLevel(treatmentType, qualificationLevel);
 
         if (result.size() == 0){
             // add DataNotFoundException later

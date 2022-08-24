@@ -1,8 +1,6 @@
 package com.mo1ty.medcenterapp.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,6 +12,7 @@ import java.util.List;
 @Table(name = "doctors")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class Doctor {
 
@@ -40,7 +39,7 @@ public class Doctor {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "service_type_id")
+    @JoinColumn(name = "treatment_type_id")
     private TreatmentType treatmentType;
 
     @Column(name = "qualification_level")
@@ -52,6 +51,17 @@ public class Doctor {
 
     public Doctor(String firstName, String lastName, String email,
                   Address addressId, TreatmentType treatmentTypeId, int qualificationLevel) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = addressId;
+        this.treatmentType = treatmentTypeId;
+        this.qualificationLevel = qualificationLevel;
+    }
+
+    public Doctor(int id, String firstName, String lastName, String email,
+                  Address addressId, TreatmentType treatmentTypeId, int qualificationLevel) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

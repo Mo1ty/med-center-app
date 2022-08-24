@@ -3,7 +3,6 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

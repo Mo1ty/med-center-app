@@ -49,7 +49,7 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public List<Visit> findAllByClientId(int clientId) {
 
-        List<Visit> result = visitsRepository.findAllByClientId(clientId);
+        List<Visit> result = visitsRepository.findAllByClientVisited(clientId);
 
         if (result.size() == 0){
             // add DataNotFoundException later
@@ -62,7 +62,7 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public List<Visit> findAllByDoctorId(int doctorId) {
 
-        List<Visit> result = visitsRepository.findAllByDoctorId(doctorId);
+        List<Visit> result = visitsRepository.findAllByDoctorAccepted(doctorId);
 
         if (result.size() == 0){
             // add DataNotFoundException later

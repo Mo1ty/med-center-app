@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,28 +8,29 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="services_types")
+@Table(name="treatment_types")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TreatmentType {
 
     // before continuing, check how are joins and relations shown in JPA & Java itself
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="service_type_id")
-    private int serviceTypeId;
+    @Column(name="treatment_type_id")
+    private int treatmentTypeId;
 
-    @Column(name="service_type")
-    private String serviceType;
+    @Column(name="treatment_type")
+    private String treatmentType;
 
     @Column(name="description")
     private String description;
 
 
-    public TreatmentType(String serviceType, String description) {
-        this.serviceType = serviceType;
+    public TreatmentType(String treatmentType, String description) {
+        this.treatmentType = treatmentType;
         this.description = description;
     }
 }

@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.repository.interfaces;
+package com.mo1ty.medcenterapp.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TreatmentRepositoryTest {
+class VisitsServiceImplTest {
 
     @BeforeEach
     void setUp() {
@@ -17,6 +17,10 @@ class TreatmentRepositoryTest {
     }
 
     @Test
-    void findByServiceName() {
+    void findAllByClientId() {
+    }
+
+    @Test
+    void findAllByDoctorId() {
     }
 }

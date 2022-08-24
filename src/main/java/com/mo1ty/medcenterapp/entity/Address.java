@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
     @Id
@@ -29,9 +30,9 @@ public class Address {
     private String street;
 
     @Column(name = "house_number")
-    private String houseNumber;
+    private int houseNumber;
 
-    public Address(String city, String postalCode, String street, String houseNumber) {
+    public Address(String city, String postalCode, String street, int houseNumber) {
         this.city = city;
         this.postalCode = postalCode;
         this.street = street;

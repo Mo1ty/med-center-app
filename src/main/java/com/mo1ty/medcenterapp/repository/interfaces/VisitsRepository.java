@@ -12,9 +12,9 @@ public interface VisitsRepository extends JpaRepository<Visit, Integer> {
 
     // Custom methods to find every visit done by one patient or doctor.
 
-    @Query("SELECT t FROM Visits t WHERE t.client_id = ?1")
-    List<Visit> findAllByClientId(int clientId);
+    // @Query("SELECT t FROM Visits t WHERE t.client_id = ?1")
+    List<Visit> findAllByClientVisited(int clientVisited);
 
-    @Query("SELECT t FROM Visits t WHERE t.doctor_id = ?1")
-    List<Visit> findAllByDoctorId(int doctorId);
+    // @Query("SELECT t FROM Visits t WHERE t.doctor_id = ?1")
+    List<Visit> findAllByDoctorAccepted(int doctorAccepted);
 }

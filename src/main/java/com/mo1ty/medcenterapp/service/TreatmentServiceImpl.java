@@ -16,6 +16,18 @@ public class TreatmentServiceImpl implements TreatmentService {
     TreatmentRepository treatmentRepository;
 
     @Override
+    public List<Treatment> findByTreatmentName(String treatmentName) {
+        List<Treatment> result = treatmentRepository.findByTreatmentName(treatmentName);
+
+        if (result.size() == 0){
+            // add DataNotFoundException later
+            throw new RuntimeException();
+        }
+
+        return result;
+    }
+
+    @Override
     public void createOrUpdateTreatment(Treatment treatment) {
         treatmentRepository.save(treatment);
     }

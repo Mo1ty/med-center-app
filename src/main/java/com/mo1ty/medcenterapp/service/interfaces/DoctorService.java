@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DoctorService {
 
-    List<Doctor> findByServiceTypeAndQualiLevel(int serviceTypeId, int qualificationLevel);
+    List<Doctor> findByTreatmentTypeAndQualificationLevel(int serviceTypeId, int qualificationLevel);
 
     void createOrUpdateDoctor(Doctor doctor);
 

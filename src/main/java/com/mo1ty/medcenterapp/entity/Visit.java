@@ -23,7 +23,7 @@ public class Visit {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name="service_id")
+    @JoinColumn(name="treatment_id")
     private Treatment treatmentDone;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
