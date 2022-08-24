@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VisitsService {
 
-    void createNewVisit(Visit visit);
+    void createOrUpdateVisit(Visit visit);
 
     List<Visit> findAll();
 
@@ -16,8 +16,6 @@ public interface VisitsService {
     List<Visit> findAllByClientId(int clientId);
 
     List<Visit> findAllByDoctorId(int doctorId);
-
-    void updateVisit(Visit visit, int visitId);
 
     void deleteVisit(int visitId);
 

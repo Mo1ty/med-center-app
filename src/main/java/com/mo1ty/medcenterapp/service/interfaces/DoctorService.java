@@ -8,13 +8,11 @@ public interface DoctorService {
 
     List<Doctor> findByServiceTypeAndQualiLevel(int serviceTypeId, int qualificationLevel);
 
-    void createNewClient(Doctor doctor);
+    void createOrUpdateDoctor(Doctor doctor);
 
     List<Doctor> findAll();
 
     Doctor findById(int doctorId);
-
-    void updateClient(Doctor doctor, int doctorId);
 
     void deleteClient(int doctorId);
 
