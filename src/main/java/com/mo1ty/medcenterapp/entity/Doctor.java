@@ -41,7 +41,7 @@ public class Doctor {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "service_type_id")
-    private ServiceType serviceType;
+    private TreatmentType treatmentType;
 
     @Column(name = "qualification_level")
     private int qualificationLevel;
@@ -51,12 +51,12 @@ public class Doctor {
     private List<Visit> allVisits;
 
     public Doctor(String firstName, String lastName, String email,
-                  Address addressId, ServiceType serviceTypeId, int qualificationLevel) {
+                  Address addressId, TreatmentType treatmentTypeId, int qualificationLevel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = addressId;
-        this.serviceType = serviceTypeId;
+        this.treatmentType = treatmentTypeId;
         this.qualificationLevel = qualificationLevel;
     }
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ServiceType {
+public class TreatmentType {
 
     // before continuing, check how are joins and relations shown in JPA & Java itself
 
@@ -27,7 +27,7 @@ public class ServiceType {
     private String description;
 
 
-    public ServiceType(String serviceType, String description) {
+    public TreatmentType(String serviceType, String description) {
         this.serviceType = serviceType;
         this.description = description;
     }

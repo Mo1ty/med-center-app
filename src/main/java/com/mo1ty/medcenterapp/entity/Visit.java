@@ -24,7 +24,7 @@ public class Visit {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="service_id")
-    private Service serviceDone;
+    private Treatment treatmentDone;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
@@ -42,8 +42,8 @@ public class Visit {
     @Column(name="time")
     private Time time;
 
-    public Visit(Service serviceDone, Client clientVisited, Doctor doctorAccepted, Date date, Time time) {
-        this.serviceDone = serviceDone;
+    public Visit(Treatment treatmentDone, Client clientVisited, Doctor doctorAccepted, Date date, Time time) {
+        this.treatmentDone = treatmentDone;
         this.clientVisited = clientVisited;
         this.doctorAccepted = doctorAccepted;
         this.date = date;

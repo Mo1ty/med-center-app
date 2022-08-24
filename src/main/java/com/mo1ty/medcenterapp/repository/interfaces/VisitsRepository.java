@@ -10,9 +10,11 @@ import java.util.List;
 @Repository
 public interface VisitsRepository extends JpaRepository<Visit, Integer> {
 
+    // Custom methods to find every visit done by one patient or doctor.
+
     @Query("SELECT t FROM Visits t WHERE t.client_id = ?1")
-    List<Visit> findByClientId(int clientId);
+    List<Visit> findAllByClientId(int clientId);
 
     @Query("SELECT t FROM Visits t WHERE t.doctor_id = ?1")
-    List<Visit> findByDoctorId(int doctorId);
+    List<Visit> findAllByDoctorId(int doctorId);
 }
