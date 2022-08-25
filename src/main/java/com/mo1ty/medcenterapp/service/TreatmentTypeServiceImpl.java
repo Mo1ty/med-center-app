@@ -1,7 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.TreatmentTypeRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,7 @@ public class TreatmentTypeServiceImpl implements TreatmentTypeService {
         List<TreatmentType> result = treatmentTypeRepository.findAll();
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("No treatment types are present!");
         }
 
         return result;
@@ -42,8 +41,7 @@ public class TreatmentTypeServiceImpl implements TreatmentTypeService {
             return result.get();
         }
         else{
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("Treatment type with this id was not found!");
         }
     }
 

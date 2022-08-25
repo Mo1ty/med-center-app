@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Address;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,7 @@ public class AddressServiceImpl implements AddressService {
         List<Address> result = addressRepository.findAll();
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("No addresses were found in the table!");
         }
 
         return result;
@@ -42,8 +42,7 @@ public class AddressServiceImpl implements AddressService {
             return result.get();
         }
         else{
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("Address with this id was not found!");
         }
     }
 

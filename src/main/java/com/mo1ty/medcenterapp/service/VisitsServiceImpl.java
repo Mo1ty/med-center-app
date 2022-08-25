@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Visit;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,7 @@ public class VisitsServiceImpl implements VisitsService {
         List<Visit> result = visitsRepository.findAll();
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("No visits are present!");
         }
 
         return result;
@@ -41,8 +41,7 @@ public class VisitsServiceImpl implements VisitsService {
             return result.get();
         }
         else{
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("Doctor with this id was not found!");
         }
     }
 
@@ -52,8 +51,7 @@ public class VisitsServiceImpl implements VisitsService {
         List<Visit> result = visitsRepository.findAllByClientVisited(clientId);
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("This client has not visited med-center yet!");
         }
 
         return result;
@@ -65,8 +63,7 @@ public class VisitsServiceImpl implements VisitsService {
         List<Visit> result = visitsRepository.findAllByDoctorAccepted(doctorId);
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("This doctor has not accepted any visits yet!");
         }
 
         return result;

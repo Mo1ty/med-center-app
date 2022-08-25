@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Treatment;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.TreatmentRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         Treatment result = treatmentRepository.findByTreatmentName(name);
 
         if(result == null)
-            // Implement DataNotFoundException
-            throw new RuntimeException();
+            throw new DataNotFoundException("Treatment with this name was not found!");
 
         return result;
     }
@@ -38,8 +38,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         List<Treatment> result = treatmentRepository.findAll();
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("No treatments are in the table!");
         }
 
         return result;
@@ -54,8 +53,7 @@ public class TreatmentServiceImpl implements TreatmentService {
             return result.get();
         }
         else{
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("Treatment with this id was not found!");
         }
     }
 

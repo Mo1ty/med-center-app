@@ -4,6 +4,7 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,8 +66,6 @@ class DoctorRepositoryTest {
         addr = makeAddress();
 
         doctors = createDoctors(addr, emails, treatmentTypes);
-
-        fakeTreatmentType = makeTreatmentType("Fake");
     }
 
     @AfterEach
@@ -110,11 +109,6 @@ class DoctorRepositoryTest {
         assertEquals(result.size(), 2);
         assertEquals(result.get(0).getFirstName(), doctors.get(1).getFirstName());
         assertEquals(result.get(1).getFirstName(), doctors.get(3).getFirstName());
-
-        assertThrows(RuntimeException.class, () -> {
-            doctorRepository.findByTreatmentTypeAndQualificationLevel(fakeTreatmentType, 2)
-            ;}
-        );
 
         result = doctorRepository.findByTreatmentTypeAndQualificationLevel(treatmentTypes.get(0), 12);
 

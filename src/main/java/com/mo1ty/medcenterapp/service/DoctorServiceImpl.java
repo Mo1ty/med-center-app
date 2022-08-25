@@ -2,6 +2,7 @@ package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,9 @@ public class DoctorServiceImpl implements DoctorService {
 
         if (result.size() == 0){
             // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException
+                    ("There are no doctors with Treatment Type: " + treatmentType.getTreatmentType()
+                    + "and qualification level: " + qualificationLevel);
         }
 
         return result;
@@ -46,8 +49,7 @@ public class DoctorServiceImpl implements DoctorService {
         List<Doctor> result = doctorRepository.findAll();
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("No doctors were found in the table!");
         }
 
         return result;
@@ -62,8 +64,7 @@ public class DoctorServiceImpl implements DoctorService {
             return result.get();
         }
         else{
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("Doctor with this id was not found!");
         }
 
     }

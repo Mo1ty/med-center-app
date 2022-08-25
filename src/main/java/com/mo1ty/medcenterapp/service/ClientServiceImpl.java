@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Client;
+import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.ClientRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,7 @@ public class ClientServiceImpl implements ClientService {
         List<Client> result = clientRepository.findAll();
 
         if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("No clients were found in the table!");
         }
 
         return result;
@@ -42,8 +42,7 @@ public class ClientServiceImpl implements ClientService {
             return result.get();
         }
         else{
-            // add DataNotFoundException later
-            throw new RuntimeException();
+            throw new DataNotFoundException("Client with this id was not found!");
         }
     }
 
