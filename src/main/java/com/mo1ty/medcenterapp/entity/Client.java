@@ -56,6 +56,7 @@ public class Client {
         this.address = addressId;
     }
 
+
     public List<Visit> getCancellableVisits(){
         List<Visit> pendingVisits = new ArrayList<>();
         LocalDate date = LocalDate.now();

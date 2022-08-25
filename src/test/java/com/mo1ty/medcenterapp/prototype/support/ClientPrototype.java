@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class ClientPrototype {
 
-    public static Client makeClient(int id, String firstName){
-        return new Client(id, firstName, "TestSurnamov", "test_surname@email.com", "{plain}batman", new Address(), new ArrayList<>());
+    public static Client makeClient(String firstName){
+
+        return new Client(firstName, "TestSurnamov", "test_surname@email.com", "{plain}batman", new Address());
     }
 
 }

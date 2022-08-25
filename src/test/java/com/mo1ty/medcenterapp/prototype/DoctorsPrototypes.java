@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DoctorsPrototypes {
 
-    public static List<Doctor> createDoctors(Address address, List<TreatmentType> treatmentType){
+    public static List<Doctor> createDoctors(Address address, List<String> emails, List<TreatmentType> treatmentType){
         String[] firstNames = {"Dave", "Helena", "Olga", "Martin"};
         String[] lastNames = {"Stevens", "Miles", "Novakova", "Steinbauer"};
 
@@ -18,8 +18,8 @@ public class DoctorsPrototypes {
 
         List<Doctor> doctors = new ArrayList<>();
 
-        for (int i = 0; i < firstNames.length; i++){
-            doctors.add(new Doctor(i+1, firstNames[i], lastNames[i], "email_em"+ i +"@email.com",
+        for (int i = 0; i < firstNames.length && i < emails.size(); i++){
+            doctors.add(new Doctor(firstNames[i], lastNames[i], emails.get(i),
                     address, treatmentType.get(index[i]), qualificationLevel[i]));
         }
 

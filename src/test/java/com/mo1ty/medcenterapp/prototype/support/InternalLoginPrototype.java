@@ -4,8 +4,8 @@ import com.mo1ty.medcenterapp.entity.InternalLogin;
 
 public class InternalLoginPrototype {
 
-    public static InternalLogin createInternalLogin(){
-        return new InternalLogin(1, "email_em@email.com",
+    public static InternalLogin createInternalLogin(String email){
+        return new InternalLogin(email,
                 "{plain}batman", "ROLE_DOCTOR");
     }
 

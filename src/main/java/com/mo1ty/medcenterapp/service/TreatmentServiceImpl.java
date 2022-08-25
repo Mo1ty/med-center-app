@@ -16,13 +16,13 @@ public class TreatmentServiceImpl implements TreatmentService {
     TreatmentRepository treatmentRepository;
 
     @Override
-    public List<Treatment> findByTreatmentName(String treatmentName) {
-        List<Treatment> result = treatmentRepository.findByTreatmentName(treatmentName);
+    public Treatment findByName(String name) {
 
-        if (result.size() == 0){
-            // add DataNotFoundException later
+        Treatment result = treatmentRepository.findByTreatmentName(name);
+
+        if(result == null)
+            // Implement DataNotFoundException
             throw new RuntimeException();
-        }
 
         return result;
     }

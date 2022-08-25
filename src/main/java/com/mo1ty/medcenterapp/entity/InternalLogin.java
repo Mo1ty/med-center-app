@@ -29,4 +29,9 @@ public class InternalLogin {
     @Column(name="role")
     private String role;
 
+    public InternalLogin(String email, String password, String role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

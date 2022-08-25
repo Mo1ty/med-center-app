@@ -5,7 +5,7 @@ import com.mo1ty.medcenterapp.entity.Address;
 public class AddressPrototype {
 
     public static Address makeAddress(){
-        return new Address(1, "Brno", "TESTCODE", "TESTSTREET", 312);
+        return new Address("Brno", "TESTCODE", "TESTSTREET", 312);
     }
 
 }

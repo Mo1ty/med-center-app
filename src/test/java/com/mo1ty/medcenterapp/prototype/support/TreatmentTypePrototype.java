@@ -9,13 +9,13 @@ import java.util.List;
 
 public class TreatmentTypePrototype {
 
-    public static TreatmentType makeTreatmentType(int id, String name){
+    public static TreatmentType makeTreatmentType(String name){
 
         // List<String> types = new ArrayList<>(Arrays.asList("Cleaning",  "Light Surgery", "Removing", "Plastics"));
 
 
 
-        return new TreatmentType(id, name,"Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
+        return new TreatmentType(name,"Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
                 "Duis vestibulum sollicitudin" +
                 "lectus quis commodo. Nunc justo diam, finibus sed urna non, finibus pharetra elit.");
 

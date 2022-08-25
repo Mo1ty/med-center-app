@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TreatmentPrototype {
 
-    public static Treatment makeTreatment(int id, TreatmentType treatmentType, String name){
-        return new Treatment(id, treatmentType, name,600, 8);
+    public static Treatment makeTreatment(TreatmentType treatmentType, String name){
+        return new Treatment(treatmentType, name,600, 8);
     }
 }
