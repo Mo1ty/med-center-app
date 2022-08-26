@@ -1,7 +1,8 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.TreatmentTypeRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,20 @@ public class TreatmentTypeServiceImpl implements TreatmentTypeService {
     TreatmentTypeRepository treatmentTypeRepository;
 
     @Override
-    public void createOrUpdateTreatmentType(TreatmentType treatmentType) {
-        treatmentTypeRepository.save(treatmentType);
+    public TreatmentType createTreatmentType(TreatmentType treatmentType) {
+        return treatmentTypeRepository.save(treatmentType);
+    }
+
+    public TreatmentType updateTreatmentType(TreatmentType treatmentType) {
+        Optional<TreatmentType> result = treatmentTypeRepository.findById(treatmentType.getTreatmentTypeId());
+
+        if(result.isPresent()){
+            treatmentTypeRepository.save(treatmentType);
+            return treatmentType;
+        }
+        else{
+            throw new DataNotFoundException("Address with this id does not exist!");
+        }
     }
 
     @Override
@@ -46,7 +59,7 @@ public class TreatmentTypeServiceImpl implements TreatmentTypeService {
     }
 
     @Override
-    public void deleteClient(int treatmentTypeId) {
+    public void deleteTreatmentType(int treatmentTypeId) {
         treatmentTypeRepository.deleteById(treatmentTypeId);
     }
 }

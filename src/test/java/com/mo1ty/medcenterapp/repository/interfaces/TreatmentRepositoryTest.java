@@ -59,11 +59,15 @@ class TreatmentRepositoryTest {
         treatmentRepository.saveAll(treatments);
 
         assertEquals(treatmentRepository.findByTreatmentName
-                ("Annual Cleaning").getTreatmentType(), treatmentTypes.get(0));
+                ("Annual Cleaning").size(), 1);
+        assertEquals(treatmentRepository.findByTreatmentName
+                ("Annual Cleaning").get(0).getTreatmentType(), treatmentTypes.get(0));
 
         assertEquals(treatmentRepository.findByTreatmentName
-                ("Tooth Removal").getTreatmentType(), treatmentTypes.get(1));
+                ("Tooth Removal").size(), 1);
+        assertEquals(treatmentRepository.findByTreatmentName
+                ("Tooth Removal").get(0).getTreatmentType(), treatmentTypes.get(1));
 
-        assertNull(treatmentRepository.findByTreatmentName("Tooth Maker"));
+        assertEquals(treatmentRepository.findByTreatmentName("Tooth Maker").size(), 0);
     }
 }

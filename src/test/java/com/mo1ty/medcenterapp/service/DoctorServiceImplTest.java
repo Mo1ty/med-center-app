@@ -4,7 +4,7 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.interfaces.InternalLoginRepository;
@@ -30,7 +30,6 @@ import static com.mo1ty.medcenterapp.prototype.support.TreatmentTypePrototype.ma
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 @RunWith(SpringRunner.class)

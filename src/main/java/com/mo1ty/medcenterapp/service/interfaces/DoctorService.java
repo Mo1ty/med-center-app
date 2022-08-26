@@ -9,7 +9,9 @@ public interface DoctorService {
 
     List<Doctor> findByTreatmentTypeAndQualificationLevel(TreatmentType treatmentTypeId, int qualificationLevel);
 
-    void createOrUpdateDoctor(Doctor doctor);
+    Doctor createDoctor(Doctor doctor);
+
+    Doctor updateDoctor(Doctor doctor);
 
     List<Doctor> findAll();
 

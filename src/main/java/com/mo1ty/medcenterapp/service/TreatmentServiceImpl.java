@@ -1,7 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
+import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Treatment;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.TreatmentRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,44 +19,39 @@ public class TreatmentServiceImpl implements TreatmentService {
     TreatmentRepository treatmentRepository;
 
     @Override
-    public Treatment findByName(String name) {
+    public List<Treatment> findByName(String name) {
 
-        Treatment result = treatmentRepository.findByTreatmentName(name);
-
-        if(result == null)
-            throw new DataNotFoundException("Treatment with this name was not found!");
-
-        return result;
+        return treatmentRepository.findByTreatmentName(name);
     }
 
     @Override
-    public void createOrUpdateTreatment(Treatment treatment) {
-        treatmentRepository.save(treatment);
+    public Treatment createTreatment(Treatment treatment) {
+        return treatmentRepository.save(treatment);
+    }
+
+    @Override
+    public Treatment updateTreatment(Treatment treatment) {
+        Optional<Treatment> result = treatmentRepository.findById(treatment.getTreatmentId());
+
+        if(result.isPresent()){
+            treatmentRepository.save(treatment);
+            return treatment;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
     public List<Treatment> findAll() {
-
-        List<Treatment> result = treatmentRepository.findAll();
-
-        if (result.size() == 0){
-            throw new DataNotFoundException("No treatments are in the table!");
-        }
-
-        return result;
-
+        return treatmentRepository.findAll();
     }
 
     @Override
     public Treatment findById(int treatmentId) {
         Optional<Treatment> result = treatmentRepository.findById(treatmentId);
 
-        if(result.isPresent()){
-            return result.get();
-        }
-        else{
-            throw new DataNotFoundException("Treatment with this id was not found!");
-        }
+        return result.orElse(null);
     }
 
     @Override

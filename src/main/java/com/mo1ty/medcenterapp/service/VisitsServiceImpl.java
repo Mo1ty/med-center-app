@@ -1,7 +1,8 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Visit;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,21 @@ public class VisitsServiceImpl implements VisitsService {
     VisitsRepository visitsRepository;
 
     @Override
-    public void createOrUpdateVisit(Visit visit) {
-        visitsRepository.save(visit);
+    public Visit createVisit(Visit visit) {
+        return visitsRepository.save(visit);
+    }
+
+    @Override
+    public Visit updateVisit(Visit visit) {
+        Optional<Visit> result = visitsRepository.findById(visit.getVisitId());
+
+        if(result.isPresent()){
+            visitsRepository.save(visit);
+            return visit;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override

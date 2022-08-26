@@ -1,8 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Doctor;
+import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,21 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void createOrUpdateDoctor(Doctor doctor) {
-        doctorRepository.save(doctor);
+    public Doctor createDoctor(Doctor doctor) {
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor updateDoctor(Doctor doctor) {
+        Optional<Doctor> result = doctorRepository.findById(doctor.getId());
+
+        if(result.isPresent()){
+            doctorRepository.save(doctor);
+            return doctor;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override

@@ -10,5 +10,5 @@ import java.util.List;
 public interface TreatmentRepository extends JpaRepository<Treatment, Integer> {
 
     // Custom method used to get concrete service by full name.
-    Treatment findByTreatmentName(String treatmentName);
+    List<Treatment> findByTreatmentName(String treatmentName);
 }

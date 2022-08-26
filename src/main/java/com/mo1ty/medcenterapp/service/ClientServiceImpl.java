@@ -1,7 +1,8 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Client;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.repository.interfaces.ClientRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,21 @@ public class ClientServiceImpl implements ClientService {
     ClientRepository clientRepository;
 
     @Override
-    public void createOrUpdateClient(Client client) {
-        clientRepository.save(client);
+    public Client createClient(Client client) {
+        return clientRepository.save(client);
+    }
+
+    @Override
+    public Client updateClient(Client client) {
+        Optional<Client> result = clientRepository.findById(client.getClientId());
+
+        if(result.isPresent()){
+            clientRepository.save(client);
+            return client;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
@@ -27,7 +41,7 @@ public class ClientServiceImpl implements ClientService {
         List<Client> result = clientRepository.findAll();
 
         if (result.size() == 0){
-            throw new DataNotFoundException("No clients were found in the table!");
+            throw new DataNotPresentException("No clients were found in the table!");
         }
 
         return result;
@@ -42,7 +56,7 @@ public class ClientServiceImpl implements ClientService {
             return result.get();
         }
         else{
-            throw new DataNotFoundException("Client with this id was not found!");
+            throw new DataNotPresentException("Client with this id was not found!");
         }
     }
 

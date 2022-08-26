@@ -6,12 +6,14 @@ import java.util.List;
 
 public interface TreatmentTypeService {
 
-    void createOrUpdateTreatmentType(TreatmentType treatmentType);
+    TreatmentType createTreatmentType(TreatmentType treatmentType);
+
+    TreatmentType updateTreatmentType(TreatmentType treatmentType);
 
     List<TreatmentType> findAll();
 
     TreatmentType findById(int treatmentTypeId);
 
-    void deleteClient(int treatmentTypeId);
+    void deleteTreatmentType(int treatmentTypeId);
 
 }

@@ -1,7 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Address;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,28 @@ public class AddressServiceImpl implements AddressService {
     AddressRepository addressRepository;
 
     @Override
-    public void createOrUpdateAddress(Address address) {
-        addressRepository.save(address);
+    public Address createAddress(Address address) {
+        // It is meant to be called on address objects with id = 0 (null/unassigned)
+        return addressRepository.save(address);
     }
 
     @Override
-    public List<Address> findAll() {
+    public Address updateAddress(Address address) {
+        Optional<Address> result = addressRepository.findById(address.getAddressId());
+
+        if(result.isPresent()){
+            addressRepository.save(address);
+            return address;
+        }
+        else{
+            throw new DataNotFoundException("Address with this id does not exist!");
+        }
+    }
+
+    @Override
+    public List<Address> findAll(){
 
         List<Address> result = addressRepository.findAll();
-
-        if (result.size() == 0){
-            throw new DataNotFoundException("No addresses were found in the table!");
-        }
 
         return result;
     }
@@ -38,12 +48,7 @@ public class AddressServiceImpl implements AddressService {
 
         Optional<Address> result = addressRepository.findById(addressId);
 
-        if(result.isPresent()){
-            return result.get();
-        }
-        else{
-            throw new DataNotFoundException("Address with this id was not found!");
-        }
+        return result.orElse(null);
     }
 
     @Override

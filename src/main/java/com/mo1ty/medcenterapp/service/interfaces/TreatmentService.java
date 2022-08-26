@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface TreatmentService {
 
-    Treatment findByName(String treatmentName);
+    List<Treatment> findByName(String treatmentName);
 
-    void createOrUpdateTreatment(Treatment treatment);
+    Treatment createTreatment(Treatment treatment);
+
+    Treatment updateTreatment(Treatment treatment);
 
     List<Treatment> findAll();
 

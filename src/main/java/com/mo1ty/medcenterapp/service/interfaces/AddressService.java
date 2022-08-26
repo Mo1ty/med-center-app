@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface AddressService {
 
-    void createOrUpdateAddress(Address address);
+    Address createAddress(Address address);
+
+    Address updateAddress(Address address);
 
     List<Address> findAll();
 

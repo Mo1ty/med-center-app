@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ClientService {
 
-    void createOrUpdateClient(Client client);
+    Client createClient(Client client);
+
+    Client updateClient(Client client);
 
     List<Client> findAll();
 

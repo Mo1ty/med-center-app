@@ -4,7 +4,6 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
-import com.mo1ty.medcenterapp.exception.DataNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
