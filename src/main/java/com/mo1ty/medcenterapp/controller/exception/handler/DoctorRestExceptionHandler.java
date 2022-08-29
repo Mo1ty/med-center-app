@@ -1,31 +1,21 @@
 package com.mo1ty.medcenterapp.controller.exception.handler;
 
-import com.mo1ty.medcenterapp.controller.error.response.AddressErrorResponse;
-import com.mo1ty.medcenterapp.controller.error.response.ClientErrorResponse;
+import com.mo1ty.medcenterapp.controller.error.response.DoctorErrorResponse;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
+import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class AddressRestExceptionHandler {
+public class DoctorRestExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<AddressErrorResponse> handleException(DataNotFoundException exception){
+    public ResponseEntity<DoctorErrorResponse> handleException(DataNotFoundException exception){
 
-        AddressErrorResponse error = new AddressErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                exception.getMessage(),
-                System.currentTimeMillis());
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    public ResponseEntity<AddressErrorResponse> handleException(DataNotPresentException exception){
-
-        AddressErrorResponse error = new AddressErrorResponse(
+        DoctorErrorResponse error = new DoctorErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 exception.getMessage(),
                 System.currentTimeMillis());
@@ -34,9 +24,30 @@ public class AddressRestExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<AddressErrorResponse> handleException(Exception exception){
+    public ResponseEntity<DoctorErrorResponse> handleException(InvalidValuesInputException exception){
 
-        AddressErrorResponse error = new AddressErrorResponse(
+        DoctorErrorResponse error = new DoctorErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<DoctorErrorResponse> handleException(DataNotPresentException exception){
+
+        DoctorErrorResponse error = new DoctorErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<DoctorErrorResponse> handleException(Exception exception){
+
+        DoctorErrorResponse error = new DoctorErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(),
                 System.currentTimeMillis());

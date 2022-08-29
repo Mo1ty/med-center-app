@@ -1,7 +1,6 @@
 package com.mo1ty.medcenterapp.controller.exception.handler;
 
-import com.mo1ty.medcenterapp.controller.error.response.AddressErrorResponse;
-import com.mo1ty.medcenterapp.controller.error.response.ClientErrorResponse;
+import com.mo1ty.medcenterapp.controller.error.response.VisitsErrorResponse;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import org.springframework.http.HttpStatus;
@@ -10,12 +9,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class AddressRestExceptionHandler {
+public class VisitsRestExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<AddressErrorResponse> handleException(DataNotFoundException exception){
+    public ResponseEntity<VisitsErrorResponse> handleException(DataNotFoundException exception){
 
-        AddressErrorResponse error = new AddressErrorResponse(
+        VisitsErrorResponse error = new VisitsErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 exception.getMessage(),
                 System.currentTimeMillis());
@@ -23,9 +22,9 @@ public class AddressRestExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<AddressErrorResponse> handleException(DataNotPresentException exception){
+    public ResponseEntity<VisitsErrorResponse> handleException(DataNotPresentException exception){
 
-        AddressErrorResponse error = new AddressErrorResponse(
+        VisitsErrorResponse error = new VisitsErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 exception.getMessage(),
                 System.currentTimeMillis());
@@ -34,9 +33,9 @@ public class AddressRestExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<AddressErrorResponse> handleException(Exception exception){
+    public ResponseEntity<VisitsErrorResponse> handleException(Exception exception){
 
-        AddressErrorResponse error = new AddressErrorResponse(
+        VisitsErrorResponse error = new VisitsErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(),
                 System.currentTimeMillis());
