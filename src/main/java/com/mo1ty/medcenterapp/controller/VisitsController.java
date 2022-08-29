@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.controller;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
@@ -42,7 +43,7 @@ public class VisitsController {
         Visit vis = visitsService.findById(visit.getVisitId());
 
         if(vis == null){
-            throw new DataNotFoundException("Requested visit was not found!");
+            throw new DataNotPresentException("Requested visit does not exist! Consider adding a new entity instead.");
         }
 
         return visitsService.updateVisit(visit);
@@ -51,12 +52,10 @@ public class VisitsController {
     @DeleteMapping("/{visitId}")
     public Visit deleteVisit(@PathVariable int visitId){
 
-        // Will not execute if any client/doctor has an address
-
         Visit visit = visitsService.findById(visitId);
 
         if(visit == null){
-            throw new DataNotFoundException("Requested visit was not found!");
+            throw new DataNotPresentException("Requested visit does not exist!");
         }
 
         visitsService.deleteVisit(visitId);

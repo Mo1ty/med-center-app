@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.controller;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentTypeService;
@@ -26,7 +27,7 @@ public class TreatmentTypeController {
         TreatmentType treatmentType = treatmentTypeService.findById(treatmentTypeId);
 
         if(treatmentType == null){
-            throw new DataNotFoundException("Address with id " + treatmentTypeId + " was not found!");
+            throw new DataNotFoundException("Treatment type with id " + treatmentTypeId + " was not found!");
         }
 
         return treatmentType;
@@ -42,7 +43,7 @@ public class TreatmentTypeController {
         TreatmentType type = treatmentTypeService.findById(treatmentType.getTreatmentTypeId());
 
         if(type == null){
-            throw new DataNotFoundException("Requested treatmentType was not found!");
+            throw new DataNotPresentException("Requested treatment type does not exist! Consider adding a new entity instead.");
         }
 
         return treatmentTypeService.updateTreatmentType(treatmentType);
@@ -56,7 +57,7 @@ public class TreatmentTypeController {
         TreatmentType type = treatmentTypeService.findById(treatmentTypeId);
 
         if(type == null){
-            throw new DataNotFoundException("Requested address was not found!");
+            throw new DataNotPresentException("Requested treatment type does not exist!");
         }
 
         treatmentTypeService.deleteTreatmentType(treatmentTypeId);

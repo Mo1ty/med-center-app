@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.controller;
 
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
@@ -41,7 +42,7 @@ public class AddressController {
         Address addr = addressService.findById(address.getAddressId());
 
         if(addr == null){
-            throw new DataNotFoundException("Requested address was not found!");
+            throw new DataNotPresentException("Requested address does not exist! Consider adding a new entity instead.");
         }
 
         return addressService.updateAddress(address);
@@ -55,7 +56,7 @@ public class AddressController {
         Address addr = addressService.findById(addressId);
 
         if(addr == null){
-            throw new DataNotFoundException("Requested address was not found!");
+            throw new DataNotPresentException("Requested address is not present in the database!");
         }
 
         addressService.deleteAddress(addressId);

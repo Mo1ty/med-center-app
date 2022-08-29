@@ -2,6 +2,7 @@ package com.mo1ty.medcenterapp.controller;
 
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
@@ -27,7 +28,7 @@ public class ClientController {
         Client client = clientService.findById(clientId);
 
         if(client == null){
-            throw new DataNotFoundException("Address with id " + clientId + " was not found!");
+            throw new DataNotFoundException("Client with id " + clientId + " was not found!");
         }
 
         return client;
@@ -43,7 +44,7 @@ public class ClientController {
         Client clnt = clientService.findById(client.getClientId());
 
         if(clnt == null){
-            throw new DataNotFoundException("Requested client was not found!");
+            throw new DataNotPresentException("Requested client does not exist! Consider adding a new entity instead.");
         }
 
         return clientService.updateClient(client);
@@ -52,12 +53,12 @@ public class ClientController {
     @DeleteMapping("/{clientId}")
     public Client deleteClient(@PathVariable int clientId){
 
-        // Will not execute if any client/doctor has an address
+        // Will not execute if any visit has this client
 
         Client client = clientService.findById(clientId);
 
         if(client == null){
-            throw new DataNotFoundException("Requested address was not found!");
+            throw new DataNotPresentException("Requested client does not exist!");
         }
 
         clientService.deleteClient(clientId);

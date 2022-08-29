@@ -1,6 +1,5 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.VisitsRepository;

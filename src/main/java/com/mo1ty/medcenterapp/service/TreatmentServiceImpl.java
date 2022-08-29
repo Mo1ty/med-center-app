@@ -6,6 +6,8 @@ import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.TreatmentRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class TreatmentServiceImpl implements TreatmentService {
 
     @Autowired

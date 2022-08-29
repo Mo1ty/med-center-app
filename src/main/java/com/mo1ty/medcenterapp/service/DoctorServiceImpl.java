@@ -1,7 +1,6 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;

@@ -5,6 +5,7 @@ import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/treatment")
 public class TreatmentController {
 
-    // Fix NullPointerException ASAP
+    @Autowired
     TreatmentService treatmentService;
 
     @GetMapping("")
@@ -28,7 +29,7 @@ public class TreatmentController {
         Treatment treatment = treatmentService.findById(treatmentId);
 
         if(treatment == null){
-            throw new DataNotFoundException("Address with id " + treatmentId + " was not found!");
+            throw new DataNotFoundException("Treatment with id " + treatmentId + " was not found!");
         }
 
         return treatment;
@@ -59,12 +60,12 @@ public class TreatmentController {
     @DeleteMapping("/{treatmentId}")
     public Treatment deleteTreatment(@PathVariable int treatmentId){
 
-        // Will not execute if any client/doctor has an address
+        // Will not execute if any visit has this treatment
 
         Treatment type = treatmentService.findById(treatmentId);
 
         if(type == null){
-            throw new DataNotFoundException("Requested tratment was not found!");
+            throw new DataNotPresentException("Requested treatment does not exist!");
         }
 
         treatmentService.deleteTreatment(treatmentId);

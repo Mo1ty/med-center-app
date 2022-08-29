@@ -69,4 +69,12 @@ public class Client {
 
         return pendingVisits;
     }
+
+    public void addVisit(Visit newVisit) {
+        if (allVisits == null){
+            allVisits = new ArrayList<>();
+        }
+
+        allVisits.add(newVisit);
+    }
 }

@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.controller;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.TreatmentType;
@@ -40,7 +41,7 @@ public class DoctorController {
         Doctor doc = doctorService.findById(doctorId);
 
         if(doc == null){
-            throw new DataNotFoundException("Address with id " + doctorId + " was not found!");
+            throw new DataNotFoundException("Doctor with id " + doctorId + " was not found!");
         }
 
         return doc;
@@ -56,7 +57,7 @@ public class DoctorController {
         Doctor type = doctorService.findById(doctor.getId());
 
         if(type == null){
-            throw new DataNotFoundException("Requested treatmentType was not found!");
+            throw new DataNotPresentException("Requested doctor does not exist!");
         }
 
         return doctorService.updateDoctor(doctor);
@@ -65,12 +66,12 @@ public class DoctorController {
     @DeleteMapping("/{doctorId}")
     public Doctor deleteDoctor(@PathVariable int doctorId){
 
-        // Will not execute if any client/doctor has an address
+        // Will not execute if any visit has this doctor
 
         Doctor doc = doctorService.findById(doctorId);
 
         if(doc == null){
-            throw new DataNotFoundException("Requested doctor was not found!");
+            throw new DataNotPresentException("Requested doctor does not exist!");
         }
 
         doctorService.deleteClient(doctorId);
