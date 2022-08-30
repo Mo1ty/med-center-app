@@ -64,7 +64,7 @@ class DoctorRepositoryTest {
 
         addr = makeAddress();
 
-        doctors = createDoctors(addr, emails, treatmentTypes);
+        doctors = createDoctors(addr, internalLogins, treatmentTypes);
     }
 
     @AfterEach

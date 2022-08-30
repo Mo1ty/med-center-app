@@ -57,9 +57,6 @@ class DoctorServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        //internalLoginRepository = mock(InternalLoginRepository.class);
-        //treatmentTypeRepository = mock(TreatmentTypeRepository.class);
-        //addressRepository = mock(AddressRepository.class);
 
         doctorService = new DoctorServiceImpl(doctorRepository);
 
@@ -76,7 +73,7 @@ class DoctorServiceImplTest {
 
         addr = makeAddress();
 
-        doctors = createDoctors(addr, emails, treatmentTypes);
+        doctors = createDoctors(addr, internalLogins, treatmentTypes);
 
         fakeTreatmentType = makeTreatmentType("Fake");
     }
@@ -84,13 +81,13 @@ class DoctorServiceImplTest {
     @AfterEach
     void tearDown() {
         doctorRepository.deleteAll();
-        internalLoginRepository.deleteAll();
         addressRepository.deleteAll();
         treatmentTypeRepository.deleteAll();
+        internalLoginRepository.deleteAll();
     }
 
     @Test
-    void findById(){
+    void findAll(){
 
         // When(doctorService.findById(eq(doctors.get(0).getId())).thenReturn(doctors.get(0)));
 

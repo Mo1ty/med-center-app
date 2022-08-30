@@ -29,6 +29,7 @@ public class Doctor {
 
     // email is a username
     // provide check if is an actual email
+    //@OneToOne(cascade = CascadeType.ALL) referencedColumnName = "email"
     @Column(name = "email")
     private String email;
 
