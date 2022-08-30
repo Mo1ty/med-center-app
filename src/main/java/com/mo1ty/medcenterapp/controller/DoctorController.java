@@ -4,10 +4,10 @@ import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
 import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.TreatmentType;
+import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
-import com.mo1ty.medcenterapp.service.interfaces.TreatmentTypeService;
+import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +21,20 @@ public class DoctorController {
 
     @Autowired
     DoctorService doctorService;
+
     @Autowired
-    TreatmentTypeService treatmentTypeService;
+    TreatmentService treatmentService;
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping("/treatment-type/{treatmentTypeId}/qualification-level/{qualificationLevel}")
-    public List<Doctor> getDoctorByTreatmentTypeAndQualificationLevel(@PathVariable int treatmentTypeId, @PathVariable int qualificationLevel){
-        TreatmentType treatmentType = treatmentTypeService.findById(treatmentTypeId);
-        if(treatmentType == null){
+    @GetMapping("/treatment/{treatmentId}/qualification-level/{qualificationLevel}")
+    public List<Doctor> getDoctorByTreatmentTypeAndQualificationLevel(@PathVariable int treatmentId, @PathVariable int qualificationLevel){
+        Treatment treatment = treatmentService.findById(treatmentId);
+        if(treatment == null){
             throw new InvalidValuesInputException("Treatment with this id was not found!");
         }
 
-        return doctorService.findByTreatmentTypeAndQualificationLevel(treatmentType, qualificationLevel);
+        return doctorService.findByTreatmentTypeAndQualificationLevel(treatment, qualificationLevel);
     }
 
     @GetMapping("")

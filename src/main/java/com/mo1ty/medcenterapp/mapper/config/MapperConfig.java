@@ -1,15 +1,11 @@
 package com.mo1ty.medcenterapp.mapper.config;
 
-import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Visit;
-import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MappingContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -3,7 +3,6 @@ package com.mo1ty.medcenterapp.controller;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Treatment;
-import com.mo1ty.medcenterapp.entity.TreatmentType;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

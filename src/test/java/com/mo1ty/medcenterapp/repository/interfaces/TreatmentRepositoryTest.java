@@ -1,7 +1,6 @@
 package com.mo1ty.medcenterapp.repository.interfaces;
 
 import com.mo1ty.medcenterapp.entity.Treatment;
-import com.mo1ty.medcenterapp.entity.TreatmentType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,13 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static com.mo1ty.medcenterapp.prototype.TreatmentPrototype.makeTreatment;
-import static com.mo1ty.medcenterapp.prototype.support.TreatmentTypePrototype.makeTreatmentType;
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -25,37 +18,34 @@ import static org.junit.jupiter.api.Assertions.*;
 class TreatmentRepositoryTest {
 
     @Autowired
-    TreatmentTypeRepository treatmentTypeRepository;
-    @Autowired
     TreatmentRepository treatmentRepository;
 
-    List<TreatmentType> treatmentTypes;
+    //List<TreatmentType> treatmentTypes;
 
     List<Treatment> treatments;
 
     @BeforeEach
     void setUp() {
 
-        treatmentTypes = new ArrayList<>(
+        /*treatmentTypes = new ArrayList<>(
                 Arrays.asList(makeTreatmentType("Clean"), makeTreatmentType("Surgery")));
 
         treatments = new ArrayList<>(Arrays.asList(
                 makeTreatment(treatmentTypes.get(0), "Annual Cleaning"),
                 makeTreatment(treatmentTypes.get(1), "Tooth Removal"),
                 makeTreatment(treatmentTypes.get(0), "Tartar Removal")
-        ));
+        ));*/
 
     }
 
     @AfterEach
     void tearDown() {
-        treatmentTypeRepository.deleteAll();
         treatmentRepository.deleteAll();
     }
 
     @Test
     void findByTreatmentName() {
-        treatmentTypeRepository.saveAll(treatmentTypes);
+        /*treatmentTypeRepository.saveAll(treatmentTypes);
         treatmentRepository.saveAll(treatments);
 
         assertEquals(treatmentRepository.findByTreatmentName
@@ -68,6 +58,6 @@ class TreatmentRepositoryTest {
         assertEquals(treatmentRepository.findByTreatmentName
                 ("Tooth Removal").get(0).getTreatmentType(), treatmentTypes.get(1));
 
-        assertEquals(treatmentRepository.findByTreatmentName("Tooth Maker").size(), 0);
+        assertEquals(treatmentRepository.findByTreatmentName("Tooth Maker").size(), 0);*/
     }
 }

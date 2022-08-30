@@ -1,8 +1,8 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.TreatmentType;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import lombok.AllArgsConstructor;
@@ -22,8 +22,8 @@ public class DoctorServiceImpl implements DoctorService {
     DoctorRepository doctorRepository;
 
     @Override
-    public List<Doctor> findByTreatmentTypeAndQualificationLevel(TreatmentType treatmentType, int qualificationLevel) {
-
+    public List<Doctor> findByTreatmentTypeAndQualificationLevel(Treatment treatment, int qualificationLevel) {
+        /*
         List<Doctor> result =
                 doctorRepository.findByTreatmentTypeAndQualificationLevel(treatmentType, qualificationLevel);
 
@@ -34,7 +34,8 @@ public class DoctorServiceImpl implements DoctorService {
                     + "and qualification level: " + qualificationLevel);
         }
 
-        return result;
+         */
+        return null;
 
     }
 

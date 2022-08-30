@@ -3,12 +3,9 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
-import com.mo1ty.medcenterapp.entity.TreatmentType;
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.interfaces.InternalLoginRepository;
-import com.mo1ty.medcenterapp.repository.interfaces.TreatmentTypeRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,14 +16,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static com.mo1ty.medcenterapp.prototype.DoctorsPrototypes.createDoctors;
-import static com.mo1ty.medcenterapp.prototype.support.AddressPrototype.makeAddress;
-import static com.mo1ty.medcenterapp.prototype.support.InternalLoginPrototype.createInternalLogin;
-import static com.mo1ty.medcenterapp.prototype.support.TreatmentTypePrototype.makeTreatmentType;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -40,8 +31,6 @@ class DoctorServiceImplTest {
     @Autowired
     private DoctorRepository doctorRepository;
     @Autowired
-    private TreatmentTypeRepository treatmentTypeRepository;
-    @Autowired
     private AddressRepository addressRepository;
     @Autowired
     private InternalLoginRepository internalLoginRepository;
@@ -50,15 +39,14 @@ class DoctorServiceImplTest {
 
     List<String> emails;
     List<InternalLogin> internalLogins;
-    List<TreatmentType> treatmentTypes;
+    //List<TreatmentType> treatmentTypes;
     Address addr;
     List<Doctor> doctors;
-    TreatmentType fakeTreatmentType;
 
     @BeforeEach
     void setUp() {
 
-        doctorService = new DoctorServiceImpl(doctorRepository);
+        /*doctorService = new DoctorServiceImpl(doctorRepository);
 
         emails = new ArrayList<>(Arrays.asList("1@email.com", "2@email.com",
                 "3@email.com", "4@email.com"));
@@ -75,14 +63,13 @@ class DoctorServiceImplTest {
 
         doctors = createDoctors(addr, internalLogins, treatmentTypes);
 
-        fakeTreatmentType = makeTreatmentType("Fake");
+        fakeTreatmentType = makeTreatmentType("Fake");*/
     }
 
     @AfterEach
     void tearDown() {
         doctorRepository.deleteAll();
         addressRepository.deleteAll();
-        treatmentTypeRepository.deleteAll();
         internalLoginRepository.deleteAll();
     }
 
@@ -94,8 +81,6 @@ class DoctorServiceImplTest {
         internalLoginRepository.saveAll(internalLogins);
         List<InternalLogin> result1 = internalLoginRepository.findAll();
 
-        treatmentTypeRepository.saveAll(treatmentTypes);
-        List<TreatmentType> result2 = treatmentTypeRepository.findAll();
 
         addressRepository.save(addr);
         List<Address> addresses = addressRepository.findAll();
@@ -109,12 +94,9 @@ class DoctorServiceImplTest {
     @Test
     void findByTreatmentTypeAndQualificationLevel() {
 
-        internalLoginRepository.saveAll(internalLogins);
-        treatmentTypeRepository.saveAll(treatmentTypes);
+        /*internalLoginRepository.saveAll(internalLogins);
         addressRepository.save(addr);
         doctorRepository.saveAll(doctors);
-
-        treatmentTypeRepository.save(fakeTreatmentType);
 
         List<Doctor> result = doctorService.findByTreatmentTypeAndQualificationLevel(treatmentTypes.get(0), 5);
 
@@ -137,7 +119,7 @@ class DoctorServiceImplTest {
         assertThrows(DataNotFoundException.class, ()
                 -> doctorService.findByTreatmentTypeAndQualificationLevel
                 (treatmentTypes.get(0), 12)
-        );
+        );*/
 
     }
     /*

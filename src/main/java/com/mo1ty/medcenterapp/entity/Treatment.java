@@ -21,24 +21,22 @@ public class Treatment {
     @Column(name = "treatment_id")
     private int treatmentId;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "treatment_type_id")
-    private TreatmentType treatmentType;
-
     @Column(name = "treatment_name")
     private String treatmentName;
 
     @Column(name = "price")
     private int price;
 
-    @Column(name = "required_qualification")
-    private int requiredQualification;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name="treatments_has_doctors",
+            joinColumns = @JoinColumn(name="treatment_id"),
+            inverseJoinColumns = @JoinColumn(name="doctor_id")
+    )
+    private List<Doctor> doctors;
 
-    public Treatment(TreatmentType treatmentTypeId, String treatmentName, int price, int requiredQualification) {
-        this.treatmentType = treatmentTypeId;
-        this.treatmentName = treatmentName;
+    public Treatment(String treatmentName, int price, int requiredQualification) {
         this.price = price;
-        this.requiredQualification = requiredQualification;
     }
 }

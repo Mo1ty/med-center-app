@@ -3,7 +3,6 @@ package com.mo1ty.medcenterapp.repository.interfaces;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
-import com.mo1ty.medcenterapp.entity.TreatmentType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import java.util.*;
 import static com.mo1ty.medcenterapp.prototype.DoctorsPrototypes.createDoctors;
 import static com.mo1ty.medcenterapp.prototype.support.AddressPrototype.makeAddress;
 import static com.mo1ty.medcenterapp.prototype.support.InternalLoginPrototype.createInternalLogin;
-import static com.mo1ty.medcenterapp.prototype.support.TreatmentTypePrototype.makeTreatmentType;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -30,8 +28,6 @@ class DoctorRepositoryTest {
     @Autowired
     DoctorRepository doctorRepository;
     @Autowired
-    TreatmentTypeRepository treatmentTypeRepository;
-    @Autowired
     AddressRepository addressRepository;
     @Autowired
     InternalLoginRepository internalLoginRepository;
@@ -41,13 +37,12 @@ class DoctorRepositoryTest {
 
     List<InternalLogin> internalLogins;
 
-    List<TreatmentType> treatmentTypes;
+    //List<TreatmentType> treatmentTypes;
 
     Address addr;
 
     List<Doctor> doctors;
 
-    TreatmentType fakeTreatmentType;
 
     @BeforeEach
     void setUp() {
@@ -59,12 +54,10 @@ class DoctorRepositoryTest {
             internalLogins.add(createInternalLogin(mail));
         }
 
-        treatmentTypes = new ArrayList<>(
-                Arrays.asList(makeTreatmentType("Clean"), makeTreatmentType("Surgery")));
 
         addr = makeAddress();
 
-        doctors = createDoctors(addr, internalLogins, treatmentTypes);
+        doctors = createDoctors(addr, internalLogins);
     }
 
     @AfterEach
@@ -72,13 +65,11 @@ class DoctorRepositoryTest {
         doctorRepository.deleteAll();
         internalLoginRepository.deleteAll();
         addressRepository.deleteAll();
-        treatmentTypeRepository.deleteAll();
     }
 
     @Test
     void findById(){
         internalLoginRepository.saveAll(internalLogins);
-        treatmentTypeRepository.saveAll(treatmentTypes);
         addressRepository.save(addr);
         doctorRepository.saveAll(doctors);
 
@@ -89,8 +80,7 @@ class DoctorRepositoryTest {
 
     @Test
     void findByTreatmentTypeAndQualificationLevel() {
-        internalLoginRepository.saveAll(internalLogins);
-        treatmentTypeRepository.saveAll(treatmentTypes);
+        /*internalLoginRepository.saveAll(internalLogins);
         addressRepository.save(addr);
         doctorRepository.saveAll(doctors);
 
@@ -116,6 +106,6 @@ class DoctorRepositoryTest {
         for(Doctor doc : result){
             System.out.println(doc);
             System.out.println(doc.getFirstName() + " " + doc.getTreatmentType() + " " + doc.getQualificationLevel());
-        }
+        }*/
     }
 }

@@ -1,7 +1,6 @@
 package com.mo1ty.medcenterapp.controller.exception.handler;
 
 import com.mo1ty.medcenterapp.controller.error.response.ClientErrorResponse;
-import com.mo1ty.medcenterapp.controller.error.response.TreatmentTypeErrorResponse;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import org.springframework.http.HttpStatus;
