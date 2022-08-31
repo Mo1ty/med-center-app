@@ -140,6 +140,7 @@ public class DoctorServiceImpl implements DoctorService {
         return null;
     }
 
+
     /*
     public Doctor mapDoc(DoctorVO doctorVO, List<Treatment> treatments, List<Visit> visits){
         Doctor doc = modelMapper.map(doctorVO, Doctor.class);
