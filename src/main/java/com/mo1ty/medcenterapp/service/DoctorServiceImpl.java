@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.Treatment;
@@ -60,17 +61,17 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public DoctorVO createDoctor(DoctorVO doctorVO) {
-        boolean treatmentsPresent = true;//areTreatmentsPresent(doctorVO.getAllTreatmentsIds());
-        boolean visitsPresent = true;//areVisitsPresent(doctorVO.getAllVisitsIds());
+        List<Treatment> treatmentsPresent = areTreatmentsPresent(doctorVO.getAllTreatmentsIds());
 
 
-        if(treatmentsPresent && visitsPresent){
-            Doctor doc = modelMapper.map(doctorVO, Doctor.class);
+        if(treatmentsPresent!=null){
+            Doctor doc = modelMapper.map(doctorVO, Doctor.class);//mapDoc(doctorVO, treatmentsPresent, null);
             doctorRepository.save(doc);
             return doctorVO;
         }
         else{
-            return null;
+            throw new InvalidValuesInputException("Either address, or treatments, or visits were not in the database." +
+                    "Check the data and try again");
         }
     }
 
@@ -82,12 +83,13 @@ public class DoctorServiceImpl implements DoctorService {
 
 
         if(result.isPresent() && treatmentsPresent!=null && visitsPresent!=null){
-            Doctor doc = modelMapper.map(doctorVO, Doctor.class);
+            Doctor doc = modelMapper.map(doctorVO, Doctor.class);//mapDoc(doctorVO, treatmentsPresent, visitsPresent);
             doctorRepository.save(doc);
             return doctorVO;
         }
         else{
-            return null;
+            throw new InvalidValuesInputException("Either address, or treatments, or visits were not in the database." +
+                    "Check the data and try again");
         }
     }
 
@@ -124,7 +126,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     public List<Treatment> areTreatmentsPresent(List<Integer> treatments){
         List<Treatment> result = treatmentRepository.findAllById(treatments);
-        if(result.size() == treatments.size()){
+        if(result.size() == treatments.size() && treatments.size() != 0){
             return result;
         }
         return null;
@@ -138,9 +140,11 @@ public class DoctorServiceImpl implements DoctorService {
         return null;
     }
 
+    /*
     public Doctor mapDoc(DoctorVO doctorVO, List<Treatment> treatments, List<Visit> visits){
         Doctor doc = modelMapper.map(doctorVO, Doctor.class);
-        doc.setAddress(addressRepository.findById(doctorVO.getAddressId()).orElse(null));
-        return null;
-    }
+        //doc.setAllTreatments(treatments);
+        doc.setAllVisits(visits);
+        return doc;
+    }*/
 }
