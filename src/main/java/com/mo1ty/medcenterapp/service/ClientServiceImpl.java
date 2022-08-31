@@ -3,11 +3,14 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Doctor;
+import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.repository.interfaces.ClientRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,18 +20,22 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     ClientRepository clientRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
-    public Client createClient(Client client) {
-        return clientRepository.save(client);
+    public Client createClient(ClientVO client) {
+        return clientRepository.save(modelMapper.map(client, Client.class));
     }
 
     @Override
-    public Client updateClient(Client client) {
+    public Client updateClient(ClientVO client) {
         Optional<Client> result = clientRepository.findById(client.getClientId());
 
         if(result.isPresent()){
-            clientRepository.save(client);
-            return client;
+            Client clnt = modelMapper.map(client, Client.class);
+            clientRepository.save(clnt);
+            return clientRepository.findById(clnt.getClientId()).orElse(null);
         }
         else{
             return null;
@@ -36,24 +43,30 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<ClientVO> findAll() {
 
-        List<Client> result = clientRepository.findAll();
+        List<Client> clients = clientRepository.findAll();
 
-        if (result.size() == 0){
+        if (clients.size() == 0){
             throw new DataNotPresentException("No clients were found in the table!");
         }
 
-        return result;
+        List<ClientVO> clientVOList = new ArrayList<>();
+
+        for(Client client : clients){
+            clientVOList.add(modelMapper.map(client, ClientVO.class));
+        }
+
+        return clientVOList;
     }
 
     @Override
-    public Client findById(int clientId) {
+    public ClientVO findById(int clientId) {
 
         Optional<Client> result = clientRepository.findById(clientId);
 
         if(result.isPresent()){
-            return result.get();
+            return modelMapper.map(result.get(), ClientVO.class);
         }
         else{
             throw new DataNotPresentException("Client with this id was not found!");

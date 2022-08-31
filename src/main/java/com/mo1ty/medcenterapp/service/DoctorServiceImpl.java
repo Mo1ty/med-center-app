@@ -3,13 +3,20 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.Treatment;
+import com.mo1ty.medcenterapp.entity.Visit;
+import com.mo1ty.medcenterapp.mapper.DoctorVO;
+import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
 import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.interfaces.TreatmentRepository;
+import com.mo1ty.medcenterapp.repository.interfaces.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +27,18 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     DoctorRepository doctorRepository;
+
+    @Autowired
+    TreatmentRepository treatmentRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
+
+    @Autowired
+    VisitsRepository visitsRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public List<Doctor> findByTreatmentTypeAndQualificationLevel(Treatment treatment, int qualificationLevel) {
@@ -40,17 +59,32 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor createDoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
+    public DoctorVO createDoctor(DoctorVO doctorVO) {
+        boolean treatmentsPresent = true;//areTreatmentsPresent(doctorVO.getAllTreatmentsIds());
+        boolean visitsPresent = true;//areVisitsPresent(doctorVO.getAllVisitsIds());
+
+
+        if(treatmentsPresent && visitsPresent){
+            Doctor doc = modelMapper.map(doctorVO, Doctor.class);
+            doctorRepository.save(doc);
+            return doctorVO;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
-    public Doctor updateDoctor(Doctor doctor) {
-        Optional<Doctor> result = doctorRepository.findById(doctor.getId());
+    public DoctorVO updateDoctor(DoctorVO doctorVO) {
+        Optional<Doctor> result = doctorRepository.findById(doctorVO.getId());
+        List<Treatment> treatmentsPresent = areTreatmentsPresent(doctorVO.getAllTreatmentsIds());
+        List<Visit> visitsPresent = areVisitsPresent(doctorVO.getAllVisitsIds());
 
-        if(result.isPresent()){
-            doctorRepository.save(doctor);
-            return doctor;
+
+        if(result.isPresent() && treatmentsPresent!=null && visitsPresent!=null){
+            Doctor doc = modelMapper.map(doctorVO, Doctor.class);
+            doctorRepository.save(doc);
+            return doctorVO;
         }
         else{
             return null;
@@ -70,12 +104,12 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor findById(int doctorId) {
+    public DoctorVO findById(int doctorId) {
 
         Optional<Doctor> result = doctorRepository.findById(doctorId);
 
         if(result.isPresent()){
-            return result.get();
+            return modelMapper.map(result.get(), DoctorVO.class);
         }
         else{
             throw new DataNotFoundException("Doctor with this id was not found!");
@@ -86,5 +120,27 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void deleteClient(int doctorId) {
         doctorRepository.deleteById(doctorId);
+    }
+
+    public List<Treatment> areTreatmentsPresent(List<Integer> treatments){
+        List<Treatment> result = treatmentRepository.findAllById(treatments);
+        if(result.size() == treatments.size()){
+            return result;
+        }
+        return null;
+    }
+
+    public List<Visit> areVisitsPresent(List<Integer> visits){
+        List<Visit> result = visitsRepository.findAllById(visits);
+        if(result.size() == visits.size()){
+            return result;
+        }
+        return null;
+    }
+
+    public Doctor mapDoc(DoctorVO doctorVO, List<Treatment> treatments, List<Visit> visits){
+        Doctor doc = modelMapper.map(doctorVO, Doctor.class);
+        doc.setAddress(addressRepository.findById(doctorVO.getAddressId()).orElse(null));
+        return null;
     }
 }

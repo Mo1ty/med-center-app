@@ -1,6 +1,6 @@
 package com.mo1ty.medcenterapp.mapper;
 
-import com.mo1ty.medcenterapp.entity.Address;
+import com.mo1ty.medcenterapp.entity.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +18,9 @@ public class DoctorVO {
     private String firstName;
     private String lastName;
     private String email;
-    private Address address;
-    private List<VisitVO> allVisits;
+    private int addressId;
+    private List<Integer> allTreatmentsIds;
+    private List<Integer> allVisitsIds;
+
+
 }

@@ -77,4 +77,12 @@ public class Client {
 
         allVisits.add(newVisit);
     }
+
+    public List<Integer> getVisitsIds() {
+        List<Integer> ids = new ArrayList<>();
+        for (Visit visit : this.allVisits) {
+            ids.add(visit.getVisitId());
+        }
+        return ids;
+    }
 }

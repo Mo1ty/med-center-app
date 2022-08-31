@@ -1,18 +1,19 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
 import com.mo1ty.medcenterapp.entity.Client;
+import com.mo1ty.medcenterapp.mapper.ClientVO;
 
 import java.util.List;
 
 public interface ClientService {
 
-    Client createClient(Client client);
+    Client createClient(ClientVO client);
 
-    Client updateClient(Client client);
+    Client updateClient(ClientVO client);
 
-    List<Client> findAll();
+    List<ClientVO> findAll();
 
-    Client findById(int clientId);
+    ClientVO findById(int clientId);
 
     void deleteClient(int clientId);
 

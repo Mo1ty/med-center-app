@@ -13,9 +13,9 @@ import java.sql.Time;
 public class VisitVO {
 
     private int visitId;
-    private int treatmentDone;
-    private int clientVisited;
-    private int doctorAccepted;
+    private int treatmentDoneId;
+    private int clientVisitedId;
+    private int doctorAcceptedId;
     private Date date;
     private Time time;
 }

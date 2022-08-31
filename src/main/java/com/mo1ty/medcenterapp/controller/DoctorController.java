@@ -27,7 +27,7 @@ public class DoctorController {
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping("/treatment/{treatmentId}/qualification-level/{qualificationLevel}")
+    /*@GetMapping("/treatment/{treatmentId}/qualification-level/{qualificationLevel}")
     public List<Doctor> getDoctorByTreatmentTypeAndQualificationLevel(@PathVariable int treatmentId, @PathVariable int qualificationLevel){
         Treatment treatment = treatmentService.findById(treatmentId);
         if(treatment == null){
@@ -35,7 +35,7 @@ public class DoctorController {
         }
 
         return doctorService.findByTreatmentTypeAndQualificationLevel(treatment, qualificationLevel);
-    }
+    }*/
 
     @GetMapping("")
     public List<DoctorVO> getAllDoctors(){
@@ -52,23 +52,17 @@ public class DoctorController {
 
     @GetMapping("/{doctorId}")
     public DoctorVO getDoctor(@PathVariable int doctorId){
-        Doctor doc = doctorService.findById(doctorId);
-
-        if(doc == null){
-            throw new DataNotFoundException("Doctor with id " + doctorId + " was not found!");
-        }
-
-        return modelMapper.map(doc, DoctorVO.class);
+        return doctorService.findById(doctorId);
     }
 
     @PostMapping("")
-    public Doctor addDoctor(@RequestBody Doctor doctor){
+    public DoctorVO addDoctor(@RequestBody DoctorVO doctor){
         return doctorService.createDoctor(doctor);
     }
 
     @PutMapping("")
-    public Doctor updateDoctor(@RequestBody Doctor doctor){
-        Doctor type = doctorService.findById(doctor.getId());
+    public DoctorVO updateDoctor(@RequestBody DoctorVO doctor){
+        DoctorVO type = doctorService.findById(doctor.getId());
 
         if(type == null){
             throw new DataNotPresentException("Requested doctor does not exist!");
@@ -78,11 +72,11 @@ public class DoctorController {
     }
 
     @DeleteMapping("/{doctorId}")
-    public Doctor deleteDoctor(@PathVariable int doctorId){
+    public DoctorVO deleteDoctor(@PathVariable int doctorId){
 
         // Will not execute if any visit has this doctor
 
-        Doctor doc = doctorService.findById(doctorId);
+        DoctorVO doc = doctorService.findById(doctorId);
 
         if(doc == null){
             throw new DataNotPresentException("Requested doctor does not exist!");

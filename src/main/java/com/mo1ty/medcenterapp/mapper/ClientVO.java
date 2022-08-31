@@ -6,16 +6,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class ClientVO {
+
     private int clientId;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private Address address;
+    private int addressId;
+    private List<Integer> allVisitsIds;
+
 }

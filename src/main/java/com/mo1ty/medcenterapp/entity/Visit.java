@@ -49,4 +49,6 @@ public class Visit {
         this.date = date;
         this.time = time;
     }
+
+
 }

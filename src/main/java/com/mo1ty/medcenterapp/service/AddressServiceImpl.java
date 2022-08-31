@@ -37,10 +37,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> findAll(){
-
-        List<Address> result = addressRepository.findAll();
-
-        return result;
+        return addressRepository.findAll();
     }
 
     @Override

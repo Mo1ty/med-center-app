@@ -38,15 +38,6 @@ public class Doctor {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    /*@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "treatment_type_id")
-    private TreatmentType treatmentType;*/
-
-    @OneToMany(mappedBy = "doctorAccepted", cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Visit> allVisits;
-
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
@@ -56,8 +47,12 @@ public class Doctor {
     )
     private List<Treatment> allTreatments;
 
+    @OneToMany(mappedBy = "doctorAccepted", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Visit> allVisits;
+
     public Doctor(String firstName, String lastName, String email,
-                  Address addressId, int qualificationLevel) {
+                  Address addressId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -65,7 +60,7 @@ public class Doctor {
     }
 
     public Doctor(int id, String firstName, String lastName, String email,
-                  Address addressId, int qualificationLevel) {
+                  Address addressId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,15 +68,31 @@ public class Doctor {
         this.address = addressId;
     }
 
-    public List<Visit> allPendingVisits(Date date, Time time){
+    public List<Visit> allPendingVisits(Date date){
         List<Visit> pendingVisits = new ArrayList<>();
 
         for(Visit visit : this.allVisits){
-            if(!(date.after(visit.getDate()))){
+            if(date.before(visit.getDate())){
                 pendingVisits.add(visit);
             }
         }
 
         return pendingVisits;
+    }
+
+    public List<Integer> getTreatmentsIds(){
+        List<Integer> ids = new ArrayList<>();
+        for(Treatment treatment : this.allTreatments){
+            ids.add(treatment.getTreatmentId());
+        }
+        return ids;
+    }
+
+    public List<Integer> getVisitsIds(){
+        List<Integer> ids = new ArrayList<>();
+        for(Visit visit : this.allVisits){
+            ids.add(visit.getVisitId());
+        }
+        return ids;
     }
 }
