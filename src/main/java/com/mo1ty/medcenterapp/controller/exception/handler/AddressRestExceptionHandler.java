@@ -41,6 +41,8 @@ public class AddressRestExceptionHandler {
                 exception.getMessage(),
                 System.currentTimeMillis());
 
+        exception.printStackTrace();
+
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

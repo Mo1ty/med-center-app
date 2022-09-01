@@ -20,6 +20,8 @@ public class ClientRestExceptionHandler {
                 exception.getMessage(),
                 System.currentTimeMillis());
 
+        exception.printStackTrace();
+
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 

@@ -1,6 +1,5 @@
 package com.mo1ty.medcenterapp.mapper;
 
-import com.mo1ty.medcenterapp.entity.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

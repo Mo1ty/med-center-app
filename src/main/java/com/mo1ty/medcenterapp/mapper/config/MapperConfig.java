@@ -1,8 +1,10 @@
 package com.mo1ty.medcenterapp.mapper.config;
 
+import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
 import com.mo1ty.medcenterapp.entity.*;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
+import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
 import com.mo1ty.medcenterapp.repository.interfaces.*;
 import org.modelmapper.*;
@@ -25,10 +27,8 @@ public class MapperConfig {
     TreatmentRepository treatmentRepository;
     @Autowired
     AddressRepository addressRepository;
-
     @Autowired
     ClientRepository clientRepository;
-
     @Autowired
     VisitsRepository visitsRepository;
 
@@ -96,34 +96,71 @@ public class MapperConfig {
         }
     };*/
 
-    Converter<Integer, Address> toAddress = new AbstractConverter<Integer, Address>() {
+    Converter<VisitVO, Visit> toVisit = new AbstractConverter<VisitVO, Visit>() {
         @Override
-        protected Address convert(Integer integer) {
-            return addressRepository.findById(integer).orElse(null);
+        protected Visit convert(VisitVO visitVO) {
+            Visit visit = new Visit();
+
+            visit.setVisitId(visitVO.getVisitId());
+            visit.setTreatmentDone(treatmentRepository.findById(visitVO.getTreatmentDoneId()).orElse(null));
+            visit.setClientVisited(clientRepository.findById(visitVO.getClientVisitedId()).orElse(null));
+            visit.setDoctorAccepted(doctorRepository.findById(visitVO.getDoctorAcceptedId()).orElse(null));
+            visit.setDate(visitVO.getDate());
+            visit.setTime(visitVO.getTime());
+
+            return visit;
         }
     };
 
-    Converter<Integer, Treatment> toTreatment = new AbstractConverter<Integer, Treatment>() {
+    Converter<TreatmentVO, Treatment> toTreatment = new AbstractConverter<TreatmentVO, Treatment>() {
         @Override
-        protected Treatment convert(Integer integer) {
-            return treatmentRepository.findById(integer).orElse(null);
+        protected Treatment convert(TreatmentVO treatmentVO) {
+            Treatment treatment = new Treatment();
+
+            treatment.setTreatmentId(treatmentVO.getTreatmentId());
+            treatment.setTreatmentName(treatmentVO.getTreatmentName());
+            treatment.setPrice(treatmentVO.getPrice());
+            treatment.setDoctors(doctorRepository.findAllById(treatmentVO.getDoctorsIds()));
+
+            return treatment;
         }
     };
 
-    Converter<Integer, Client> toClient = new AbstractConverter<Integer, Client>() {
+    Converter<ClientVO, Client> toClient = new AbstractConverter<ClientVO, Client>() {
         @Override
-        protected Client convert(Integer integer) {
-            return clientRepository.findById(integer).orElse(null);
+        protected Client convert(ClientVO clientVO) {
+            Client client = new Client();
+
+            client.setClientId(clientVO.getClientId());
+            client.setFirstName(clientVO.getFirstName());
+            client.setLastName(clientVO.getLastName());
+            client.setEmail(clientVO.getEmail());
+            client.setPassword(clientVO.getPassword());
+            client.setAddress(addressRepository.findById(clientVO.getAddressId()).orElse(null));
+            client.setAllVisits(visitsRepository.findAllById(clientVO.getAllVisitsIds()));
+
+            return client;
         }
     };
 
-    Converter<Integer, Doctor> toDoctor = new AbstractConverter<Integer, Doctor>() {
+    Converter<DoctorVO, Doctor> toDoctor = new AbstractConverter<DoctorVO, Doctor>() {
         @Override
-        protected Doctor convert(Integer integer) {
-            return doctorRepository.findById(integer).orElse(null);
+        protected Doctor convert(DoctorVO doctorVO) {
+            Doctor doc = new Doctor();
+
+            doc.setId(doctorVO.getId());
+            doc.setFirstName(doctorVO.getFirstName());
+            doc.setLastName(doctorVO.getLastName());
+            doc.setEmail(doctorVO.getEmail());
+            doc.setAddress(addressRepository.findById(doctorVO.getAddressId()).orElse(null));
+            doc.setAllTreatments(treatmentRepository.findAllById(doctorVO.getAllTreatmentsIds()));
+            doc.setAllVisits(visitsRepository.findAllById(doctorVO.getAllVisitsIds()));
+
+            return doc;
         }
     };
 
+    /*
     Converter<List<Integer>, List<Treatment>> toTreatments = new AbstractConverter<List<Integer>, List<Treatment>>() {
         @Override
         protected List<Treatment> convert(List<Integer> integers) {
@@ -147,12 +184,14 @@ public class MapperConfig {
             return visits;
         }
     };
+    */
 
     @Bean
     public ModelMapper modelMapper(){
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STANDARD);
+                .setMatchingStrategy(MatchingStrategies.STANDARD)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
 
         modelMapper.createTypeMap(Visit.class, VisitVO.class)
                 .addMapping(Visit -> Visit.getTreatmentDone().getTreatmentId(), VisitVO::setTreatmentDoneId)
@@ -168,18 +207,31 @@ public class MapperConfig {
                 .addMapping(Doctor::getTreatmentsIds, DoctorVO::setAllTreatmentsIds)
                 .addMapping(Doctor::getVisitsIds, DoctorVO::setAllVisitsIds);
 
-        TypeToken<List<Integer>> typeInt = new TypeToken<List<Integer>>() {};
+
+        modelMapper.createTypeMap(DoctorVO.class, Doctor.class)
+                .setConverter(toDoctor);
+        modelMapper.createTypeMap(ClientVO.class, Client.class)
+                .setConverter(toClient);
+        modelMapper.createTypeMap(TreatmentVO.class, Treatment.class)
+                .setConverter(toTreatment);
+        modelMapper.createTypeMap(VisitVO.class, Visit.class)
+                .setConverter(toVisit);
+
+        /*TypeToken<List<Integer>> typeInt = new TypeToken<List<Integer>>() {};
         TypeToken<List<Treatment>> typeTreatment = new TypeToken<List<Treatment>>() {};
-
         TypeToken<List<Visit>> typeVisits = new TypeToken<List<Visit>>() {};
+        TypeToken<List<Doctor>> typeDoctors = new TypeToken<List<Doctor>>(){};
 
-        modelMapper.addConverter(toTreatments, typeInt.getRawType(), typeTreatment.getRawType());
+
+
         modelMapper.addConverter(toVisit, typeInt.getRawType(), typeVisits.getRawType());
 
-        modelMapper.addConverter(toAddress);
-        modelMapper.addConverter(toTreatment);
-        modelMapper.addConverter(toClient);
-        modelMapper.addConverter(toDoctor);
+        modelMapper.addConverter(toTreatments, typeInt.getRawType(), typeTreatment.getRawType());
+        modelMapper.addConverter(toDoctors, typeInt.getRawType(), typeDoctors.getRawType());
+
+        modelMapper.addConverter(toAddress, Integer.class, Address.class);
+        modelMapper.addConverter(toTreatment, Integer.class, Treatment.class);
+        modelMapper.addConverter(toClient, Integer.class, Client.class);*/
 
 
 

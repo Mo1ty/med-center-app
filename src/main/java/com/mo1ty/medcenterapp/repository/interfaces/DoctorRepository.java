@@ -15,4 +15,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
     //@Query("SELECT d FROM Doctor d WHERE d.treatment = ?1 and d.qualificationLevel >= ?2")
     //List<Doctor> findByTreatmentTypeAndQualificationLevel(Treatment treatment, int qualificationLevel);
 
+    @Query("SELECT distinct doctor FROM Doctor doctor JOIN doctor.allTreatments treatment WHERE treatment.treatmentId = :treatmentId")
+    List<Doctor> findByTreatmentId(int treatmentId);
 }

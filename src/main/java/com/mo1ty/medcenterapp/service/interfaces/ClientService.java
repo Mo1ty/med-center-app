@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ClientService {
 
-    Client createClient(ClientVO client);
+    ClientVO createClient(ClientVO client);
 
-    Client updateClient(ClientVO client);
+    ClientVO updateClient(ClientVO client);
 
     List<ClientVO> findAll();
 

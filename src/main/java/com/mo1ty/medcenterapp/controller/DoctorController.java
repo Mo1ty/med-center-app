@@ -74,7 +74,7 @@ public class DoctorController {
     @DeleteMapping("/{doctorId}")
     public DoctorVO deleteDoctor(@PathVariable int doctorId){
 
-        // Will not execute if any visit has this doctor
+        // Will not execute if any visit has this doctor, fix later
 
         DoctorVO doc = doctorService.findById(doctorId);
 

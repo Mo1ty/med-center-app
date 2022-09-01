@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.repository.interfaces;
 
+import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

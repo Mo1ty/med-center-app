@@ -95,4 +95,12 @@ public class Doctor {
         }
         return ids;
     }
+
+    public void addTreatment(Treatment treatment){
+        allTreatments.add(treatment);
+    }
+
+    public void addVisit(Visit visit){
+        allVisits.add(visit);
+    }
 }

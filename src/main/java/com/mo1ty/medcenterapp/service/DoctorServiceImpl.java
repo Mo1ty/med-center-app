@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
+import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.Treatment;
@@ -42,32 +43,14 @@ public class DoctorServiceImpl implements DoctorService {
     ModelMapper modelMapper;
 
     @Override
-    public List<Doctor> findByTreatmentTypeAndQualificationLevel(Treatment treatment, int qualificationLevel) {
-        /*
-        List<Doctor> result =
-                doctorRepository.findByTreatmentTypeAndQualificationLevel(treatmentType, qualificationLevel);
-
-        if (result.size() == 0){
-            // add DataNotFoundException later
-            throw new DataNotFoundException
-                    ("There are no doctors with Treatment Type: " + treatmentType.getTreatmentType()
-                    + "and qualification level: " + qualificationLevel);
-        }
-
-         */
-        return null;
-
-    }
-
-    @Override
     public DoctorVO createDoctor(DoctorVO doctorVO) {
         List<Treatment> treatmentsPresent = areTreatmentsPresent(doctorVO.getAllTreatmentsIds());
+        Optional<Address> addr = addressRepository.findById(doctorVO.getAddressId());
 
-
-        if(treatmentsPresent!=null){
+        if(treatmentsPresent!=null && addr.isPresent()){
             Doctor doc = modelMapper.map(doctorVO, Doctor.class);//mapDoc(doctorVO, treatmentsPresent, null);
             doctorRepository.save(doc);
-            return doctorVO;
+            return modelMapper.map(doctorRepository.findById(doc.getId()).orElse(null), DoctorVO.class);
         }
         else{
             throw new InvalidValuesInputException("Either address, or treatments, or visits were not in the database." +
@@ -80,12 +63,14 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> result = doctorRepository.findById(doctorVO.getId());
         List<Treatment> treatmentsPresent = areTreatmentsPresent(doctorVO.getAllTreatmentsIds());
         List<Visit> visitsPresent = areVisitsPresent(doctorVO.getAllVisitsIds());
+        Optional<Address> addr = addressRepository.findById(doctorVO.getAddressId());
 
 
-        if(result.isPresent() && treatmentsPresent!=null && visitsPresent!=null){
+        if(result.isPresent() && treatmentsPresent!=null
+                && visitsPresent!=null && addr.isPresent()){
             Doctor doc = modelMapper.map(doctorVO, Doctor.class);//mapDoc(doctorVO, treatmentsPresent, visitsPresent);
             doctorRepository.save(doc);
-            return doctorVO;
+            return modelMapper.map(doctorRepository.findById(doc.getId()).orElse(null), DoctorVO.class);
         }
         else{
             throw new InvalidValuesInputException("Either address, or treatments, or visits were not in the database." +

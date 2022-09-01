@@ -52,6 +52,8 @@ public class DoctorRestExceptionHandler {
                 exception.getMessage(),
                 System.currentTimeMillis());
 
+        exception.printStackTrace();
+
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

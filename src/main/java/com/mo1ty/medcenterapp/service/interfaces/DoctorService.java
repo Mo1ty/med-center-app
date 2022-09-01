@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface DoctorService {
 
-    List<Doctor> findByTreatmentTypeAndQualificationLevel(Treatment treatment, int qualificationLevel);
-
     DoctorVO createDoctor(DoctorVO doctorVO);
 
     DoctorVO updateDoctor(DoctorVO doctorVO);

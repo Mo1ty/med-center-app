@@ -29,6 +29,8 @@ public class VisitsRestExceptionHandler {
                 exception.getMessage(),
                 System.currentTimeMillis());
 
+        exception.printStackTrace();
+
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 

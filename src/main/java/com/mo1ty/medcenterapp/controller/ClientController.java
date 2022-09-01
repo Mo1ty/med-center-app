@@ -4,15 +4,14 @@ package com.mo1ty.medcenterapp.controller;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Client;
-import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
-import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,12 +41,12 @@ public class ClientController {
     }
 
     @PostMapping("")
-    public Client addClient(@RequestBody ClientVO client){
+    public ClientVO addClient(@RequestBody ClientVO client){
         return clientService.createClient(client);
     }
 
     @PutMapping("")
-    public Client updateClient(@RequestBody ClientVO client){
+    public ClientVO updateClient(@RequestBody ClientVO client){
         ClientVO clnt = clientService.findById(client.getClientId());
 
         if(clnt == null){
@@ -58,19 +57,12 @@ public class ClientController {
     }
 
     @DeleteMapping("/{clientId}")
-    public ClientVO deleteClient(@PathVariable int clientId){
+    public ResponseEntity<String> deleteClient(@PathVariable int clientId){
 
-        // Will not execute if any visit has this client
-
-        ClientVO client = clientService.findById(clientId);
-
-        if(client == null){
-            throw new DataNotPresentException("Requested client does not exist!");
-        }
-
+        // Will not execute if any visit has this client, fix later
         clientService.deleteClient(clientId);
 
-        return client;
+        return new ResponseEntity<>("200: The entity was successfully deleted!", HttpStatus.OK);
     }
 
 }
