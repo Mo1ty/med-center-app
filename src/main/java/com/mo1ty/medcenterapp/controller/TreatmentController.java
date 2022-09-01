@@ -26,63 +26,35 @@ public class TreatmentController {
 
     @GetMapping("")
     public List<TreatmentVO> getAllTreatments(){
-        List<Treatment> treatments = treatmentService.findAll();
-        List<TreatmentVO> treatmentVOList = new ArrayList<>();
-
-        for(Treatment treatment : treatments){
-            treatmentVOList.add(modelMapper.map(treatment, TreatmentVO.class));
-        }
-
-        return treatmentVOList;
+        return treatmentService.findAll();
     }
 
     @GetMapping("/{treatmentId}")
     public TreatmentVO getTreatment(@PathVariable int treatmentId){
-        Treatment treatment = treatmentService.findById(treatmentId);
-
-        if(treatment == null){
-            throw new DataNotFoundException("Treatment with id " + treatmentId + " was not found!");
-        }
-
-        return modelMapper.map(treatment, TreatmentVO.class);
+        return treatmentService.findById(treatmentId);
     }
 
     @GetMapping("/name={treatmentName}")
-    public List<Treatment> getTreatmentByName(@PathVariable String treatmentName){
-
+    public List<TreatmentVO> getTreatmentByName(@PathVariable String treatmentName){
         return treatmentService.findByName(treatmentName);
     }
 
     @PostMapping("")
-    public Treatment addTreatment(@RequestBody Treatment treatment){
-        return treatmentService.createTreatment(treatment);
+    public TreatmentVO addTreatment(@RequestBody TreatmentVO treatment){
+        treatmentService.createTreatment(treatment);
+        return treatment;
     }
 
     @PutMapping("")
-    public Treatment updateTreatment(@RequestBody Treatment treatment){
-        Treatment type = treatmentService.findById(treatment.getTreatmentId());
-
-        if(type == null){
-            throw new DataNotPresentException("Requested treatment does not exist! Consider adding a new entity instead.");
-        }
-
-        return treatmentService.updateTreatment(treatment);
+    public TreatmentVO updateTreatment(@RequestBody TreatmentVO treatment){
+        treatmentService.updateTreatment(treatment);
+        return treatment;
     }
 
     @DeleteMapping("/{treatmentId}")
-    public Treatment deleteTreatment(@PathVariable int treatmentId){
-
-        // Will not execute if any visit has this treatment
-
-        Treatment type = treatmentService.findById(treatmentId);
-
-        if(type == null){
-            throw new DataNotPresentException("Requested treatment does not exist!");
-        }
-
+    public void deleteTreatment(@PathVariable int treatmentId){
+        // Will not execute if any visit has this treatment, fix later
         treatmentService.deleteTreatment(treatmentId);
-
-        return type;
     }
 
 }

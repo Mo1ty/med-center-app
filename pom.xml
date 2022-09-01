@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.mo1ty</groupId>
 	<artifactId>medcenterapp</artifactId>
-	<version>0.1.3-SNAPSHOT</version>
+	<version>0.1.4-SNAPSHOT</version>
 	<name>medcenterapp</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

@@ -1,6 +1,6 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
+import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
@@ -18,7 +18,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +52,7 @@ public class DoctorServiceImpl implements DoctorService {
             return modelMapper.map(doctorRepository.findById(doc.getId()).orElse(null), DoctorVO.class);
         }
         else{
-            throw new InvalidValuesInputException("Either address, or treatments, or visits were not in the database." +
+            throw new InvalidInputException("Either address, or treatments, or visits were not in the database." +
                     "Check the data and try again");
         }
     }
@@ -73,7 +72,7 @@ public class DoctorServiceImpl implements DoctorService {
             return modelMapper.map(doctorRepository.findById(doc.getId()).orElse(null), DoctorVO.class);
         }
         else{
-            throw new InvalidValuesInputException("Either address, or treatments, or visits were not in the database." +
+            throw new InvalidInputException("Either address, or treatments, or visits were not in the database." +
                     "Check the data and try again");
         }
     }

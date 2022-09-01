@@ -39,12 +39,6 @@ public class AddressController {
 
     @PutMapping("")
     public Address updateAddress(@RequestBody Address address){
-        Address addr = addressService.findById(address.getAddressId());
-
-        if(addr == null){
-            throw new DataNotPresentException("Requested address does not exist! Consider adding a new entity instead.");
-        }
-
         return addressService.updateAddress(address);
     }
 

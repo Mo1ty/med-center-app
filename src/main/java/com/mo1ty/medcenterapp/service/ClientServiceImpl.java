@@ -1,10 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
-import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
+import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Client;
-import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.repository.interfaces.AddressRepository;
@@ -42,7 +41,7 @@ public class ClientServiceImpl implements ClientService {
 
         }
         else{
-            throw new InvalidValuesInputException("Address was not found in the database." +
+            throw new InvalidInputException("Address was not found in the database." +
                     "Check the data and try again");
         }
     }
@@ -59,7 +58,7 @@ public class ClientServiceImpl implements ClientService {
             return modelMapper.map(clientRepository.findById(client.getClientId()).orElse(null), ClientVO.class);
         }
         else{
-            throw new InvalidValuesInputException("Either address, or visits, or the entity itself were not in the database." +
+            throw new InvalidInputException("Either address, or visits, or the entity itself were not in the database." +
                     "Check the data and try again");
         }
     }

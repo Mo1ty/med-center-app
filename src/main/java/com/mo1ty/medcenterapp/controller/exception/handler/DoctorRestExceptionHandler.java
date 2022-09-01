@@ -3,7 +3,7 @@ package com.mo1ty.medcenterapp.controller.exception.handler;
 import com.mo1ty.medcenterapp.controller.error.response.DoctorErrorResponse;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
-import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
+import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,7 +24,7 @@ public class DoctorRestExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<DoctorErrorResponse> handleException(InvalidValuesInputException exception){
+    public ResponseEntity<DoctorErrorResponse> handleException(InvalidInputException exception){
 
         DoctorErrorResponse error = new DoctorErrorResponse(
                 HttpStatus.NOT_FOUND.value(),

@@ -20,59 +20,31 @@ public class VisitsController {
 
     @Autowired
     VisitsService visitsService;
-    @Autowired
-    ModelMapper modelMapper;
 
     @GetMapping("")
     public List<VisitVO> getAllVisits(){
-        List<Visit> visits = visitsService.findAll();
-        List<VisitVO> visitVOList = new ArrayList<>();
-
-        for(Visit visit : visits){
-            visitVOList.add(modelMapper.map(visit, VisitVO.class));
-        }
-
-        return visitVOList;
+        return visitsService.findAll();
     }
 
     @GetMapping("/{visitId}")
     public VisitVO getVisit(@PathVariable int visitId){
-        Visit visit = visitsService.findById(visitId);
-
-        if(visit == null){
-            throw new DataNotFoundException("Visit with id " + visitId + " was not found!");
-        }
-
-        return modelMapper.map(visit, VisitVO.class);
+        return visitsService.findById(visitId);
     }
 
     @PostMapping("")
-    public Visit addVisit(@RequestBody Visit visit){
-        return visitsService.createVisit(visit);
+    public VisitVO addVisit(@RequestBody VisitVO visitVO){
+        visitsService.createVisit(visitVO);
+        return visitVO;
     }
 
     @PutMapping("")
-    public Visit updateVisit(@RequestBody Visit visit){
-        Visit vis = visitsService.findById(visit.getVisitId());
-
-        if(vis == null){
-            throw new DataNotPresentException("Requested visit does not exist! Consider adding a new entity instead.");
-        }
-
-        return visitsService.updateVisit(visit);
+    public VisitVO updateVisit(@RequestBody VisitVO visitVO){
+        visitsService.updateVisit(visitVO);
+        return visitVO;
     }
 
     @DeleteMapping("/{visitId}")
-    public Visit deleteVisit(@PathVariable int visitId){
-
-        Visit visit = visitsService.findById(visitId);
-
-        if(visit == null){
-            throw new DataNotPresentException("Requested visit does not exist!");
-        }
-
+    public void deleteVisit(@PathVariable int visitId){
         visitsService.deleteVisit(visitId);
-
-        return visit;
     }
 }

@@ -1,20 +1,21 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
 import com.mo1ty.medcenterapp.entity.Treatment;
+import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 
 import java.util.List;
 
 public interface TreatmentService {
 
-    List<Treatment> findByName(String treatmentName);
+    List<TreatmentVO> findByName(String treatmentName);
 
-    Treatment createTreatment(Treatment treatment);
+    void createTreatment(TreatmentVO treatmentVO);
 
-    Treatment updateTreatment(Treatment treatment);
+    void updateTreatment(TreatmentVO treatmentVO);
 
-    List<Treatment> findAll();
+    List<TreatmentVO> findAll();
 
-    Treatment findById(int treatmentId);
+    TreatmentVO findById(int treatmentId);
 
     void deleteTreatment(int treatmentId);
 

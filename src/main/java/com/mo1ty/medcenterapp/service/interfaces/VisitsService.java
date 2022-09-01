@@ -1,23 +1,24 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
 import com.mo1ty.medcenterapp.entity.Visit;
+import com.mo1ty.medcenterapp.mapper.VisitVO;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface VisitsService {
 
-    Visit createVisit(Visit visit);
+    void createVisit(VisitVO visitVO);
 
-    Visit updateVisit(Visit visit);
+    void updateVisit(VisitVO visitVO);
 
-    List<Visit> findAll();
+    List<VisitVO> findAll();
 
-    Visit findById(int visitId);
+    VisitVO findById(int visitId);
 
-    List<Visit> findAllByClientId(int clientId);
+    List<VisitVO> findAllByClientId(int clientId);
 
-    List<Visit> findAllByDoctorId(int doctorId);
+    List<VisitVO> findAllByDoctorId(int doctorId);
 
     void deleteVisit(int visitId);
 

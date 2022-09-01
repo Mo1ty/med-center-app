@@ -1,6 +1,5 @@
 package com.mo1ty.medcenterapp.mapper.config;
 
-import com.mo1ty.medcenterapp.controller.exception.InvalidValuesInputException;
 import com.mo1ty.medcenterapp.entity.*;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
@@ -12,11 +11,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 public class MapperConfig {
@@ -33,68 +27,11 @@ public class MapperConfig {
     VisitsRepository visitsRepository;
 
     /*
-    // Converter to turn a list of visits into the VO object
-    Converter<List<Visit>, ArrayList<Integer>> toVisitVo = new AbstractConverter<List<Visit>, ArrayList<Integer>>() {
-        @Override
-        protected ArrayList<Integer> convert(List<Visit> visits) {
-            ArrayList<Integer> visitsVo = new ArrayList<>();
-            for(Visit visit : visits){
-                visitsVo.add(visit.getVisitId());
-            }
-
-            return visitsVo;
-        }
-    };
-
-    Converter<List<Treatment>, ArrayList<Integer>> toTreatmentVo = new AbstractConverter<List<Treatment>, ArrayList<Integer>>() {
-        @Override
-        protected ArrayList<Integer> convert(List<Treatment> treatments) {
-            ArrayList<Integer> treatmentsVo = new ArrayList<>();
-            for(Treatment treatment : treatments){
-                treatmentsVo.add(treatment.getTreatmentId());
-            }
-
-            return treatmentsVo;
-        }
-    };
-
-    Converter<ArrayList<Integer>, List<Visit>> toVisit = new AbstractConverter<ArrayList<Integer>, List<Visit>>() {
-        @Override
-        protected List<Visit> convert(ArrayList<Integer> integers) {
-            List<Visit> visits = new ArrayList<>();
-
-            for(int visitId : integers){
-                visits.add(visitsRepository.findById(visitId).orElse(null));
-            }
-            return visits;
-        }
-    };
-
-    Converter<ArrayList<Integer>, List<Treatment>> toTreatment = new AbstractConverter<ArrayList<Integer>, List<Treatment>>() {
-        @Override
-        protected List<Treatment> convert(ArrayList<Integer> integers) {
-            List<Treatment> treatments = new ArrayList<>();
-
-            for(int treatmentId : integers){
-                treatments.add(treatmentRepository.findById(treatmentId).orElse(null));
-            }
-            return treatments;
-        }
-    };
-
-    Converter<Treatment, Integer> toTreatmentVo = new AbstractConverter<Treatment, Integer>() {
-        @Override
-        protected Integer convert(Treatment treatment) {
-            return (Integer) treatment.getTreatmentId();
-        }
-    };
-
-    Converter<Visit, Integer> toVisitVo = new AbstractConverter<Visit, Integer>() {
-        @Override
-        protected Integer convert(Visit visit) {
-            return visit.getVisitId();
-        }
-    };*/
+    * Setting converters for turning Value Objects to POJOs.
+    * They will be set as converters for the Type Maps.
+    * The opposite process does not require container usage,
+    * was fully made through addMapping and set in the bean.
+     */
 
     Converter<VisitVO, Visit> toVisit = new AbstractConverter<VisitVO, Visit>() {
         @Override
@@ -160,38 +97,14 @@ public class MapperConfig {
         }
     };
 
-    /*
-    Converter<List<Integer>, List<Treatment>> toTreatments = new AbstractConverter<List<Integer>, List<Treatment>>() {
-        @Override
-        protected List<Treatment> convert(List<Integer> integers) {
-            List<Treatment> treatments = new ArrayList<>();
-
-            for(int treatmentId : integers){
-                treatments.add(treatmentRepository.findById(treatmentId).orElse(null));
-            }
-            return treatments;
-        }
-    };
-
-    Converter<List<Integer>, List<Visit>> toVisit = new AbstractConverter<List<Integer>, List<Visit>>() {
-        @Override
-        protected List<Visit> convert(List<Integer> integers) {
-            List<Visit> visits = new ArrayList<>();
-
-            for(int visitId : integers){
-                visits.add(visitsRepository.findById(visitId).orElse(null));
-            }
-            return visits;
-        }
-    };
-    */
-
     @Bean
     public ModelMapper modelMapper(){
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STANDARD)
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+
+        // Create Type Maps for turning POJOs to VOs.
 
         modelMapper.createTypeMap(Visit.class, VisitVO.class)
                 .addMapping(Visit -> Visit.getTreatmentDone().getTreatmentId(), VisitVO::setTreatmentDoneId)
@@ -207,6 +120,7 @@ public class MapperConfig {
                 .addMapping(Doctor::getTreatmentsIds, DoctorVO::setAllTreatmentsIds)
                 .addMapping(Doctor::getVisitsIds, DoctorVO::setAllVisitsIds);
 
+        // Create Type Maps for turning VOs to POJOs.
 
         modelMapper.createTypeMap(DoctorVO.class, Doctor.class)
                 .setConverter(toDoctor);
@@ -216,38 +130,6 @@ public class MapperConfig {
                 .setConverter(toTreatment);
         modelMapper.createTypeMap(VisitVO.class, Visit.class)
                 .setConverter(toVisit);
-
-        /*TypeToken<List<Integer>> typeInt = new TypeToken<List<Integer>>() {};
-        TypeToken<List<Treatment>> typeTreatment = new TypeToken<List<Treatment>>() {};
-        TypeToken<List<Visit>> typeVisits = new TypeToken<List<Visit>>() {};
-        TypeToken<List<Doctor>> typeDoctors = new TypeToken<List<Doctor>>(){};
-
-
-
-        modelMapper.addConverter(toVisit, typeInt.getRawType(), typeVisits.getRawType());
-
-        modelMapper.addConverter(toTreatments, typeInt.getRawType(), typeTreatment.getRawType());
-        modelMapper.addConverter(toDoctors, typeInt.getRawType(), typeDoctors.getRawType());
-
-        modelMapper.addConverter(toAddress, Integer.class, Address.class);
-        modelMapper.addConverter(toTreatment, Integer.class, Treatment.class);
-        modelMapper.addConverter(toClient, Integer.class, Client.class);*/
-
-
-
-        /*modelMapper.createTypeMap(Doctor.class, DoctorVO.class)
-                .addMapping(Doctor -> Doctor.getAddress().getAddressId(), DoctorVO::setAddressId)
-                .addMapping(Doctor -> Doctor.getAllTreatments()
-                                            .stream()
-                                            .map(Treatment::getTreatmentId)
-                                            .collect(Collectors.toList()), DoctorVO::setAllTreatmentsIds)
-                .addMapping(Doctor -> Doctor.getAllVisits()
-                                            .stream()
-                                            .map(Visit::getVisitId)
-                                            .collect(Collectors.toList()), DoctorVO::setAllVisitsIds);*/
-
-        // doctorTypeMap.setPropertyConverter(toVisitVo);
-        // doctorTypeMap.setPropertyConverter(toTreatmentVo);
 
 
         return modelMapper;
