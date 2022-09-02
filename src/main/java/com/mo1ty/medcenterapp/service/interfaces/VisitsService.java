@@ -1,8 +1,6 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
-import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 import java.util.List;

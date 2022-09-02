@@ -1,19 +1,11 @@
 package com.mo1ty.medcenterapp.controller;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
-import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.Visit;
-import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

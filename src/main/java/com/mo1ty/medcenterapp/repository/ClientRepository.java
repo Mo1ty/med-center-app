@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.repository.interfaces;
+package com.mo1ty.medcenterapp.repository;
 
 import com.mo1ty.medcenterapp.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;

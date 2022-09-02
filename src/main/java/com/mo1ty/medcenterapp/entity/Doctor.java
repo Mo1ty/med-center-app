@@ -1,10 +1,11 @@
 package com.mo1ty.medcenterapp.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,13 +82,5 @@ public class Doctor {
             ids.add(visit.getVisitId());
         }
         return ids;
-    }
-
-    public void addTreatment(Treatment treatment){
-        allTreatments.add(treatment);
-    }
-
-    public void addVisit(Visit visit){
-        allVisits.add(visit);
     }
 }

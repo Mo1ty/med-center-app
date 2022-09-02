@@ -4,10 +4,10 @@ import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
-import com.mo1ty.medcenterapp.repository.interfaces.ClientRepository;
-import com.mo1ty.medcenterapp.repository.interfaces.DoctorRepository;
-import com.mo1ty.medcenterapp.repository.interfaces.TreatmentRepository;
-import com.mo1ty.medcenterapp.repository.interfaces.VisitsRepository;
+import com.mo1ty.medcenterapp.repository.ClientRepository;
+import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -101,7 +100,6 @@ public class VisitsServiceImpl implements VisitsService {
                 .collect(Collectors.toList());
     }
 
-    // Add deleteByEntity method later if required
     @Override
     public void deleteVisit(int visitId) {
         visitsRepository.deleteById(visitId);
@@ -109,6 +107,7 @@ public class VisitsServiceImpl implements VisitsService {
 
     @Override
     public List<VisitVO> findAllPendingVisits() {
+        // Get all visits that will be in a future
         return visitsRepository.findAllByDate(Date.from(Instant.now()))
                 .stream()
                 .map(visit -> modelMapper.map(visit, VisitVO.class))

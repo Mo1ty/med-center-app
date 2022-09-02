@@ -3,7 +3,7 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
-import com.mo1ty.medcenterapp.repository.interfaces.InternalLoginRepository;
+import com.mo1ty.medcenterapp.repository.InternalLoginRepository;
 import com.mo1ty.medcenterapp.service.interfaces.InternalLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +25,6 @@ public class InternalLoginServiceImpl implements InternalLoginService {
     @Override
     public InternalLogin findById(int internalLoginId) {
         Optional<InternalLogin> result = internalLoginRepository.findById(internalLoginId);
-
-        if(result.isPresent()){
-            return result.get();
-        }
-        else{
-            throw new DataNotFoundException("Internal login with this id was not found!");
-        }
-    }
-
-    @Override
-    public InternalLogin findByEmail(String email) {
-        Optional<InternalLogin> result = internalLoginRepository.findByEmail(email);
 
         if(result.isPresent()){
             return result.get();

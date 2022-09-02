@@ -2,7 +2,6 @@ package com.mo1ty.medcenterapp.controller;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
-import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.service.interfaces.InternalLoginService;
 import org.springframework.beans.factory.annotation.Autowired;

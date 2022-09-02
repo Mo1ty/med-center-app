@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,16 +35,4 @@ public class Treatment {
             inverseJoinColumns = @JoinColumn(name="doctor_id")
     )
     private List<Doctor> doctors;
-
-    public Treatment(String treatmentName, int price, int requiredQualification) {
-        this.price = price;
-    }
-
-    public List<Integer> getDoctorsIds(){
-        List<Integer> ids = new ArrayList<>();
-        for(Doctor doctor : this.doctors){
-            ids.add(doctor.getId());
-        }
-        return ids;
-    }
 }

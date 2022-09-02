@@ -10,8 +10,6 @@ public interface InternalLoginService {
 
     InternalLogin findById(int internalLoginId);
 
-    InternalLogin findByEmail(String email);
-
     InternalLogin createInternalLogin(InternalLogin internalLogin);
 
     InternalLogin updateInternalLogin(InternalLogin internalLogin);

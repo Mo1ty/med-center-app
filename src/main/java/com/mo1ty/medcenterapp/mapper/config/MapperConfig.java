@@ -5,7 +5,7 @@ import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
-import com.mo1ty.medcenterapp.repository.interfaces.*;
+import com.mo1ty.medcenterapp.repository.*;
 import org.modelmapper.*;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
