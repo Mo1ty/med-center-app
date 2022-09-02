@@ -4,6 +4,7 @@ import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 public interface VisitsService {
@@ -21,5 +22,11 @@ public interface VisitsService {
     List<VisitVO> findAllByDoctorId(int doctorId);
 
     void deleteVisit(int visitId);
+
+    List<VisitVO> findAllPendingVisits();
+
+    List<VisitVO> findAllPendingVisitsByClientId(int clientId);
+
+    List<Date> findAllOccupiedTimes(int doctorId);
 
 }

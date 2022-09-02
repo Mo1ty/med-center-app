@@ -18,21 +18,13 @@ public class DoctorController {
 
     @Autowired
     DoctorService doctorService;
-
-    @Autowired
-    TreatmentService treatmentService;
     @Autowired
     ModelMapper modelMapper;
 
-    /*@GetMapping("/treatment/{treatmentId}/qualification-level/{qualificationLevel}")
-    public List<Doctor> getDoctorByTreatmentTypeAndQualificationLevel(@PathVariable int treatmentId, @PathVariable int qualificationLevel){
-        Treatment treatment = treatmentService.findById(treatmentId);
-        if(treatment == null){
-            throw new InvalidValuesInputException("Treatment with this id was not found!");
-        }
-
-        return doctorService.findByTreatmentTypeAndQualificationLevel(treatment, qualificationLevel);
-    }*/
+    @GetMapping("/by-treatment/{treatmentId}")
+    public List<DoctorVO> getDoctorByTreatmentTypeAndQualificationLevel(@PathVariable int treatmentId){
+        return doctorService.findByTreatmentId(treatmentId);
+    }
 
     @GetMapping("")
     public List<DoctorVO> getAllDoctors(){

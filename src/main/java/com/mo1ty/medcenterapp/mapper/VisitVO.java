@@ -2,8 +2,7 @@ package com.mo1ty.medcenterapp.mapper;
 
 import lombok.*;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,6 +15,5 @@ public class VisitVO {
     private int treatmentDoneId;
     private int clientVisitedId;
     private int doctorAcceptedId;
-    private Date date;
-    private Time time;
+    private Date datetime;
 }

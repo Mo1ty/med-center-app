@@ -21,9 +21,6 @@ public class TreatmentController {
     @Autowired
     TreatmentService treatmentService;
 
-    @Autowired
-    ModelMapper modelMapper;
-
     @GetMapping("")
     public List<TreatmentVO> getAllTreatments(){
         return treatmentService.findAll();

@@ -13,6 +13,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -102,6 +105,34 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public void deleteVisit(int visitId) {
         visitsRepository.deleteById(visitId);
+    }
+
+    @Override
+    public List<VisitVO> findAllPendingVisits() {
+        return visitsRepository.findAllByDate(Date.from(Instant.now()))
+                .stream()
+                .map(visit -> modelMapper.map(visit, VisitVO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VisitVO> findAllPendingVisitsByClientId(int clientId) {
+        // Get all the visits that client may cancel, i.e. tomorrow or later
+        return visitsRepository.findAllByDateAndClientId
+                        (Date.from(Instant.now()), clientId)
+                        .stream()
+                        .map(visit -> modelMapper.map(visit, VisitVO.class))
+                        .collect(Collectors.toList());
+    }
+
+    public List<Date> findAllOccupiedTimes(int doctorId) {
+        // Get all visits that will be done by this doctor
+        List<Visit> visitsByDoctor = visitsRepository.findAllByDateAndDoctorId(Date.from(Instant.now()), doctorId);
+
+        // Get datetime from them to get the collection of occupied times
+        return visitsByDoctor.stream()
+                .map(Visit::getDatetime)
+                .collect(Collectors.toList());
     }
 
     public boolean isDataExistent(VisitVO visitVO){

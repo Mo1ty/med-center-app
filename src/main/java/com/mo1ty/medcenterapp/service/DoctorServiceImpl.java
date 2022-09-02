@@ -18,8 +18,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @NoArgsConstructor
@@ -90,6 +92,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public List<DoctorVO> findByTreatmentId(int treatmentId) {
+        return doctorRepository.findByTreatmentId(treatmentId)
+                .stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorVO.class))
+                .collect(Collectors.toList());
+        // Consider adding exception check
+    }
+
+    @Override
     public DoctorVO findById(int doctorId) {
 
         Optional<Doctor> result = doctorRepository.findById(doctorId);
@@ -123,13 +134,4 @@ public class DoctorServiceImpl implements DoctorService {
         }
         return null;
     }
-
-
-    /*
-    public Doctor mapDoc(DoctorVO doctorVO, List<Treatment> treatments, List<Visit> visits){
-        Doctor doc = modelMapper.map(doctorVO, Doctor.class);
-        //doc.setAllTreatments(treatments);
-        doc.setAllVisits(visits);
-        return doc;
-    }*/
 }

@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Table(name = "visits")
@@ -36,19 +35,6 @@ public class Visit {
     @JoinColumn(name="doctor_id")
     private Doctor doctorAccepted;
 
-    @Column(name="date")
-    private Date date;
-
-    @Column(name="time")
-    private Time time;
-
-    public Visit(Treatment treatmentDone, Client clientVisited, Doctor doctorAccepted, Date date, Time time) {
-        this.treatmentDone = treatmentDone;
-        this.clientVisited = clientVisited;
-        this.doctorAccepted = doctorAccepted;
-        this.date = date;
-        this.time = time;
-    }
-
-
+    @Column(name="datetime")
+    private Date datetime;
 }

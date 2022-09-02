@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,16 @@ public class VisitsController {
     public VisitVO addVisit(@RequestBody VisitVO visitVO){
         visitsService.createVisit(visitVO);
         return visitVO;
+    }
+
+    @GetMapping("/pending/{clientId}")
+    public List<VisitVO> getClientsPendingVisits(@PathVariable int clientId){
+        return visitsService.findAllPendingVisitsByClientId(clientId);
+    }
+
+    @GetMapping("/timetable/{doctorId}")
+    public List<Date> getAllOccupiedVisits(@PathVariable int doctorId){
+        return visitsService.findAllOccupiedTimes(doctorId);
     }
 
     @PutMapping("")

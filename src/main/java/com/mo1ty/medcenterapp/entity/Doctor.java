@@ -33,8 +33,7 @@ public class Doctor {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -66,18 +65,6 @@ public class Doctor {
         this.lastName = lastName;
         this.email = email;
         this.address = addressId;
-    }
-
-    public List<Visit> allPendingVisits(Date date){
-        List<Visit> pendingVisits = new ArrayList<>();
-
-        for(Visit visit : this.allVisits){
-            if(date.before(visit.getDate())){
-                pendingVisits.add(visit);
-            }
-        }
-
-        return pendingVisits;
     }
 
     public List<Integer> getTreatmentsIds(){

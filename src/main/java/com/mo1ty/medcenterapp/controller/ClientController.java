@@ -21,9 +21,6 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @Autowired
-    ModelMapper modelMapper;
-
     @GetMapping("")
     public List<ClientVO> getAllClients(){
         return clientService.findAll();

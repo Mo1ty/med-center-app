@@ -40,7 +40,7 @@ public class Client {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -54,28 +54,6 @@ public class Client {
         this.email = email;
         this.password = password;
         this.address = addressId;
-    }
-
-
-    public List<Visit> getCancellableVisits(){
-        List<Visit> pendingVisits = new ArrayList<>();
-        LocalDate date = LocalDate.now();
-
-        for(Visit visit : this.allVisits){
-            if(date.isBefore(visit.getDate().toLocalDate())){
-                pendingVisits.add(visit);
-            }
-        }
-
-        return pendingVisits;
-    }
-
-    public void addVisit(Visit newVisit) {
-        if (allVisits == null){
-            allVisits = new ArrayList<>();
-        }
-
-        allVisits.add(newVisit);
     }
 
     public List<Integer> getVisitsIds() {

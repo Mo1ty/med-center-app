@@ -42,8 +42,7 @@ public class MapperConfig {
             visit.setTreatmentDone(treatmentRepository.findById(visitVO.getTreatmentDoneId()).orElse(null));
             visit.setClientVisited(clientRepository.findById(visitVO.getClientVisitedId()).orElse(null));
             visit.setDoctorAccepted(doctorRepository.findById(visitVO.getDoctorAcceptedId()).orElse(null));
-            visit.setDate(visitVO.getDate());
-            visit.setTime(visitVO.getTime());
+            visit.setDatetime(visitVO.getDatetime());
 
             return visit;
         }

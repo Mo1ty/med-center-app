@@ -14,6 +14,8 @@ public interface DoctorService {
 
     List<Doctor> findAll();
 
+    List<DoctorVO> findByTreatmentId(int treatmentId);
+
     DoctorVO findById(int doctorId);
 
     void deleteClient(int doctorId);
