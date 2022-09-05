@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.controller;
 
+import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class TreatmentController {
     public void deleteTreatment(@PathVariable int treatmentId){
         // Will not execute if any visit has this treatment, fix later
         treatmentService.deleteTreatment(treatmentId);
+    }
+
+    @GetMapping("/{treatmentId}/doctors")
+    public List<DoctorVO> getDoctors(@PathVariable int treatmentId){
+        return treatmentService.getDoctors(treatmentId);
     }
 
 }

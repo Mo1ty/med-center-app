@@ -17,9 +17,7 @@ public class DoctorVO {
     private String firstName;
     private String lastName;
     private String email;
-    private int addressId;
-    private List<Integer> allTreatmentsIds;
-    private List<Integer> allVisitsIds;
+    private int addressId; // not mapped but used to retrieve from DB
 
 
 }

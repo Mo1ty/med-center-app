@@ -36,7 +36,8 @@ public class Client {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "address_id")
     private Address address;
 

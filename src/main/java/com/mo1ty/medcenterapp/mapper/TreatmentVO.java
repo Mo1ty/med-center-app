@@ -16,5 +16,4 @@ public class TreatmentVO {
     private int treatmentId;
     private String treatmentName;
     private int price;
-    private List<Integer> doctorsIds;
 }

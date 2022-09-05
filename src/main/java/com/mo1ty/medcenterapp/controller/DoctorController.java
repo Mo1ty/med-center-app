@@ -2,7 +2,9 @@ package com.mo1ty.medcenterapp.controller;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Doctor;
+import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
+import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,11 @@ import java.util.List;
 @RequestMapping("/doctors")
 public class DoctorController {
 
+
     @Autowired
     DoctorService doctorService;
     @Autowired
     ModelMapper modelMapper;
-
-    @GetMapping("/by-treatment/{treatmentId}")
-    public List<DoctorVO> getDoctorByTreatmentTypeAndQualificationLevel(@PathVariable int treatmentId){
-        return doctorService.findByTreatmentId(treatmentId);
-    }
 
     @GetMapping("")
     public List<DoctorVO> getAllDoctors(){
@@ -75,4 +73,18 @@ public class DoctorController {
         return doc;
     }
 
+    @GetMapping("/{doctorId}/treatments")
+    public List<TreatmentVO> getTreatments(@PathVariable int doctorId){
+        return doctorService.getTreatments(doctorId);
+    }
+
+    @PutMapping("/{doctorId}/{treatmentId}")
+    public List<TreatmentVO> addTreatment(@PathVariable("doctorId") int doctorId, @PathVariable("treatmentId") int treatmentId){
+        return doctorService.addTreatment(doctorId, treatmentId);
+    }
+
+    @DeleteMapping("/{doctorId}/{treatmentId}")
+    public List<TreatmentVO> removeTreatment(@PathVariable("doctorId") int doctorId, @PathVariable("treatmentId") int treatmentId){
+        return doctorService.removeTreatment(doctorId, treatmentId);
+    }
 }

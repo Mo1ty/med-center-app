@@ -6,6 +6,7 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
+import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.repository.ClientRepository;
 import com.mo1ty.medcenterapp.repository.VisitsRepository;
@@ -32,10 +33,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientVO createClient(ClientVO clientVO) {
+
         Optional<Address> addr = addressRepository.findById(clientVO.getAddressId());
 
         if(addr.isPresent()){
-            Client client = modelMapper.map(clientVO, Client.class);
+            Address address = addr.get();
+            Client client = new Client();
+            modelMapper.map(clientVO, client);
+            client.setAddress(address);
             clientRepository.save(client);
             return modelMapper.map(clientRepository.findById(client.getClientId()).orElse(null), ClientVO.class);
 
@@ -49,11 +54,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientVO updateClient(ClientVO clientVO) {
         Optional<Client> result = clientRepository.findById(clientVO.getClientId());
-        List<Visit> visitsPresent = areVisitsPresent(clientVO.getAllVisitsIds());
-        Optional<Address> addr = addressRepository.findById(clientVO.getAddressId());
 
-        if(result.isPresent() && addr.isPresent() && visitsPresent != null){
-            Client client = modelMapper.map(clientVO, Client.class);
+        if(result.isPresent()){
+            Client client = result.get();
+            modelMapper.map(clientVO, client);
             clientRepository.save(client);
             return modelMapper.map(clientRepository.findById(client.getClientId()).orElse(null), ClientVO.class);
         }

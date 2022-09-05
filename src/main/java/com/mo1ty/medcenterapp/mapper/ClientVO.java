@@ -19,7 +19,6 @@ public class ClientVO {
     private String lastName;
     private String email;
     private String password;
-    private int addressId;
-    private List<Integer> allVisitsIds;
+    private int addressId; // not mapped but used to retrieve from DB
 
 }

@@ -2,8 +2,8 @@ package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
-import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Treatment;
+import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.repository.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.TreatmentRepository;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @NoArgsConstructor
@@ -43,20 +44,15 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public void createTreatment(TreatmentVO treatmentVO) {
-        if(areDoctorsPresent(treatmentVO.getDoctorsIds())){
-            Treatment treatment = modelMapper.map(treatmentVO, Treatment.class);
-            treatmentRepository.save(treatment);
-        }
-        else{
-            throw new InvalidInputException("Some of the doctors are not in the database. Check your data.");
-        }
+        Treatment treatment = modelMapper.map(treatmentVO, Treatment.class);
+        treatmentRepository.save(treatment);
     }
 
     @Override
     public void updateTreatment(TreatmentVO treatmentVO) {
         Optional<Treatment> result = treatmentRepository.findById(treatmentVO.getTreatmentId());
 
-        if(result.isPresent() && areDoctorsPresent(treatmentVO.getDoctorsIds())){
+        if(result.isPresent()){
             Treatment treatment = modelMapper.map(treatmentVO, Treatment.class);
             treatmentRepository.save(treatment);
         }
@@ -90,8 +86,17 @@ public class TreatmentServiceImpl implements TreatmentService {
         treatmentRepository.deleteById(treatmentId);
     }
 
-    public boolean areDoctorsPresent(List<Integer> doctors){
-        List<Doctor> result = doctorRepository.findAllById(doctors);
-        return result.size() == doctors.size();
+    @Override
+    public List<DoctorVO> getDoctors(int treatmentId){
+        Optional<Treatment> result = treatmentRepository.findById(treatmentId);
+        if(result.isPresent()){
+            return result.get().getDoctors()
+                    .stream()
+                    .map(doctor_element -> modelMapper.map(doctor_element, DoctorVO.class))
+                    .collect(Collectors.toList());
+        }
+        else{
+            throw new InvalidInputException("Invalid input into database. Check your inputs!");
+        }
     }
 }
