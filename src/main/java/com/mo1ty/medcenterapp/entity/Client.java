@@ -52,12 +52,4 @@ public class Client {
         this.password = password;
         this.address = addressId;
     }
-
-    public List<Integer> getVisitsIds() {
-        List<Integer> ids = new ArrayList<>();
-        for (Visit visit : this.allVisits) {
-            ids.add(visit.getVisitId());
-        }
-        return ids;
-    }
 }

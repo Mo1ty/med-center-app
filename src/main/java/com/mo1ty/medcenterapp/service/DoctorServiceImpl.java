@@ -50,8 +50,8 @@ public class DoctorServiceImpl implements DoctorService {
 
         if(addr.isPresent()){
             Doctor doc = new Doctor();
-            modelMapper.map(doctorVO, doc);
             doc.setAddress(addr.get());
+            modelMapper.map(doctorVO, doc);
             doctorRepository.save(doc);
             return modelMapper.map(doctorRepository.findById(doc.getId()), DoctorVO.class);
         }
@@ -64,9 +64,12 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorVO updateDoctor(DoctorVO doctorVO) {
         Optional<Doctor> result = doctorRepository.findById(doctorVO.getId());
+        Optional<Address> addr = addressRepository.findById(doctorVO.getAddressId());
 
-        if(result.isPresent()){
+        if(result.isPresent() && addr.isPresent()){
             Doctor doc = result.get();
+            Address address = addressRepository.getReferenceById(doctorVO.getAddressId());
+            doc.setAddress(address);
             modelMapper.map(doctorVO, doc);
             doctorRepository.save(doc);
             return modelMapper.map(doctorRepository.findById(doc.getId()), DoctorVO.class);
@@ -110,15 +113,19 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<TreatmentVO> addTreatment(int doctorId, int treatmentId){
+        // Get the entities using ID from the DB.
         Optional<Doctor> docResult = doctorRepository.findById(doctorId);
         Optional<Treatment> treatmentResult = treatmentRepository.findById(treatmentId);
 
         if(docResult.isPresent() && treatmentResult.isPresent()){
+            // If both are found, get and edit the list
             Doctor doctor = docResult.get();
             Treatment treatment = treatmentResult.get();
             List<Treatment> treatments = doctor.getAllTreatments();
             treatments.add(treatment);
             doctor.setAllTreatments(treatments);
+
+            // Save changes and return an edited version as VOs
             doctorRepository.save(doctor);
             return doctor.getAllTreatments()
                     .stream()
@@ -132,15 +139,19 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<TreatmentVO> removeTreatment(int doctorId, int treatmentId){
+        // Get the entities using ID from the DB.
         Optional<Doctor> docResult = doctorRepository.findById(doctorId);
         Optional<Treatment> treatmentResult = treatmentRepository.findById(treatmentId);
 
         if(docResult.isPresent() && treatmentResult.isPresent()){
+            // If both are found, get and edit the list
             Doctor doctor = docResult.get();
             Treatment treatment = treatmentResult.get();
             List<Treatment> treatments = doctor.getAllTreatments();
             treatments.remove(treatment);
             doctor.setAllTreatments(treatments);
+
+            // Save changes and return an edited version as VOs
             doctorRepository.save(doctor);
             return doctor.getAllTreatments()
                     .stream()

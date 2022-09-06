@@ -38,8 +38,8 @@ public class ClientServiceImpl implements ClientService {
         if(addr.isPresent()){
             Address address = addr.get();
             Client client = new Client();
-            modelMapper.map(clientVO, client);
             client.setAddress(address);
+            modelMapper.map(clientVO, client);
             clientRepository.save(client);
             return modelMapper.map(clientRepository.findById(client.getClientId()).orElse(null), ClientVO.class);
 
@@ -53,9 +53,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientVO updateClient(ClientVO clientVO) {
         Optional<Client> result = clientRepository.findById(clientVO.getClientId());
+        Optional<Address> addr = addressRepository.findById(clientVO.getAddressId());
 
-        if(result.isPresent()){
+        if(result.isPresent() && addr.isPresent()){
             Client client = result.get();
+            client.setAddress(addr.get());
             modelMapper.map(clientVO, client);
             clientRepository.save(client);
             return modelMapper.map(clientRepository.findById(client.getClientId()).orElse(null), ClientVO.class);

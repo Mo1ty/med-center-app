@@ -68,20 +68,4 @@ public class Doctor {
         this.email = email;
         this.address = addressId;
     }
-
-    public List<Integer> getTreatmentsIds(){
-        List<Integer> ids = new ArrayList<>();
-        for(Treatment treatment : this.allTreatments){
-            ids.add(treatment.getTreatmentId());
-        }
-        return ids;
-    }
-
-    public List<Integer> getVisitsIds(){
-        List<Integer> ids = new ArrayList<>();
-        for(Visit visit : this.allVisits){
-            ids.add(visit.getVisitId());
-        }
-        return ids;
-    }
 }

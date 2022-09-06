@@ -39,11 +39,14 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public void createVisit(VisitVO visitVO) {
         if(isDataExistent(visitVO)){
+            // Create the new entities
             Visit visit = new Visit();
             modelMapper.map(visitVO, visit);
+            // Set all fields of an entity using data from VO
             visit.setClientVisited(clientRepository.getReferenceById(visitVO.getClientVisitedId()));
             visit.setDoctorAccepted(doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId()));
             visit.setTreatmentDone(treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId()));
+            // Save new entity
             visitsRepository.save(visit);
         }
         else{
@@ -57,7 +60,7 @@ public class VisitsServiceImpl implements VisitsService {
 
         if(result.isPresent() && isDataExistent(visitVO)){
 
-            // Creating entities we will put into the visit
+            // Create entities that will be put into the visit
             Treatment treatmentDone = treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId());
             Client clientVisited = clientRepository.getReferenceById(visitVO.getClientVisitedId());
             Doctor doctorAccepted = doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId());
