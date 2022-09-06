@@ -1,13 +1,16 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.entity.Client;
+import com.mo1ty.medcenterapp.entity.Doctor;
+import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
-import com.mo1ty.medcenterapp.repository.ClientRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.repository.TreatmentRepository;
-import com.mo1ty.medcenterapp.repository.VisitsRepository;
+import com.mo1ty.medcenterapp.service.repository.ClientRepository;
+import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.service.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,12 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public void createVisit(VisitVO visitVO) {
         if(isDataExistent(visitVO)){
-            visitsRepository.save(modelMapper.map(visitVO, Visit.class));
+            Visit visit = new Visit();
+            modelMapper.map(visitVO, visit);
+            visit.setClientVisited(clientRepository.getReferenceById(visitVO.getClientVisitedId()));
+            visit.setDoctorAccepted(doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId()));
+            visit.setTreatmentDone(treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId()));
+            visitsRepository.save(visit);
         }
         else{
             throw new InvalidInputException("Invalid data input! Check your data and try again!");
@@ -48,7 +56,18 @@ public class VisitsServiceImpl implements VisitsService {
         Optional<Visit> result = visitsRepository.findById(visitVO.getVisitId());
 
         if(result.isPresent() && isDataExistent(visitVO)){
-            visitsRepository.save(modelMapper.map(visitVO, Visit.class));
+
+            // Creating entities we will put into the visit
+            Treatment treatmentDone = treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId());
+            Client clientVisited = clientRepository.getReferenceById(visitVO.getClientVisitedId());
+            Doctor doctorAccepted = doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId());
+            // Get the new result itself and set the values
+            Visit visit = result.get();
+            visit.setTreatmentDone(treatmentDone);
+            visit.setClientVisited(clientVisited);
+            visit.setDoctorAccepted(doctorAccepted);
+            // Save the entity
+            visitsRepository.save(visit);
         }
         else{
             throw new InvalidInputException("Invalid data input! Check your data and try again!");

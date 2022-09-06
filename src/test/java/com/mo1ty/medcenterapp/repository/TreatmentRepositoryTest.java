@@ -1,13 +1,13 @@
-package com.mo1ty.medcenterapp.unit.repository;
+package com.mo1ty.medcenterapp.repository;
 
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.entity.Treatment;
-import com.mo1ty.medcenterapp.repository.AddressRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.repository.InternalLoginRepository;
-import com.mo1ty.medcenterapp.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.service.repository.AddressRepository;
+import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.service.repository.InternalLoginRepository;
+import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.mo1ty.medcenterapp.prototype.AddressPrototype.makeAllAddresses;
-import static com.mo1ty.medcenterapp.prototype.DoctorPrototype.makeAllDoctors;
-import static com.mo1ty.medcenterapp.prototype.InternalLoginPrototype.makeAllLogins;
-import static com.mo1ty.medcenterapp.prototype.TreatmentPrototype.makeAllTreatments;
+import static com.mo1ty.medcenterapp.entity.prototype.AddressPrototype.makeAllAddresses;
+import static com.mo1ty.medcenterapp.entity.prototype.DoctorPrototype.makeAllDoctors;
+import static com.mo1ty.medcenterapp.entity.prototype.InternalLoginPrototype.makeAllLogins;
+import static com.mo1ty.medcenterapp.entity.prototype.TreatmentPrototype.makeAllTreatments;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)

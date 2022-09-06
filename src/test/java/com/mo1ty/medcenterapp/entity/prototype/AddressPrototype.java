@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.prototype;
+package com.mo1ty.medcenterapp.entity.prototype;
 
 import com.mo1ty.medcenterapp.entity.Address;
 import org.assertj.core.util.Arrays;

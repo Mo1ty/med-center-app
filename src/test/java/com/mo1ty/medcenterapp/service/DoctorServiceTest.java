@@ -1,14 +1,13 @@
-package com.mo1ty.medcenterapp.unit.service;
+package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
-import com.mo1ty.medcenterapp.prototype.TreatmentPrototype;
-import com.mo1ty.medcenterapp.repository.AddressRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.repository.TreatmentRepository;
-import com.mo1ty.medcenterapp.repository.VisitsRepository;
+import com.mo1ty.medcenterapp.service.repository.AddressRepository;
+import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.service.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.DoctorServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +16,10 @@ import org.modelmapper.ModelMapper;
 
 import java.util.*;
 
-import static com.mo1ty.medcenterapp.prototype.AddressPrototype.makeCzechAddress;
-import static com.mo1ty.medcenterapp.prototype.DoctorPrototype.makeDummyDoc;
-import static com.mo1ty.medcenterapp.prototype.TreatmentPrototype.makeDummyTreatment;
-import static com.mo1ty.medcenterapp.prototype.TreatmentPrototype.makeGermanTreatment;
+import static com.mo1ty.medcenterapp.entity.prototype.AddressPrototype.makeCzechAddress;
+import static com.mo1ty.medcenterapp.entity.prototype.DoctorPrototype.makeDummyDoc;
+import static com.mo1ty.medcenterapp.entity.prototype.TreatmentPrototype.makeDummyTreatment;
+import static com.mo1ty.medcenterapp.entity.prototype.TreatmentPrototype.makeGermanTreatment;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;

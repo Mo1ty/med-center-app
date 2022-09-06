@@ -149,13 +149,13 @@ CREATE TABLE IF NOT EXISTS `medcenter_database`.`treatments_has_doctors` (
   CONSTRAINT `fk_treatments_has_doctors_treatments1`
     FOREIGN KEY (`treatment_id`)
     REFERENCES `medcenter_database`.`treatments` (`treatment_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_treatments_has_doctors_doctors1`
     FOREIGN KEY (`doctor_id`)
     REFERENCES `medcenter_database`.`doctors` (`doctor_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 

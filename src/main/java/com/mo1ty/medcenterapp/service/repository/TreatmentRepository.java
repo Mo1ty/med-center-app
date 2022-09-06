@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.repository;
+package com.mo1ty.medcenterapp.service.repository;
 
 import com.mo1ty.medcenterapp.entity.Treatment;
 import org.springframework.data.jpa.repository.JpaRepository;
