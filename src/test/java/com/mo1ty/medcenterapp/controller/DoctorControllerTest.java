@@ -7,7 +7,6 @@ import com.mo1ty.medcenterapp.service.DoctorServiceImpl;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;

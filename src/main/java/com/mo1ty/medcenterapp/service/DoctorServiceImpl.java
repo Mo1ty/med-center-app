@@ -10,7 +10,6 @@ import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.repository.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.TreatmentRepository;
-import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

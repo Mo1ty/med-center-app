@@ -8,8 +8,6 @@ import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.repository.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.TreatmentRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

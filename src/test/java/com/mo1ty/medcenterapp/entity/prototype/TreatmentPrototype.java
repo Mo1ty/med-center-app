@@ -2,7 +2,6 @@ package com.mo1ty.medcenterapp.entity.prototype;
 
 
 import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import org.modelmapper.ModelMapper;

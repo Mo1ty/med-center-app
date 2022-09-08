@@ -1,10 +1,8 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
 import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
-import com.mo1ty.medcenterapp.mapper.VisitVO;
 
 import java.util.List;
 
