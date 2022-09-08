@@ -13,10 +13,15 @@ import java.util.List;
 @RequestMapping("/addresses")
 public class AddressController {
 
-    @Autowired
-    AddressService addressService;
 
-    @GetMapping("")
+    private AddressService addressService;
+
+    @Autowired
+    public AddressController(AddressService addressService){
+        this.addressService = addressService;
+    }
+
+    @GetMapping
     public List<Address> getAllAddresses(){
         return addressService.findAll();
     }
@@ -32,12 +37,12 @@ public class AddressController {
         return address;
     }
 
-    @PostMapping("")
+    @PostMapping
     public Address addAddress(@RequestBody Address address){
         return addressService.createAddress(address);
     }
 
-    @PutMapping("")
+    @PutMapping
     public Address updateAddress(@RequestBody Address address){
         return addressService.updateAddress(address);
     }

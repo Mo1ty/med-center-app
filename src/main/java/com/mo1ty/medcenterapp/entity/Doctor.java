@@ -31,7 +31,7 @@ public class Doctor {
     // email is a username
     // provide check if is an actual email
     //@OneToOne(cascade = CascadeType.ALL) referencedColumnName = "email"
-    @Column(name = "email")
+    @Column
     private String email;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,

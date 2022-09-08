@@ -20,13 +20,13 @@ public class Address {
     @Column(name = "address_id")
     private int addressId;
 
-    @Column(name = "city")
+    @Column
     private String city;
 
     @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "street")
+    @Column
     private String street;
 
     @Column(name = "house_number")

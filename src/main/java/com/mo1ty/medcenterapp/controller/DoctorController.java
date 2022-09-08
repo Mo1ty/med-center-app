@@ -17,13 +17,16 @@ import java.util.List;
 @RequestMapping("/doctors")
 public class DoctorController {
 
+    private DoctorService doctorService;
+    private ModelMapper modelMapper;
 
     @Autowired
-    DoctorService doctorService;
-    @Autowired
-    ModelMapper modelMapper;
+    public DoctorController(DoctorService doctorService, ModelMapper modelMapper){
+        this.doctorService = doctorService;
+        this.modelMapper = modelMapper;
+    }
 
-    @GetMapping("")
+    @GetMapping
     public List<DoctorVO> getAllDoctors(){
 
         List<Doctor> doctors = doctorService.findAll();
@@ -41,12 +44,12 @@ public class DoctorController {
         return doctorService.findById(doctorId);
     }
 
-    @PostMapping("")
+    @PostMapping
     public DoctorVO addDoctor(@RequestBody DoctorVO doctor){
         return doctorService.createDoctor(doctor);
     }
 
-    @PutMapping("")
+    @PutMapping
     public DoctorVO updateDoctor(@RequestBody DoctorVO doctor){
         DoctorVO type = doctorService.findById(doctor.getId());
 

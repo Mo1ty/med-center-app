@@ -15,10 +15,14 @@ import java.util.List;
 @RequestMapping("/clients")
 public class ClientController {
 
-    @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
-    @GetMapping("")
+    @Autowired
+    public ClientController(ClientService clientService){
+        this.clientService = clientService;
+    }
+
+    @GetMapping
     public List<ClientVO> getAllClients(){
         return clientService.findAll();
     }
@@ -34,12 +38,12 @@ public class ClientController {
         return client;
     }
 
-    @PostMapping("")
+    @PostMapping
     public ClientVO addClient(@RequestBody ClientVO client){
         return clientService.createClient(client);
     }
 
-    @PutMapping("")
+    @PutMapping
     public ClientVO updateClient(@RequestBody ClientVO client){
         ClientVO clnt = clientService.findById(client.getClientId());
 

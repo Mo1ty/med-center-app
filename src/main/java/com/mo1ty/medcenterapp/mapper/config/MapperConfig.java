@@ -6,11 +6,9 @@ import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
-import com.mo1ty.medcenterapp.service.repository.ClientRepository;
-import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
-import org.modelmapper.AbstractConverter;
-import org.modelmapper.Converter;
+import com.mo1ty.medcenterapp.repository.ClientRepository;
+import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.TreatmentRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +18,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MapperConfig {
 
-    @Autowired
     TreatmentRepository treatmentRepository;
-    @Autowired
     ClientRepository clientRepository;
-    @Autowired
     DoctorRepository doctorRepository;
+
+    @Autowired
+    public MapperConfig(TreatmentRepository treatmentRepository, ClientRepository clientRepository, DoctorRepository doctorRepository) {
+        this.treatmentRepository = treatmentRepository;
+        this.clientRepository = clientRepository;
+        this.doctorRepository = doctorRepository;
+    }
 
     @Bean
     public ModelMapper modelMapper(){

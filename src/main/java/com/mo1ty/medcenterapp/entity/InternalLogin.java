@@ -20,13 +20,13 @@ public class InternalLogin {
     @Column(name="internal_id")
     private int internalId;
 
-    @Column(name="email")
+    @Column
     private String email;
 
-    @Column(name="password")
+    @Column
     private String password;
 
-    @Column(name="role")
+    @Column
     private String role;
 
     public InternalLogin(String email, String password, String role) {

@@ -6,9 +6,9 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
-import com.mo1ty.medcenterapp.service.repository.AddressRepository;
-import com.mo1ty.medcenterapp.service.repository.ClientRepository;
-import com.mo1ty.medcenterapp.service.repository.VisitsRepository;
+import com.mo1ty.medcenterapp.repository.AddressRepository;
+import com.mo1ty.medcenterapp.repository.ClientRepository;
+import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,18 @@ import java.util.Optional;
 @Service
 public class ClientServiceImpl implements ClientService {
 
+    private ClientRepository clientRepository;
+    private AddressRepository addressRepository;
+    private VisitsRepository visitsRepository;
+    private ModelMapper modelMapper;
+
     @Autowired
-    ClientRepository clientRepository;
-    @Autowired
-    AddressRepository addressRepository;
-    @Autowired
-    VisitsRepository visitsRepository;
-    @Autowired
-    ModelMapper modelMapper;
+    public ClientServiceImpl(ClientRepository clientRepository, AddressRepository addressRepository, VisitsRepository visitsRepository, ModelMapper modelMapper) {
+        this.clientRepository = clientRepository;
+        this.addressRepository = addressRepository;
+        this.visitsRepository = visitsRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public ClientVO createClient(ClientVO clientVO) {

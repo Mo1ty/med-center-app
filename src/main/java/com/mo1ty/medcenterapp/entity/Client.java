@@ -30,10 +30,10 @@ public class Client {
 
     // email is a username
     // provide check if is an actual email
-    @Column(name = "email")
+    @Column
     private String email;
 
-    @Column(name = "password")
+    @Column
     private String password;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,

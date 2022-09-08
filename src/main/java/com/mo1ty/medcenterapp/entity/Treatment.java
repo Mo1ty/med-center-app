@@ -21,7 +21,7 @@ public class Treatment {
     @Column(name = "treatment_name")
     private String treatmentName;
 
-    @Column(name = "price")
+    @Column
     private int price;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,

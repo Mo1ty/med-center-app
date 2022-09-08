@@ -3,7 +3,7 @@ package com.mo1ty.medcenterapp.service;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
-import com.mo1ty.medcenterapp.service.repository.InternalLoginRepository;
+import com.mo1ty.medcenterapp.repository.InternalLoginRepository;
 import com.mo1ty.medcenterapp.service.interfaces.InternalLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,12 @@ import java.util.Optional;
 @Service
 public class InternalLoginServiceImpl implements InternalLoginService {
 
-    @Autowired
     InternalLoginRepository internalLoginRepository;
+
+    @Autowired
+    public InternalLoginServiceImpl(InternalLoginRepository internalLoginRepository){
+        this.internalLoginRepository = internalLoginRepository;
+    }
 
     @Override
     public List<InternalLogin> findAll() {

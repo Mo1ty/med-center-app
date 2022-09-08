@@ -47,9 +47,7 @@ public class DoctorControllerTest {
 
     @Test
     void getAllDoctors(){
-        DoctorController doctorController = new DoctorController();
-        doctorController.doctorService = doctorServ;
-        doctorController.modelMapper = modelMapper;
+        DoctorController doctorController = new DoctorController(doctorServ, modelMapper);
 
         List<DoctorVO> response = doctorController.getAllDoctors();
         assertNotNull(response);

@@ -7,14 +7,11 @@ import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
-import com.mo1ty.medcenterapp.service.repository.AddressRepository;
-import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
-import com.mo1ty.medcenterapp.service.repository.VisitsRepository;
+import com.mo1ty.medcenterapp.repository.AddressRepository;
+import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,25 +21,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
 public class DoctorServiceImpl implements DoctorService {
 
-    @Autowired
-    DoctorRepository doctorRepository;
+    private DoctorRepository doctorRepository;
+    private TreatmentRepository treatmentRepository;
+    private AddressRepository addressRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    TreatmentRepository treatmentRepository;
-
-    @Autowired
-    AddressRepository addressRepository;
-
-    @Autowired
-    VisitsRepository visitsRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
+    public DoctorServiceImpl(DoctorRepository doctorRepository, TreatmentRepository treatmentRepository,
+                             AddressRepository addressRepository, ModelMapper modelMapper) {
+        this.doctorRepository = doctorRepository;
+        this.treatmentRepository = treatmentRepository;
+        this.addressRepository = addressRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public DoctorVO createDoctor(DoctorVO doctorVO) {

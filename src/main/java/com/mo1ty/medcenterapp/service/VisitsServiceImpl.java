@@ -7,10 +7,10 @@ import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
-import com.mo1ty.medcenterapp.service.repository.ClientRepository;
-import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
-import com.mo1ty.medcenterapp.service.repository.VisitsRepository;
+import com.mo1ty.medcenterapp.repository.ClientRepository;
+import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +25,21 @@ import java.util.stream.Collectors;
 @Service
 public class VisitsServiceImpl implements VisitsService {
 
-    @Autowired
     VisitsRepository visitsRepository;
-    @Autowired
     ModelMapper modelMapper;
-    @Autowired
     TreatmentRepository treatmentRepository;
-    @Autowired
     ClientRepository clientRepository;
-    @Autowired
     DoctorRepository doctorRepository;
+
+    @Autowired
+    public VisitsServiceImpl(VisitsRepository visitsRepository, ModelMapper modelMapper,
+                             TreatmentRepository treatmentRepository, ClientRepository clientRepository, DoctorRepository doctorRepository) {
+        this.visitsRepository = visitsRepository;
+        this.modelMapper = modelMapper;
+        this.treatmentRepository = treatmentRepository;
+        this.clientRepository = clientRepository;
+        this.doctorRepository = doctorRepository;
+    }
 
     @Override
     public void createVisit(VisitVO visitVO) {

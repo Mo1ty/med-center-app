@@ -5,8 +5,8 @@ import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
-import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.TreatmentRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -20,16 +20,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
 public class TreatmentServiceImpl implements TreatmentService {
 
+    private TreatmentRepository treatmentRepository;
+    private ModelMapper modelMapper;
+    private DoctorRepository doctorRepository;
+
     @Autowired
-    TreatmentRepository treatmentRepository;
-    @Autowired
-    ModelMapper modelMapper;
-    @Autowired
-    DoctorRepository doctorRepository;
+    public TreatmentServiceImpl(TreatmentRepository treatmentRepository, ModelMapper modelMapper, DoctorRepository doctorRepository) {
+        this.treatmentRepository = treatmentRepository;
+        this.modelMapper = modelMapper;
+        this.doctorRepository = doctorRepository;
+    }
 
     @Override
     public List<TreatmentVO> findByName(String name) {

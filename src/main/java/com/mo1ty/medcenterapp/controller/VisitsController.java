@@ -12,10 +12,14 @@ import java.util.List;
 @RequestMapping("/visits")
 public class VisitsController {
 
-    @Autowired
-    VisitsService visitsService;
+    private VisitsService visitsService;
 
-    @GetMapping("")
+    @Autowired
+    public VisitsController(VisitsService visitsService){
+        this.visitsService = visitsService;
+    }
+
+    @GetMapping
     public List<VisitVO> getAllVisits(){
         return visitsService.findAll();
     }
@@ -25,7 +29,7 @@ public class VisitsController {
         return visitsService.findById(visitId);
     }
 
-    @PostMapping("")
+    @PostMapping
     public VisitVO addVisit(@RequestBody VisitVO visitVO){
         visitsService.createVisit(visitVO);
         return visitVO;
@@ -41,7 +45,7 @@ public class VisitsController {
         return visitsService.findAllOccupiedTimes(doctorId);
     }
 
-    @PutMapping("")
+    @PutMapping
     public VisitVO updateVisit(@RequestBody VisitVO visitVO){
         visitsService.updateVisit(visitVO);
         return visitVO;

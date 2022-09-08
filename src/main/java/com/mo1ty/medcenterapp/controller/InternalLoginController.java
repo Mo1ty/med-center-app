@@ -13,10 +13,14 @@ import java.util.List;
 @RequestMapping("/internal-logins")
 public class InternalLoginController {
 
-    @Autowired
-    InternalLoginService internalLoginService;
+    private InternalLoginService internalLoginService;
 
-    @GetMapping("")
+    @Autowired
+    public InternalLoginController(InternalLoginService internalLoginService){
+        this.internalLoginService = internalLoginService;
+    }
+
+    @GetMapping
     public List<InternalLogin> getAllInternalLogins(){
         return internalLoginService.findAll();
     }
@@ -32,12 +36,12 @@ public class InternalLoginController {
         return internalLogin;
     }
 
-    @PostMapping("")
+    @PostMapping
     public InternalLogin addInternalLogin(@RequestBody InternalLogin internalLogin){
         return internalLoginService.createInternalLogin(internalLogin);
     }
 
-    @PutMapping("")
+    @PutMapping
     public InternalLogin updateInternalLogin(@RequestBody InternalLogin internalLogin){
         InternalLogin intLogin = internalLoginService.findById(internalLogin.getInternalId());
 

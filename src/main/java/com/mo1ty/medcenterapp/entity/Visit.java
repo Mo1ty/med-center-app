@@ -35,6 +35,6 @@ public class Visit {
     @JoinColumn(name="doctor_id")
     private Doctor doctorAccepted;
 
-    @Column(name="datetime")
+    @Column
     private Date datetime;
 }

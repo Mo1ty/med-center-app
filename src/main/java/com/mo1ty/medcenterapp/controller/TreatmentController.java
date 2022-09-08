@@ -12,10 +12,14 @@ import java.util.List;
 @RequestMapping("/treatment")
 public class TreatmentController {
 
-    @Autowired
-    TreatmentService treatmentService;
+    private TreatmentService treatmentService;
 
-    @GetMapping("")
+    @Autowired
+    public TreatmentController(TreatmentService treatmentService){
+        this.treatmentService = treatmentService;
+    }
+
+    @GetMapping
     public List<TreatmentVO> getAllTreatments(){
         return treatmentService.findAll();
     }
@@ -30,13 +34,13 @@ public class TreatmentController {
         return treatmentService.findByName(treatmentName);
     }
 
-    @PostMapping("")
+    @PostMapping
     public TreatmentVO addTreatment(@RequestBody TreatmentVO treatment){
         treatmentService.createTreatment(treatment);
         return treatment;
     }
 
-    @PutMapping("")
+    @PutMapping
     public TreatmentVO updateTreatment(@RequestBody TreatmentVO treatment){
         treatmentService.updateTreatment(treatment);
         return treatment;

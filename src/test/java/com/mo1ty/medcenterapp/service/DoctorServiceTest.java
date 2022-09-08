@@ -4,11 +4,10 @@ import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
-import com.mo1ty.medcenterapp.service.repository.AddressRepository;
-import com.mo1ty.medcenterapp.service.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.service.repository.TreatmentRepository;
-import com.mo1ty.medcenterapp.service.repository.VisitsRepository;
-import com.mo1ty.medcenterapp.service.DoctorServiceImpl;
+import com.mo1ty.medcenterapp.repository.AddressRepository;
+import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.TreatmentRepository;
+import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,12 +27,6 @@ import static org.mockito.Mockito.when;
 class DoctorServiceTest {
 
 
-    private DoctorRepository doctorRepository;
-    private TreatmentRepository treatmentRepository;
-    private AddressRepository addressRepository;
-    private VisitsRepository visitsRepository;
-    private ModelMapper modelMapper;
-
     private DoctorServiceImpl doctorService;
 
     Treatment dummyTreatment = makeDummyTreatment();
@@ -44,19 +37,14 @@ class DoctorServiceTest {
 
     @BeforeEach
     void setUp() {
-        doctorRepository = mock(DoctorRepository.class);
-        treatmentRepository = mock(TreatmentRepository.class);
-        addressRepository = mock(AddressRepository.class);
-        visitsRepository = mock(VisitsRepository.class);
+        DoctorRepository doctorRepository = mock(DoctorRepository.class);
+        TreatmentRepository treatmentRepository = mock(TreatmentRepository.class);
+        AddressRepository addressRepository = mock(AddressRepository.class);
 
-        modelMapper = new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
 
-        doctorService = new DoctorServiceImpl();
-        doctorService.setDoctorRepository(doctorRepository);
-        doctorService.setTreatmentRepository(treatmentRepository);
-        doctorService.setAddressRepository(addressRepository);
-        doctorService.setVisitsRepository(visitsRepository);
-        doctorService.setModelMapper(modelMapper);
+        doctorService = new DoctorServiceImpl(doctorRepository, treatmentRepository,
+                addressRepository, modelMapper);
 
         dummy.setAllTreatments(Collections.singletonList(dummyTreatment));
         dummyVO = modelMapper.map(
