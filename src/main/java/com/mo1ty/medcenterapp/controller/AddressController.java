@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.service.controller;
+package com.mo1ty.medcenterapp.controller;
 
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;

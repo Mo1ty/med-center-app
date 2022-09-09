@@ -1,14 +1,12 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Client;
-import com.mo1ty.medcenterapp.entity.Visit;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.repository.ClientRepository;
-import com.mo1ty.medcenterapp.repository.VisitsRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

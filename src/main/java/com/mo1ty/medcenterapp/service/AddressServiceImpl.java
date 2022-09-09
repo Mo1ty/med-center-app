@@ -1,9 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.Address;
-import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
-import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

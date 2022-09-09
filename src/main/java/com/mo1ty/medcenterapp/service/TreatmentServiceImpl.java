@@ -1,11 +1,10 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.TreatmentRepository;
 import com.mo1ty.medcenterapp.service.interfaces.TreatmentService;
 import org.modelmapper.ModelMapper;

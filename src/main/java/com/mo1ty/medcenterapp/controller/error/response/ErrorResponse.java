@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.service.controller.error.response;
+package com.mo1ty.medcenterapp.controller.error.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

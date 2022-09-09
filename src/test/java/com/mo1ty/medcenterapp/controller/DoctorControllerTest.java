@@ -4,7 +4,6 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.service.DoctorServiceImpl;
-import com.mo1ty.medcenterapp.service.controller.DoctorController;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
-package com.mo1ty.medcenterapp.service.controller.error.handler;
+package com.mo1ty.medcenterapp.controller.error.handler;
 
-import com.mo1ty.medcenterapp.service.controller.error.exception.CustomException;
-import com.mo1ty.medcenterapp.service.controller.error.response.ErrorResponse;
+import com.mo1ty.medcenterapp.controller.error.exception.CustomException;
+import com.mo1ty.medcenterapp.controller.error.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,6 +1,6 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.repository.InternalLoginRepository;
 import com.mo1ty.medcenterapp.service.interfaces.InternalLoginService;

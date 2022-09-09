@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.service.controller.error.exception;
+package com.mo1ty.medcenterapp.controller.error.exception;
 
 public class DataNotFoundException extends CustomException {
 
