@@ -1,9 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Address;
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
+import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class AddressServiceImpl implements AddressService {
             return address;
         }
         else{
-            throw new DataNotFoundException("Address with this id does not exist!");
+            throw new InvalidInputException("Address with this id does not exist!");
         }
     }
 
@@ -65,7 +65,7 @@ public class AddressServiceImpl implements AddressService {
             addressRepository.deleteById(addressId);
         }
         else {
-            throw new DataNotPresentException("Requested address is not present in the database!");
+            throw new DataNotFoundException("Requested address is not present in the database!");
         }
     }
 }

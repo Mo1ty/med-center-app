@@ -1,18 +1,20 @@
-package com.mo1ty.medcenterapp.controller.error.response;
+package com.mo1ty.medcenterapp.service.controller.error.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class VisitsErrorResponse {
+public class ErrorResponse {
 
     private int status;
     private String message;
     private long timestamp;
+
 
 }

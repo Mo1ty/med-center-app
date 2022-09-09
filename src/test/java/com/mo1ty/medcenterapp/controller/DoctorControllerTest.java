@@ -4,6 +4,7 @@ import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.service.DoctorServiceImpl;
+import com.mo1ty.medcenterapp.service.controller.DoctorController;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.mo1ty.medcenterapp.entity.prototype.AddressPrototype.makeAllAddresses;
 import static com.mo1ty.medcenterapp.entity.prototype.DoctorPrototype.*;
@@ -41,12 +43,14 @@ public class DoctorControllerTest {
         ));
         modelMapper = new ModelMapper();
         doctorServ = mock(DoctorServiceImpl.class);
-        when(doctorServ.findAll()).thenReturn(doctors);
+        when(doctorServ.findAll()).thenReturn(doctors.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorVO.class))
+                .collect(Collectors.toList()));
     }
 
     @Test
     void getAllDoctors(){
-        DoctorController doctorController = new DoctorController(doctorServ, modelMapper);
+        DoctorController doctorController = new DoctorController(doctorServ);
 
         List<DoctorVO> response = doctorController.getAllDoctors();
         assertNotNull(response);

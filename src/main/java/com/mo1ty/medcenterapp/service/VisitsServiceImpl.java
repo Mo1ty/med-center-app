@@ -1,11 +1,11 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.entity.Visit;
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.mapper.VisitVO;
 import com.mo1ty.medcenterapp.repository.ClientRepository;
 import com.mo1ty.medcenterapp.repository.DoctorRepository;
@@ -55,7 +55,7 @@ public class VisitsServiceImpl implements VisitsService {
             visitsRepository.save(visit);
         }
         else{
-            throw new InvalidInputException("Invalid data input! Check your data and try again!");
+            throw new InvalidInputException("At least one of the entities is invalid. Check your input and try again!");
         }
     }
 
@@ -78,7 +78,7 @@ public class VisitsServiceImpl implements VisitsService {
             visitsRepository.save(visit);
         }
         else{
-            throw new InvalidInputException("Invalid data input! Check your data and try again!");
+            throw new InvalidInputException("At least one of the entities is invalid. Check your input and try again!");
         }
     }
 
@@ -104,7 +104,7 @@ public class VisitsServiceImpl implements VisitsService {
             return modelMapper.map(result.get(), VisitVO.class);
         }
         else{
-            throw new DataNotFoundException("Doctor with this id was not found!");
+            throw new DataNotFoundException("Visit with this id was not found!");
         }
     }
 

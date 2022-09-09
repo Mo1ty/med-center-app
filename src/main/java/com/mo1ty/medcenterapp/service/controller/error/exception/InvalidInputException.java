@@ -1,6 +1,6 @@
-package com.mo1ty.medcenterapp.controller.exception;
+package com.mo1ty.medcenterapp.service.controller.error.exception;
 
-public class InvalidInputException extends RuntimeException{
+public class InvalidInputException extends CustomException {
 
     public InvalidInputException() {
     }

@@ -1,7 +1,5 @@
-package com.mo1ty.medcenterapp.controller;
+package com.mo1ty.medcenterapp.service.controller;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
-import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorService;
@@ -9,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,12 +14,10 @@ import java.util.List;
 public class DoctorController {
 
     private DoctorService doctorService;
-    private ModelMapper modelMapper;
 
     @Autowired
-    public DoctorController(DoctorService doctorService, ModelMapper modelMapper){
+    public DoctorController(DoctorService doctorService){
         this.doctorService = doctorService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping

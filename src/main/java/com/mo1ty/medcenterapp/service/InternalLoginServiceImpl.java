@@ -1,7 +1,6 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.InternalLogin;
 import com.mo1ty.medcenterapp.repository.InternalLoginRepository;
 import com.mo1ty.medcenterapp.service.interfaces.InternalLoginService;
@@ -53,7 +52,7 @@ public class InternalLoginServiceImpl implements InternalLoginService {
             return internalLogin;
         }
         else{
-            throw new DataNotPresentException("Internal login with this id was not present!");
+            throw new DataNotFoundException("Internal login with this id was not found!");
         }
     }
 

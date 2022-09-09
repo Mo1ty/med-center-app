@@ -1,9 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
@@ -15,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,7 +48,7 @@ public class DoctorServiceImpl implements DoctorService {
             return modelMapper.map(doctorRepository.findById(doc.getId()), DoctorVO.class);
         }
         else{
-            throw new InvalidInputException("Either address, or treatments, or visits were not in the database." +
+            throw new InvalidInputException("Address is not valid." +
                     "Check the data and try again");
         }
     }
@@ -68,7 +67,7 @@ public class DoctorServiceImpl implements DoctorService {
             return modelMapper.map(doctorRepository.findById(doc.getId()), DoctorVO.class);
         }
         else{
-            throw new InvalidInputException("Either address, or treatments, or visits were not in the database." +
+            throw new InvalidInputException("Either address or doctor entity are not valid." +
                     "Check the data and try again");
         }
     }
@@ -128,7 +127,7 @@ public class DoctorServiceImpl implements DoctorService {
                     .collect(Collectors.toList());
         }
         else{
-            throw new InvalidInputException("Invalid input into database. Check your inputs!");
+            throw new InvalidInputException("Either doctor or treatment are invalid. Check your inputs!");
         }
     }
 
@@ -154,7 +153,7 @@ public class DoctorServiceImpl implements DoctorService {
                     .collect(Collectors.toList());
         }
         else{
-            throw new InvalidInputException("Invalid input into database. Check your inputs!");
+            throw new InvalidInputException("Either doctor or treatment are invalid. Check your inputs!");
         }
     }
 

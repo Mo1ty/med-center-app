@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.controller;
+package com.mo1ty.medcenterapp.service.controller;
 
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;

@@ -1,7 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
-import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Visit;
@@ -23,14 +23,12 @@ public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
     private AddressRepository addressRepository;
-    private VisitsRepository visitsRepository;
     private ModelMapper modelMapper;
 
     @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, AddressRepository addressRepository, VisitsRepository visitsRepository, ModelMapper modelMapper) {
+    public ClientServiceImpl(ClientRepository clientRepository, AddressRepository addressRepository, ModelMapper modelMapper) {
         this.clientRepository = clientRepository;
         this.addressRepository = addressRepository;
-        this.visitsRepository = visitsRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -49,7 +47,7 @@ public class ClientServiceImpl implements ClientService {
 
         }
         else{
-            throw new InvalidInputException("Address was not found in the database." +
+            throw new InvalidInputException("Address is not valid." +
                     "Check the data and try again");
         }
     }
@@ -67,7 +65,7 @@ public class ClientServiceImpl implements ClientService {
             return modelMapper.map(clientRepository.findById(client.getClientId()).orElse(null), ClientVO.class);
         }
         else{
-            throw new InvalidInputException("Either address, or visits, or the entity itself were not in the database." +
+            throw new InvalidInputException("Either address or entity are not valid." +
                     "Check the data and try again");
         }
     }
@@ -78,7 +76,7 @@ public class ClientServiceImpl implements ClientService {
         List<Client> clients = clientRepository.findAll();
 
         if (clients.size() == 0){
-            throw new DataNotPresentException("No clients were found in the table!");
+            throw new DataNotFoundException("No clients were found in the table!");
         }
 
         List<ClientVO> clientVOList = new ArrayList<>();
@@ -99,7 +97,7 @@ public class ClientServiceImpl implements ClientService {
             return modelMapper.map(result.get(), ClientVO.class);
         }
         else{
-            throw new DataNotPresentException("Client with this id was not found!");
+            throw new DataNotFoundException("Client with this id was not found!");
         }
     }
 
@@ -113,15 +111,7 @@ public class ClientServiceImpl implements ClientService {
             clientRepository.deleteById(clientId);
         }
         else{
-            throw new DataNotPresentException("Requested client does not exist!");
+            throw new DataNotFoundException("Requested client does not exist!");
         }
-    }
-
-    public List<Visit> areVisitsPresent(List<Integer> visits){
-        List<Visit> result = visitsRepository.findAllById(visits);
-        if(result.size() == visits.size()){
-            return result;
-        }
-        return null;
     }
 }

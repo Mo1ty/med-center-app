@@ -1,7 +1,5 @@
-package com.mo1ty.medcenterapp.controller;
+package com.mo1ty.medcenterapp.service.controller;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.mapper.ClientVO;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;

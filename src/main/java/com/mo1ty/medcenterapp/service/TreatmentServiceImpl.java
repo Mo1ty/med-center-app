@@ -1,7 +1,7 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.controller.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.service.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Treatment;
 import com.mo1ty.medcenterapp.mapper.DoctorVO;
 import com.mo1ty.medcenterapp.mapper.TreatmentVO;
@@ -22,13 +22,11 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     private TreatmentRepository treatmentRepository;
     private ModelMapper modelMapper;
-    private DoctorRepository doctorRepository;
 
     @Autowired
-    public TreatmentServiceImpl(TreatmentRepository treatmentRepository, ModelMapper modelMapper, DoctorRepository doctorRepository) {
+    public TreatmentServiceImpl(TreatmentRepository treatmentRepository, ModelMapper modelMapper) {
         this.treatmentRepository = treatmentRepository;
         this.modelMapper = modelMapper;
-        this.doctorRepository = doctorRepository;
     }
 
     @Override
@@ -96,7 +94,7 @@ public class TreatmentServiceImpl implements TreatmentService {
                     .collect(Collectors.toList());
         }
         else{
-            throw new InvalidInputException("Invalid input into database. Check your inputs!");
+            throw new DataNotFoundException("Treatment with this id was not found!");
         }
     }
 }

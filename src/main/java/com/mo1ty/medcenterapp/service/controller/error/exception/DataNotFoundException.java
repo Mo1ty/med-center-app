@@ -1,6 +1,6 @@
-package com.mo1ty.medcenterapp.controller.exception;
+package com.mo1ty.medcenterapp.service.controller.error.exception;
 
-public class DataNotFoundException extends RuntimeException{
+public class DataNotFoundException extends CustomException {
 
     public DataNotFoundException() {
     }
