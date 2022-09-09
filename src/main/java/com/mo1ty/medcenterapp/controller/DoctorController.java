@@ -27,15 +27,7 @@ public class DoctorController {
 
     @GetMapping
     public List<DoctorVO> getAllDoctors(){
-
-        List<Doctor> doctors = doctorService.findAll();
-        List<DoctorVO> doctorVOList = new ArrayList<>();
-
-        for(Doctor doctor : doctors){
-            doctorVOList.add(modelMapper.map(doctor, DoctorVO.class));
-        }
-
-        return doctorVOList;
+        return doctorService.findAll();
     }
 
     @GetMapping("/{doctorId}")
@@ -50,28 +42,13 @@ public class DoctorController {
 
     @PutMapping
     public DoctorVO updateDoctor(@RequestBody DoctorVO doctor){
-        DoctorVO type = doctorService.findById(doctor.getId());
-
-        if(type == null){
-            throw new DataNotPresentException("Requested doctor does not exist!");
-        }
-
         return doctorService.updateDoctor(doctor);
     }
 
     @DeleteMapping("/{doctorId}")
     public DoctorVO deleteDoctor(@PathVariable int doctorId){
-
-        // Will not execute if any visit has this doctor, fix later
-
         DoctorVO doc = doctorService.findById(doctorId);
-
-        if(doc == null){
-            throw new DataNotPresentException("Requested doctor does not exist!");
-        }
-
-        doctorService.deleteClient(doctorId);
-
+        doctorService.deleteDoctor(doctorId);
         return doc;
     }
 

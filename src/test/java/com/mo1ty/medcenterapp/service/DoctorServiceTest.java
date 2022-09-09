@@ -61,7 +61,22 @@ class DoctorServiceTest {
     }
 
     @Test
-    void createDoctor() {
+    void findAllTest(){
+
+    }
+
+    @Test
+    void updateDoctorTest(){
+
+    }
+
+    @Test
+    void deleteDoctorTest(){
+
+    }
+
+    @Test
+    void createDoctorTest() {
         DoctorVO doctorVO = doctorService.createDoctor(dummyVO);
 
         assertNotNull(doctorVO);
@@ -69,7 +84,7 @@ class DoctorServiceTest {
     }
 
     @Test
-    void addTreatment() {
+    void addTreatmentTest() {
 
         dummy.setAllTreatments(new ArrayList<>());
 
@@ -81,7 +96,7 @@ class DoctorServiceTest {
     }
 
     @Test
-    void removeTreatment(){
+    void removeTreatmentTest(){
 
         List<Treatment> treatmentList = new LinkedList<>(Arrays.asList(dummyTreatment, makeGermanTreatment(dummy)));
         dummy.setAllTreatments(treatmentList);

@@ -27,13 +27,7 @@ public class InternalLoginController {
 
     @GetMapping("/{internalLoginId}")
     public InternalLogin getInternalLogin(@PathVariable int internalLoginId){
-        InternalLogin internalLogin = internalLoginService.findById(internalLoginId);
-
-        if(internalLogin == null){
-            throw new DataNotFoundException("Internal login with id " + internalLoginId + " was not found!");
-        }
-
-        return internalLogin;
+        return internalLoginService.findById(internalLoginId);
     }
 
     @PostMapping
@@ -43,28 +37,13 @@ public class InternalLoginController {
 
     @PutMapping
     public InternalLogin updateInternalLogin(@RequestBody InternalLogin internalLogin){
-        InternalLogin intLogin = internalLoginService.findById(internalLogin.getInternalId());
-
-        if(intLogin == null){
-            throw new DataNotPresentException("Requested internal login does not exist! Consider adding a new entity instead.");
-        }
-
         return internalLoginService.updateInternalLogin(internalLogin);
     }
 
     @DeleteMapping("/{internalLoginId}")
     public InternalLogin deleteInternalLogin(@PathVariable int internalLoginId){
-
-        // Will not execute if any doctor has this login
-
         InternalLogin intLog = internalLoginService.findById(internalLoginId);
-
-        if(intLog == null){
-            throw new DataNotPresentException("Requested internal login is not present in the database!");
-        }
-
         internalLoginService.deleteInternalLogin(internalLoginId);
-
         return intLog;
     }
 

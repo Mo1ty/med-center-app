@@ -12,11 +12,11 @@ public interface DoctorService {
 
     DoctorVO updateDoctor(DoctorVO doctorVO);
 
-    List<Doctor> findAll();
+    List<DoctorVO> findAll();
 
     DoctorVO findById(int doctorId);
 
-    void deleteClient(int doctorId);
+    void deleteDoctor(int doctorId);
 
     List<TreatmentVO> addTreatment(int treatmentId, int doctorId);
 

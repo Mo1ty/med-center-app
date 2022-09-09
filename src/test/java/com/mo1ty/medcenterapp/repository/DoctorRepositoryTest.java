@@ -28,13 +28,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class DoctorRepositoryTest {
 
-    @Autowired
     AddressRepository addressRepository;
-    @Autowired
     InternalLoginRepository internalLoginRepository;
-    @Autowired
     DoctorRepository doctorRepository;
-    @Autowired
     TreatmentRepository treatmentRepository;
 
     List<Address> addressList;
@@ -42,6 +38,15 @@ class DoctorRepositoryTest {
     List<InternalLogin> internalLoginList;
     List<Doctor> doctorList;
     List<Treatment> treatmentList;
+
+    @Autowired
+    public DoctorRepositoryTest(AddressRepository addressRepository, InternalLoginRepository internalLoginRepository,
+                                DoctorRepository doctorRepository, TreatmentRepository treatmentRepository) {
+        this.addressRepository = addressRepository;
+        this.internalLoginRepository = internalLoginRepository;
+        this.doctorRepository = doctorRepository;
+        this.treatmentRepository = treatmentRepository;
+    }
 
     @BeforeEach
     void setUp(){

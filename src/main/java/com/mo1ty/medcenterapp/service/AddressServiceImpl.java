@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.controller.exception.DataNotPresentException;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.controller.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
@@ -46,14 +47,25 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address findById(int addressId) {
-
         Optional<Address> result = addressRepository.findById(addressId);
 
-        return result.orElse(null);
+        if(result.isPresent()) {
+            return result.get();
+        }
+        else {
+            throw new DataNotFoundException("Address with id " + addressId + " was not found!");
+        }
     }
 
     @Override
     public void deleteAddress(int addressId) {
-        addressRepository.deleteById(addressId);
+        Optional<Address> addr = addressRepository.findById(addressId);
+
+        if(addr.isPresent()){
+            addressRepository.deleteById(addressId);
+        }
+        else {
+            throw new DataNotPresentException("Requested address is not present in the database!");
+        }
     }
 }

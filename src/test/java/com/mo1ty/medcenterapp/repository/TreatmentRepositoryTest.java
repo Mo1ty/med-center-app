@@ -1,9 +1,6 @@
 package com.mo1ty.medcenterapp.repository;
 
-import com.mo1ty.medcenterapp.entity.Address;
-import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.InternalLogin;
-import com.mo1ty.medcenterapp.entity.Treatment;
+import com.mo1ty.medcenterapp.entity.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,20 +25,27 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class TreatmentRepositoryTest {
 
-    @Autowired
     AddressRepository addressRepository;
-    @Autowired
     InternalLoginRepository internalLoginRepository;
-    @Autowired
     DoctorRepository doctorRepository;
-    @Autowired
     TreatmentRepository treatmentRepository;
 
     List<Address> addressList;
     List<String> emails;
     List<InternalLogin> internalLoginList;
     List<Doctor> doctorList;
+    List<Client> clientList;
     List<Treatment> treatmentList;
+
+
+    @Autowired
+    public TreatmentRepositoryTest(AddressRepository addressRepository, InternalLoginRepository internalLoginRepository,
+                                DoctorRepository doctorRepository, TreatmentRepository treatmentRepository) {
+        this.addressRepository = addressRepository;
+        this.internalLoginRepository = internalLoginRepository;
+        this.doctorRepository = doctorRepository;
+        this.treatmentRepository = treatmentRepository;
+    }
 
     @BeforeEach
     void setUp(){
@@ -69,7 +73,7 @@ class TreatmentRepositoryTest {
     }
 
     @Test
-    public void findByTreatmentIdTest(){
+    public void findByDoctorIdTest(){
         List<Treatment> czech = treatmentRepository.findByTreatmentName("TREATMENT_CZECH");
         Treatment french = treatmentRepository.findByTreatmentName("TREATMENT_FRENCH").get(0);
         List<Treatment> fakeTreatments = treatmentRepository.findByTreatmentName("FAKE_NAME");

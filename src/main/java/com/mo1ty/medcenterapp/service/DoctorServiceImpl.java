@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,15 +74,17 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public List<Doctor> findAll() {
+    public List<DoctorVO> findAll() {
 
-        List<Doctor> result = doctorRepository.findAll();
+        List<Doctor> doctors = doctorRepository.findAll();
 
-        if (result.size() == 0){
+        if (doctors.size() == 0){
             throw new DataNotFoundException("No doctors were found in the table!");
         }
 
-        return result;
+        return doctors.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorVO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -99,7 +102,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void deleteClient(int doctorId) {
+    public void deleteDoctor(int doctorId) {
         doctorRepository.deleteById(doctorId);
     }
 

@@ -28,13 +28,7 @@ public class AddressController {
 
     @GetMapping("/{addressId}")
     public Address getAddress(@PathVariable int addressId){
-        Address address = addressService.findById(addressId);
-
-        if(address == null){
-            throw new DataNotFoundException("Address with id " + addressId + " was not found!");
-        }
-
-        return address;
+        return addressService.findById(addressId);
     }
 
     @PostMapping
@@ -49,17 +43,8 @@ public class AddressController {
 
     @DeleteMapping("/{addressId}")
     public Address deleteAddress(@PathVariable int addressId){
-
-        // Will not execute if any client/doctor has an address
-
-        Address addr = addressService.findById(addressId);
-
-        if(addr == null){
-            throw new DataNotPresentException("Requested address is not present in the database!");
-        }
-
+        Address address = addressService.findById(addressId);
         addressService.deleteAddress(addressId);
-
-        return addr;
+        return address;
     }
 }

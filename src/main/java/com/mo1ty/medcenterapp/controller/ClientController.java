@@ -29,13 +29,7 @@ public class ClientController {
 
     @GetMapping("/{clientId}")
     public ClientVO getClient(@PathVariable int clientId){
-        ClientVO client = clientService.findById(clientId);
-
-        if(client == null){
-            throw new DataNotFoundException("Client with id " + clientId + " was not found!");
-        }
-
-        return client;
+        return clientService.findById(clientId);
     }
 
     @PostMapping
@@ -45,12 +39,6 @@ public class ClientController {
 
     @PutMapping
     public ClientVO updateClient(@RequestBody ClientVO client){
-        ClientVO clnt = clientService.findById(client.getClientId());
-
-        if(clnt == null){
-            throw new DataNotPresentException("Requested client does not exist! Consider adding a new entity instead.");
-        }
-
         return clientService.updateClient(client);
     }
 

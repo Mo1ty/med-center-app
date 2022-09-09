@@ -11,8 +11,10 @@ import java.util.List;
 @Repository
 public interface VisitsRepository extends JpaRepository<Visit, Integer> {
 
+    @Query("SELECT v FROM Visit v WHERE v.clientVisited.clientId = ?1")
     List<Visit> findAllByClientVisited(int clientVisited);
 
+    @Query("SELECT v FROM Visit v WHERE v.doctorAccepted.id = ?1")
     List<Visit> findAllByDoctorAccepted(int doctorAccepted);
 
     @Query("SELECT v FROM Visit v WHERE v.datetime > ?1")
