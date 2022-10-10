@@ -69,6 +69,4 @@ public class MapperConfig {
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }
-
-
 }
