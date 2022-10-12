@@ -23,6 +23,9 @@ public interface VisitsRepository extends JpaRepository<Visit, Integer> {
     @Query("SELECT v FROM Visit v WHERE v.datetime > ?1 and v.clientVisited.clientId = ?2")
     List<Visit> findAllByDateAndClientId(Date date, int clientVisited);
 
+    @Query("SELECT v FROM Visit v WHERE v.datetime < ?1 and v.clientVisited.clientId = ?2")
+    List<Visit> findAllBeforeDateAndClientId(Date date, int clientVisited);
+
     @Query("SELECT v FROM Visit v WHERE v.datetime > ?1 and v.doctorAccepted.id = ?2")
     List<Visit> findAllByDateAndDoctorId(Date date, int doctorAccepted);
 }

@@ -151,6 +151,15 @@ public class VisitsServiceImpl implements VisitsService {
                         .collect(Collectors.toList());
     }
 
+    @Override
+    public List<VisitVO> findAllPreviousVisitsByClientId(int clientId) {
+        return visitsRepository.findAllBeforeDateAndClientId
+                        (Date.from(Instant.now()), clientId)
+                .stream()
+                .map(visit -> modelMapper.map(visit, VisitVO.class))
+                .collect(Collectors.toList());
+    }
+
     public List<Date> findAllOccupiedTimes(int doctorId) {
         // Get all visits that will be done by this doctor
         List<Visit> visitsByDoctor = visitsRepository.findAllByDateAndDoctorId(Date.from(Instant.now()), doctorId);

@@ -40,6 +40,11 @@ public class VisitsController {
         return visitsService.findAllPendingVisitsByClientId(clientId);
     }
 
+    @GetMapping("/history/{clientId}")
+    public List<VisitVO> getClientsVisitsHistory(@PathVariable int clientId){
+        return visitsService.findAllPreviousVisitsByClientId(clientId);
+    }
+
     @GetMapping("/timetable/{doctorId}")
     public List<Date> getAllOccupiedVisits(@PathVariable int doctorId){
         return visitsService.findAllOccupiedTimes(doctorId);

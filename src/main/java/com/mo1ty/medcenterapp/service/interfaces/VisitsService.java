@@ -25,6 +25,8 @@ public interface VisitsService {
 
     List<VisitVO> findAllPendingVisitsByClientId(int clientId);
 
+    List<VisitVO> findAllPreviousVisitsByClientId(int clientId);
+
     List<Date> findAllOccupiedTimes(int doctorId);
 
 }
