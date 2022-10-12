@@ -153,6 +153,7 @@ public class VisitsServiceImpl implements VisitsService {
 
     @Override
     public List<VisitVO> findAllPreviousVisitsByClientId(int clientId) {
+        // Get all the visits that were in the past
         return visitsRepository.findAllBeforeDateAndClientId
                         (Date.from(Instant.now()), clientId)
                 .stream()
