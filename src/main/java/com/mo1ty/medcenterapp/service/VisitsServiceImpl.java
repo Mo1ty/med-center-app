@@ -161,13 +161,13 @@ public class VisitsServiceImpl implements VisitsService {
                 .collect(Collectors.toList());
     }
 
-    public List<Date> findAllOccupiedTimes(int doctorId) {
+    public List<Long> findAllOccupiedTimes(int doctorId) {
         // Get all visits that will be done by this doctor
         List<Visit> visitsByDoctor = visitsRepository.findAllByDateAndDoctorId(Date.from(Instant.now()), doctorId);
 
         // Get datetime from them to get the collection of occupied times
         return visitsByDoctor.stream()
-                .map(Visit::getDatetime)
+                .map(Visit -> Visit.getDatetime().getTime())
                 .collect(Collectors.toList());
     }
 

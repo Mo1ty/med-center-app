@@ -46,7 +46,7 @@ public class VisitsController {
     }
 
     @GetMapping("/timetable/{doctorId}")
-    public List<Date> getAllOccupiedVisits(@PathVariable int doctorId){
+    public List<Long> getAllOccupiedVisits(@PathVariable int doctorId){
         return visitsService.findAllOccupiedTimes(doctorId);
     }
 
