@@ -27,13 +27,8 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
 
-    // email is a username
-    // provide check if is an actual email
-    @Column
+    @Column(name = "email")
     private String email;
-
-    @Column
-    private String password;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
@@ -44,11 +39,9 @@ public class Client {
             CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Visit> allVisits;
 
-    public Client(String firstName, String lastName, String email, String password, Address addressId) {
+    public Client(String firstName, String lastName, Address addressId) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.password = password;
         this.address = addressId;
     }
 }

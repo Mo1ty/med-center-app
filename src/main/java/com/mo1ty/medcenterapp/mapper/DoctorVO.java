@@ -16,6 +16,7 @@ public class DoctorVO {
     private String lastName;
     private String email;
     private int addressId; // not mapped but used to retrieve from DB
+    private String description;
 
 
 }

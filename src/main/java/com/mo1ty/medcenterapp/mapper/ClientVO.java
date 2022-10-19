@@ -15,7 +15,6 @@ public class ClientVO {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private int addressId; // not mapped but used to retrieve from DB
 
 }

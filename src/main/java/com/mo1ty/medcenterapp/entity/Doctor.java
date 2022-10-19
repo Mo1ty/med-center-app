@@ -38,6 +38,9 @@ public class Doctor {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @Column
+    private String description;
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
@@ -52,19 +55,21 @@ public class Doctor {
     private List<Visit> allVisits;
 
     public Doctor(String firstName, String lastName, String email,
-                  Address addressId) {
+                  Address addressId, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = addressId;
+        this.description = description;
     }
 
     public Doctor(int id, String firstName, String lastName, String email,
-                  Address addressId) {
+                  Address addressId, String description) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = addressId;
+        this.description = description;
     }
 }
