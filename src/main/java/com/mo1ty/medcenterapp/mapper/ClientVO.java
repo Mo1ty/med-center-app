@@ -1,9 +1,13 @@
 package com.mo1ty.medcenterapp.mapper;
 
+import com.mo1ty.medcenterapp.entity.Contact;
+import com.mo1ty.medcenterapp.entity.LoyaltyLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,10 +15,9 @@ import lombok.Setter;
 @Setter
 public class ClientVO {
 
-    private int clientId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private int addressId; // not mapped but used to retrieve from DB
+    private int id;
+    private int contactId;
+    private int totalSpent;
+    private int loyaltyLevelId;
 
 }

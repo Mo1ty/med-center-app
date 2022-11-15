@@ -1,29 +1,14 @@
-package com.mo1ty.medcenterapp.mapper.config;
+package com.mo1ty.medcenterapp.config;
 
-import com.mo1ty.medcenterapp.entity.Client;
-import com.mo1ty.medcenterapp.entity.Doctor;
-import com.mo1ty.medcenterapp.entity.Visit;
-import com.mo1ty.medcenterapp.mapper.ClientVO;
-import com.mo1ty.medcenterapp.mapper.DoctorVO;
-import com.mo1ty.medcenterapp.mapper.VisitVO;
-import com.mo1ty.medcenterapp.repository.ClientRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
-import com.mo1ty.medcenterapp.repository.TreatmentRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.Arrays;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class MapperConfig {
 
+    /*
     TreatmentRepository treatmentRepository;
     ClientRepository clientRepository;
     DoctorRepository doctorRepository;
@@ -59,7 +44,15 @@ public class MapperConfig {
 
         return modelMapper;
     }
+    */
 
+    @Bean
+    public SecurityFilterChain defaultSecurityFilterChain(){
+
+        return null;
+    }
+
+    /*
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -70,4 +63,5 @@ public class MapperConfig {
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }
+    */
 }

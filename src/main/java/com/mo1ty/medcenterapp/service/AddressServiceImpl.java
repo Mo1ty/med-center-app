@@ -1,17 +1,14 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.controller.error.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.entity.Address;
+import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
-@Service
 public class AddressServiceImpl implements AddressService {
 
     private AddressRepository addressRepository;
@@ -23,32 +20,21 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address createAddress(Address address) {
-        // It is meant to be called on address objects with id = 0 (null/unassigned)
         return addressRepository.save(address);
     }
 
     @Override
     public Address updateAddress(Address address) {
-        Optional<Address> result = addressRepository.findById(address.getAddressId());
-
-        if(result.isPresent()){
-            addressRepository.save(address);
-            return address;
-        }
-        else{
+        Optional<Address> result = addressRepository.findById(address.getId());
+        if(result.isPresent())
+            return addressRepository.save(address);
+        else
             throw new InvalidInputException("Address with this id does not exist!");
-        }
-    }
-
-    @Override
-    public List<Address> findAll(){
-        return addressRepository.findAll();
     }
 
     @Override
     public Address findById(int addressId) {
         Optional<Address> result = addressRepository.findById(addressId);
-
         if(result.isPresent()) {
             return result.get();
         }
@@ -59,9 +45,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void deleteAddress(int addressId) {
-        Optional<Address> addr = addressRepository.findById(addressId);
-
-        if(addr.isPresent()){
+        Optional<Address> address = addressRepository.findById(addressId);
+        if(address.isPresent()){
             addressRepository.deleteById(addressId);
         }
         else {

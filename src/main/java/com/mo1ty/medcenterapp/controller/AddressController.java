@@ -5,12 +5,9 @@ import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/address")
 public class AddressController {
-
 
     private AddressService addressService;
 
@@ -19,13 +16,8 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping
-    public List<Address> getAllAddresses(){
-        return addressService.findAll();
-    }
-
     @GetMapping("/{addressId}")
-    public Address getAddress(@PathVariable int addressId){
+    public Address getAddressById(@PathVariable int addressId){
         return addressService.findById(addressId);
     }
 
@@ -45,4 +37,5 @@ public class AddressController {
         addressService.deleteAddress(addressId);
         return address;
     }
+
 }
