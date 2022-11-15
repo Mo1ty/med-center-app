@@ -1,8 +1,10 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
+import com.mo1ty.medcenterapp.entity.Speciality;
 import com.mo1ty.medcenterapp.entity.view.external.DoctorExternal;
 
 import java.util.List;
+
 
 public interface DoctorExtService {
 
@@ -10,8 +12,6 @@ public interface DoctorExtService {
 
     List<DoctorExternal> findAll();
 
-    List<DoctorExternal> findAllById();
-
-    List<DoctorExternal> findAllBySpeciality();
+    List<DoctorExternal> findAllBySpec(String specName);
 
 }

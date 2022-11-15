@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.mapper;
+package com.mo1ty.medcenterapp.config.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +17,6 @@ public class VisitVO {
     private int treatmentDoneId;
     private int clientVisitedId;
     private int doctorAcceptedId;
+    private int price;
     private Date datetime;
 }

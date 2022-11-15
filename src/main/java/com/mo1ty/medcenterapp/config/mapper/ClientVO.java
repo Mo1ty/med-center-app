@@ -1,13 +1,11 @@
-package com.mo1ty.medcenterapp.mapper;
+package com.mo1ty.medcenterapp.config.mapper;
 
-import com.mo1ty.medcenterapp.entity.Contact;
-import com.mo1ty.medcenterapp.entity.LoyaltyLevel;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

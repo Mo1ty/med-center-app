@@ -2,7 +2,9 @@ package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.entity.LoginData;
 import com.mo1ty.medcenterapp.service.interfaces.LoginDataService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginDataServiceImpl implements LoginDataService {
     @Override
     public LoginData createLoginData(LoginData loginData) {

@@ -1,4 +1,4 @@
-package com.mo1ty.medcenterapp.mapper;
+package com.mo1ty.medcenterapp.config.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
