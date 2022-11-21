@@ -6,6 +6,7 @@ import com.mo1ty.medcenterapp.repository.LoginDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class LoginDataController {
 
     LoginDataRepository loginDataRepository;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LoginDataController(LoginDataRepository loginDataRepository) {
+    public LoginDataController(LoginDataRepository loginDataRepository, PasswordEncoder passwordEncoder) {
         this.loginDataRepository = loginDataRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
@@ -24,6 +27,7 @@ public class LoginDataController {
         LoginData savedUser = null;
         ResponseEntity response = null;
         try {
+            userData.setPassword(passwordEncoder.encode(userData.getPassword()));
             savedUser = loginDataRepository.save(userData);
             if(savedUser.getId() > 0) {
                 response = ResponseEntity
