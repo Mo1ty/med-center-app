@@ -7,6 +7,7 @@ import com.mo1ty.medcenterapp.entity.Contact;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import com.mo1ty.medcenterapp.service.interfaces.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,22 +22,23 @@ public class ContactController {
     }
 
     @PostMapping
-    public Contact createClient(ContactVO contact) {
+    public ContactVO createClient(ContactVO contact) {
         return contactService.createContact(contact);
     }
 
     @PutMapping
-    public Contact updateClient(ContactVO contact) {
+    public ContactVO updateClient(ContactVO contact) {
         return contactService.updateContact(contact);
     }
 
 
     @GetMapping("/{id}")
-    public Contact findById(@PathVariable int id) {
+    public ContactVO findById(@PathVariable int id) {
         return contactService.findById(id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteClient(@PathVariable int id) {
         contactService.deleteContact(id);
     }

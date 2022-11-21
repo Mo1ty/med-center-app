@@ -8,9 +8,11 @@ import com.mo1ty.medcenterapp.entity.Contact;
 import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.repository.ContactRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ContactService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,31 +22,37 @@ public class ContactServiceImpl implements ContactService {
     AddressRepository addressRepository;
     ContactRepository contactRepository;
 
+    ModelMapper modelMapper;
+
     @Autowired
-    public ContactServiceImpl(AddressRepository addressRepository, ContactRepository contactRepository){
+    public ContactServiceImpl(AddressRepository addressRepository, ContactRepository contactRepository,
+                              ModelMapper modelMapper){
         this.addressRepository = addressRepository;
         this.contactRepository = contactRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public Contact createContact(ContactVO contactVO) {
+    public ContactVO createContact(ContactVO contactVO) {
         Address address = this.addressRepository.getReferenceById(contactVO.getAddressId());
         Contact contact = new Contact(0, contactVO.getFirstName(), contactVO.getLastName(), contactVO.getPhoneNumber(), address);
-        return contactRepository.save(contact);
+        return modelMapper.map(contactRepository.save(contact), ContactVO.class);
     }
 
     @Override
-    public Contact updateContact(ContactVO contactVO) {
-        Address address = this.addressRepository.getReferenceById(contactVO.getAddressId());
+    public ContactVO updateContact(ContactVO contactVO) {
+        Address address = null;
+        if(contactVO.getAddressId() != 0)
+            address = this.addressRepository.getReferenceById(contactVO.getAddressId());
         Contact contact = new Contact(contactVO.getId(), contactVO.getFirstName(), contactVO.getLastName(), contactVO.getPhoneNumber(), address);
-        return contactRepository.save(contact);
+        return modelMapper.map(contactRepository.save(contact), ContactVO.class);
     }
 
     @Override
-    public Contact findById(int id) {
+    public ContactVO findById(int id) {
         List<Contact> contactList = contactRepository.findAllById(Collections.singletonList(id));
         if(contactList.size() == 1){
-            return contactList.get(0);
+            return modelMapper.map(contactList.get(0), ContactVO.class);
         }
         throw new DataNotFoundException("Entity with this ID was not found in database!");
     }

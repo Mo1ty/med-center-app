@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ClientService {
 
-    Client createClient(ClientVO clientVO);
+    ClientVO createClient(ClientVO clientVO);
 
-    Client updateClient(ClientVO clientVO);
+    ClientVO updateClient(ClientVO clientVO);
 
-    Client findById(int id);
+    ClientVO findById(int id);
 
     void deleteClient(int id);
 

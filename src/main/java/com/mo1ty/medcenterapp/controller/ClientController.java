@@ -9,6 +9,7 @@ import com.mo1ty.medcenterapp.repository.ContactRepository;
 import com.mo1ty.medcenterapp.repository.LoyaltyLevelRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -27,22 +28,24 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client createClient(ClientVO clientVO) {
+    public ClientVO createClient(ClientVO clientVO) {
         return clientService.createClient(clientVO);
     }
 
     @PutMapping
-    public Client updateClient(ClientVO clientVO) {
+    public ClientVO updateClient(ClientVO clientVO) {
         return clientService.updateClient(clientVO);
     }
 
 
     @GetMapping("/{id}")
-    public Client findById(@PathVariable int id) {
+    @PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR')")
+    public ClientVO findById(@PathVariable int id) {
         return clientService.findById(id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteClient(@PathVariable int id) {
         clientService.deleteClient(id);
     }

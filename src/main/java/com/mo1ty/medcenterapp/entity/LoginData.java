@@ -1,6 +1,7 @@
 package com.mo1ty.medcenterapp.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -14,12 +15,10 @@ import javax.persistence.*;
 public class LoginData {
 
     @Id
-    @Column(name = "contact_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native", strategy="native")
+    @Column(name = "login_id")
     private int id;
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "contact_id", referencedColumnName = "contact_id")
-    private Contact contact;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -32,4 +31,5 @@ public class LoginData {
 
     @Column(name = "token")
     private String token;
+    
 }
