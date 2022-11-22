@@ -2,6 +2,7 @@ package com.mo1ty.medcenterapp.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 
@@ -18,6 +19,10 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="contact_id")
     private int id;
+
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "login_id")
+    private LoginData loginData;
 
     @Column(name="first_name")
     private String firstName;

@@ -13,6 +13,8 @@ public class ContactVO {
 
     private int id;
 
+    private int loginDataId;
+
     private String firstName;
 
     private String lastName;

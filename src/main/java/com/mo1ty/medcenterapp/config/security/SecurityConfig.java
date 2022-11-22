@@ -2,9 +2,11 @@ package com.mo1ty.medcenterapp.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -16,11 +18,14 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
-        http.securityContext().requireExplicitSave(false)
+        http
+                // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .securityContext().requireExplicitSave(false)
                 .and().cors().configurationSource(new CorsConfigurationSource() {
 
                     @Override
@@ -30,15 +35,16 @@ public class SecurityConfig {
                         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
+                        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
                         return configuration;
                     }
 
                 })
                 .and().csrf().ignoringAntMatchers("/doctor/*", "/auth/*").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().authorizeHttpRequests()
-                .antMatchers("/doctor/*", "/auth/register").permitAll()
-                .antMatchers("/address/*", "/client/*", "/contact/*").authenticated()
-                .antMatchers("analytics/*").hasRole("ADMIN")
+                .mvcMatchers("/doctor/**", "/auth/register").permitAll()
+                .mvcMatchers("/address/**", "/client/**", "/contact/**").authenticated()
+                .mvcMatchers("/analytics/**").hasRole("ADMIN")
                 .and().formLogin()
                 .and().httpBasic();
         return http.build();

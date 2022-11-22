@@ -39,7 +39,8 @@ public class ClientController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR')")
+    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR')")
     public ClientVO findById(@PathVariable int id) {
         return clientService.findById(id);
     }
