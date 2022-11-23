@@ -1,5 +1,6 @@
 package com.mo1ty.medcenterapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,13 +24,11 @@ public class LoginData {
     @Column(name = "email", unique = true)
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password")
     private String password;
 
     @Column(name = "role")
     private String role;
-
-    @Column(name = "token")
-    private String token;
     
 }

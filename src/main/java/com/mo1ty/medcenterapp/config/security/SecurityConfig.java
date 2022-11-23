@@ -1,14 +1,16 @@
 package com.mo1ty.medcenterapp.config.security;
 
+import com.mo1ty.medcenterapp.config.security.filter.JWTTokenGeneratorFilter;
+import com.mo1ty.medcenterapp.config.security.filter.JWTTokenValidatorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,7 +26,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
         http
-                // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .securityContext().requireExplicitSave(false)
                 .and().cors().configurationSource(new CorsConfigurationSource() {
 
@@ -41,10 +43,13 @@ public class SecurityConfig {
 
                 })
                 .and().csrf().ignoringAntMatchers("/doctor/*", "/auth/*").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().authorizeHttpRequests()
-                .mvcMatchers("/doctor/**", "/auth/register").permitAll()
-                .mvcMatchers("/address/**", "/client/**", "/contact/**").authenticated()
-                .mvcMatchers("/analytics/**").hasRole("ADMIN")
+                .and()
+                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
+                .authorizeHttpRequests()
+                    .mvcMatchers("/doctor/**", "/auth/register").permitAll()
+                    .mvcMatchers("/address/**", "/client/**", "/contact/**").authenticated()
+                    .mvcMatchers("/analytics/**").hasRole("ADMIN")
                 .and().formLogin()
                 .and().httpBasic();
         return http.build();

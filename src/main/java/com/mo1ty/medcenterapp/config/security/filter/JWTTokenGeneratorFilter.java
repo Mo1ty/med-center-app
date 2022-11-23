@@ -1,5 +1,6 @@
-package com.mo1ty.medcenterapp.config.security;
+package com.mo1ty.medcenterapp.config.security.filter;
 
+import com.mo1ty.medcenterapp.config.security.SecurityConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
@@ -38,6 +39,6 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return !request.getServletPath().equals("/login");
+        return request.getServletPath().equals("/login");
     }
 }
