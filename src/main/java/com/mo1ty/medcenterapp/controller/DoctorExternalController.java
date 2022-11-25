@@ -1,6 +1,6 @@
 package com.mo1ty.medcenterapp.controller;
 
-import com.mo1ty.medcenterapp.entity.view.external.DoctorExternal;
+import com.mo1ty.medcenterapp.entity.publ.DoctorPublic;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorExternalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +22,17 @@ public class DoctorExternalController {
     }
 
     @GetMapping("/{id}")
-    DoctorExternal findById(@PathVariable int id) {
+    DoctorPublic findById(@PathVariable int id) {
         return doctorExternalService.findById(id);
     }
 
     @GetMapping
-    List<DoctorExternal> findAll() {
+    List<DoctorPublic> findAll() {
         return doctorExternalService.findAll();
     }
 
     @GetMapping("/speciality/{speciality}")
-    List<DoctorExternal> findAllBySpec(@PathVariable String speciality) {
+    List<DoctorPublic> findAllBySpec(@PathVariable String speciality) {
         return doctorExternalService.findAllBySpec(speciality);
     }
 

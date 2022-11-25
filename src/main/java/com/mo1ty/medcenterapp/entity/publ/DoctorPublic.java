@@ -1,5 +1,6 @@
-package com.mo1ty.medcenterapp.entity.view.external;
+package com.mo1ty.medcenterapp.entity.publ;
 
+import com.mo1ty.medcenterapp.entity.ShiftType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,12 +12,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class DoctorExternal {
+public class DoctorPublic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="doctor_id")
-    private int id;
+    private int doctorId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -29,4 +30,11 @@ public class DoctorExternal {
 
     @Column(name="speciality_name")
     private String specialityName;
+
+    @ManyToOne(cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH
+    })
+    @JoinColumn(name = "shift_type_id")
+    private ShiftType shiftType;
 }

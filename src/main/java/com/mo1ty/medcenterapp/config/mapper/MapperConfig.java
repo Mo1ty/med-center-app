@@ -3,18 +3,13 @@ package com.mo1ty.medcenterapp.config.mapper;
 
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.repository.ClientRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.DoctorPublicRepository;
 import com.mo1ty.medcenterapp.repository.SpecialityRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.Arrays;
 
 
 @Configuration
@@ -23,13 +18,13 @@ public class MapperConfig {
 
     SpecialityRepository treatmentRepository;
     ClientRepository clientRepository;
-    DoctorRepository doctorRepository;
+    DoctorPublicRepository doctorPublicRepository;
 
     @Autowired
-    public MapperConfig(SpecialityRepository treatmentRepository, ClientRepository clientRepository, DoctorRepository doctorRepository) {
+    public MapperConfig(SpecialityRepository treatmentRepository, ClientRepository clientRepository, DoctorPublicRepository doctorPublicRepository) {
         this.treatmentRepository = treatmentRepository;
         this.clientRepository = clientRepository;
-        this.doctorRepository = doctorRepository;
+        this.doctorPublicRepository = doctorPublicRepository;
     }
 
     @Bean

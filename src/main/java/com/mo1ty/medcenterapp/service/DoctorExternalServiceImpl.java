@@ -1,9 +1,9 @@
 package com.mo1ty.medcenterapp.service;
 
 import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.entity.view.external.DoctorExternal;
+import com.mo1ty.medcenterapp.entity.publ.DoctorPublic;
 import com.mo1ty.medcenterapp.repository.ContactRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
+import com.mo1ty.medcenterapp.repository.DoctorPublicRepository;
 import com.mo1ty.medcenterapp.repository.SpecialityRepository;
 import com.mo1ty.medcenterapp.service.interfaces.DoctorExternalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +15,21 @@ import java.util.List;
 @Service
 public class DoctorExternalServiceImpl implements DoctorExternalService {
 
-    DoctorRepository doctorRepository;
+    DoctorPublicRepository doctorPublicRepository;
     ContactRepository contactRepository;
     SpecialityRepository specialityRepository;
 
     @Autowired
-    public DoctorExternalServiceImpl(DoctorRepository doctorRepository, ContactRepository contactRepository,
+    public DoctorExternalServiceImpl(DoctorPublicRepository doctorPublicRepository, ContactRepository contactRepository,
                                      SpecialityRepository specialityRepository) {
-        this.doctorRepository = doctorRepository;
+        this.doctorPublicRepository = doctorPublicRepository;
         this.contactRepository = contactRepository;
         this.specialityRepository = specialityRepository;
     }
 
     @Override
-    public DoctorExternal findById(int id) {
-        List<DoctorExternal> docExtList = doctorRepository.findAllById(Collections.singletonList(id));
+    public DoctorPublic findById(int id) {
+        List<DoctorPublic> docExtList = doctorPublicRepository.findAllById(Collections.singletonList(id));
         if(docExtList.size() == 1) {
             return docExtList.get(0);
         }
@@ -37,12 +37,12 @@ public class DoctorExternalServiceImpl implements DoctorExternalService {
     }
 
     @Override
-    public List<DoctorExternal> findAll() {
-        return doctorRepository.findAll();
+    public List<DoctorPublic> findAll() {
+        return doctorPublicRepository.findAll();
     }
 
     @Override
-    public List<DoctorExternal> findAllBySpec(String specName) {
-        return doctorRepository.findAllBySpec(specName);
+    public List<DoctorPublic> findAllBySpec(String specName) {
+        return doctorPublicRepository.findAllBySpec(specName);
     }
 }

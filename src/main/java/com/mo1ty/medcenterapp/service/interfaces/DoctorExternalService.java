@@ -1,16 +1,16 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
-import com.mo1ty.medcenterapp.entity.view.external.DoctorExternal;
+import com.mo1ty.medcenterapp.entity.publ.DoctorPublic;
 
 import java.util.List;
 
 
 public interface DoctorExternalService {
 
-    DoctorExternal findById(int id);
+    DoctorPublic findById(int id);
 
-    List<DoctorExternal> findAll();
+    List<DoctorPublic> findAll();
 
-    List<DoctorExternal> findAllBySpec(String specName);
+    List<DoctorPublic> findAllBySpec(String specName);
 
 }
