@@ -22,12 +22,12 @@ public class ContactController {
     }
 
     @PostMapping
-    public ContactVO createClient(ContactVO contact) {
+    public ContactVO createContact(ContactVO contact) {
         return contactService.createContact(contact);
     }
 
     @PutMapping
-    public ContactVO updateClient(ContactVO contact) {
+    public ContactVO updateContact(ContactVO contact) {
         return contactService.updateContact(contact);
     }
 
@@ -37,9 +37,13 @@ public class ContactController {
         return contactService.findById(id);
     }
 
+    @GetMapping("/personal/{loginId}")
+    public ContactVO findByLoginId(@PathVariable int loginId) {
+        return contactService.findByLoginId(loginId);
+    }
+
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteClient(@PathVariable int id) {
+    public void deleteContact(@PathVariable int id) {
         contactService.deleteContact(id);
     }
 

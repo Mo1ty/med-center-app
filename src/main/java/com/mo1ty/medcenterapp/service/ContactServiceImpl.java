@@ -76,6 +76,15 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    public ContactVO findByLoginId(int loginId) {
+        List<Contact> contactList = contactRepository.findAllByLoginId(loginId);
+        if(contactList.size() == 1){
+            return modelMapper.map(contactList.get(0), ContactVO.class);
+        }
+        throw new DataNotFoundException("Entity with this ID was not found in database!");
+    }
+
+    @Override
     public void deleteContact(int id) {
         this.contactRepository.deleteById(id);
     }

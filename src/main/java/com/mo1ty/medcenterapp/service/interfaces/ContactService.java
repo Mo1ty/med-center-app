@@ -11,6 +11,8 @@ public interface ContactService {
 
     ContactVO findById(int id);
 
+    ContactVO findByLoginId(int loginId);
+
     void deleteContact(int id);
 
 }
