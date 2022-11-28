@@ -19,25 +19,21 @@ public class AddressController {
     }
 
     @GetMapping("/{addressId}")
-    @PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR', 'ADMIN')")
     public AddressVO getAddressById(@PathVariable int addressId){
         return addressService.findById(addressId);
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR', 'ADMIN')")
     public AddressVO addAddress(@RequestBody AddressVO addressVO){
         return addressService.createAddress(addressVO);
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR', 'ADMIN')")
     public AddressVO updateAddress(@RequestBody AddressVO addressVO){
         return addressService.updateAddress(addressVO);
     }
 
     @DeleteMapping("/{addressId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteAddress(@PathVariable int addressId){
         addressService.deleteAddress(addressId);
     }

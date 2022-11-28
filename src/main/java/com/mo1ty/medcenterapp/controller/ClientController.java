@@ -37,16 +37,12 @@ public class ClientController {
         return clientService.updateClient(clientVO);
     }
 
-
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    //@PreAuthorize("hasAnyRole('CLIENT', 'DOCTOR')")
     public ClientVO findById(@PathVariable int id) {
         return clientService.findById(id);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteClient(@PathVariable int id) {
         clientService.deleteClient(id);
     }
