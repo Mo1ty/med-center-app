@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -57,6 +58,16 @@ public class ClientServiceImpl implements ClientService {
 
         if(clientList.size() == 1){
             return modelMapper.map(clientList.get(0), ClientVO.class);
+        }
+        throw new DataNotFoundException("Entity with this ID was not found in database!");
+    }
+
+    @Override
+    public ClientVO findByContactId(int id) {
+        Optional<Client> clientOpt = clientRepository.findByContactId(id);
+
+        if(clientOpt.isPresent()) {
+            return modelMapper.map(clientOpt.get(), ClientVO.class);
         }
         throw new DataNotFoundException("Entity with this ID was not found in database!");
     }

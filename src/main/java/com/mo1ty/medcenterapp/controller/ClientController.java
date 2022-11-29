@@ -42,6 +42,11 @@ public class ClientController {
         return clientService.findById(id);
     }
 
+    @GetMapping("/by-contact/{id}")
+    public ClientVO findByContactId(@PathVariable int id) {
+        return clientService.findByContactId(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteClient(@PathVariable int id) {
         clientService.deleteClient(id);

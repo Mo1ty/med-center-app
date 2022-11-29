@@ -1,8 +1,10 @@
 package com.mo1ty.medcenterapp.controller;
 
 
+import com.mo1ty.medcenterapp.entity.Contact;
 import com.mo1ty.medcenterapp.entity.LoginData;
 import com.mo1ty.medcenterapp.repository.LoginDataRepository;
+import com.mo1ty.medcenterapp.service.interfaces.LoginDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +20,16 @@ public class LoginDataController {
 
     LoginDataRepository loginDataRepository;
     PasswordEncoder passwordEncoder;
+    LoginDataService loginDataService;
 
     @Autowired
-    public LoginDataController(LoginDataRepository loginDataRepository, PasswordEncoder passwordEncoder) {
+    public LoginDataController(LoginDataRepository loginDataRepository, PasswordEncoder passwordEncoder, LoginDataService loginDataService) {
         this.loginDataRepository = loginDataRepository;
         this.passwordEncoder = passwordEncoder;
+        this.loginDataService = loginDataService;
     }
 
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody LoginData userData) {
         LoginData savedUser = null;
         ResponseEntity response = null;
@@ -44,6 +48,11 @@ public class LoginDataController {
                     .body("An excepion occured! Message: " + ex.getLocalizedMessage());
         }
         return response;
+    }*/
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody Contact contactData) {
+        return loginDataService.registerUser(contactData);
     }
 
     @GetMapping("/login")
