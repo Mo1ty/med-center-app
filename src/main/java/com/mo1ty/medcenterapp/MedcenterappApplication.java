@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class MedcenterappApplication {
 
 	public static void main(String[] args) {
-		System.setProperty("server.servlet.context-path", "/internal");
+		// System.setProperty("server.servlet.context-path", "/internal");
 		SpringApplication.run(MedcenterappApplication.class, args);
 	}
 

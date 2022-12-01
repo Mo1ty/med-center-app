@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -40,7 +41,7 @@ public class LoginDataServiceImpl implements LoginDataService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation=Propagation.REQUIRED)
     public ResponseEntity<String> registerUser(Contact contactData) {
 
         LoginData userData = contactData.getLoginData();

@@ -19,4 +19,5 @@ public class VisitVO {
     private int doctorAcceptedId;
     private int price;
     private Date datetime;
+    private String illnessDescription;
 }

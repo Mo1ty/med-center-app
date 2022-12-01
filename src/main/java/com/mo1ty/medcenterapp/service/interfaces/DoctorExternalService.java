@@ -11,6 +11,6 @@ public interface DoctorExternalService {
 
     List<DoctorPublic> findAll();
 
-    List<DoctorPublic> findAllBySpec(String specName);
+    List<DoctorPublic> findAllBySpec(int speciality);
 
 }

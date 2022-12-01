@@ -2,11 +2,11 @@ package com.mo1ty.medcenterapp.entity.publ;
 
 import com.mo1ty.medcenterapp.entity.Client;
 import com.mo1ty.medcenterapp.entity.Treatment;
+import com.mo1ty.medcenterapp.entity.internal.Doctor;
 import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(name="visits")
@@ -15,7 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisitPublic {
+public class Visit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class VisitPublic {
             CascadeType.PERSIST, CascadeType.REFRESH
     })
     @JoinColumn(name = "doctor_id")
-    private DoctorPublic doctorPublic;
+    private Doctor doctor;
 
     @OneToOne(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,

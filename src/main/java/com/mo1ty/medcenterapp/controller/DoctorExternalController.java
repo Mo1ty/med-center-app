@@ -32,7 +32,7 @@ public class DoctorExternalController {
     }
 
     @GetMapping("/speciality/{speciality}")
-    List<DoctorPublic> findAllBySpec(@PathVariable String speciality) {
+    List<DoctorPublic> findAllBySpec(@PathVariable int speciality) {
         return doctorExternalService.findAllBySpec(speciality);
     }
 
