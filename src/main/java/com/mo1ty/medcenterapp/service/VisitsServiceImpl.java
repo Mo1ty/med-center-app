@@ -52,6 +52,7 @@ public class VisitsServiceImpl implements VisitsService {
             visit.setClient(clientRepository.getReferenceById(visitVO.getClientVisitedId()));
             visit.setDoctor(doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId()));
             visit.setTreatment(treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId()));
+            visit.setTotalPrice(visit.getTreatment().getRegularPrice());
             // Save new entity
             visitsRepository.save(visit);
         }
