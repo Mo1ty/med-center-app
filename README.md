@@ -2,7 +2,7 @@
 Medcenter backend app - alternative branch with more backend and less frontend functionality, but with an authentication implemented.
 
 Uses reworked database with better (but unrealised) potentional.
-[Sho, ne otkryvaetsya? Delom zaymis'!](https://github.com/Mo1ty/med-center-app/blob/master/SQL/EER_diagran.PNG?raw=true "Yep, database")
+![DB-pic](https://github.com/Mo1ty/med-center-app/blob/master/SQL/EER_diagran.PNG?raw=true "Yep, database")
 
 ## How to launch
 Actual sql-scripts for database and basic data [are here, inside the repository](https://github.com/Mo1ty/med-center-app/tree/alternative/SQL)
