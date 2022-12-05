@@ -16,4 +16,6 @@ public interface ClientService {
 
     ClientVO findByContactId(int id);
 
+    ClientVO findByLoginId(int loginId);
+
 }

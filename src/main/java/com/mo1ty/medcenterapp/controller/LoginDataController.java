@@ -29,27 +29,6 @@ public class LoginDataController {
         this.loginDataService = loginDataService;
     }
 
-    /*@PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody LoginData userData) {
-        LoginData savedUser = null;
-        ResponseEntity response = null;
-        try {
-            userData.setPassword(passwordEncoder.encode(userData.getPassword()));
-            savedUser = loginDataRepository.save(userData);
-            if(savedUser.getId() > 0) {
-                response = ResponseEntity
-                        .status(HttpStatus.CREATED)
-                        .body("Given user details are registered!");
-            }
-        }
-        catch (Exception ex) {
-            response = ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An excepion occured! Message: " + ex.getLocalizedMessage());
-        }
-        return response;
-    }*/
-
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Contact contactData) {
         return loginDataService.registerUser(contactData);

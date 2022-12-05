@@ -78,4 +78,18 @@ public class ClientServiceImpl implements ClientService {
         this.clientRepository.deleteById(id);
     }
 
+    @Override
+    public ClientVO findByLoginId(int loginId) {
+        List<Contact> contacts = this.contactRepository.findAllByLoginId(loginId);
+
+        if(contacts.size() == 0) {
+            throw new DataNotFoundException("Entity with this ID was not found in database!");
+        }
+        Optional<Client> client = this.clientRepository.findByContactId(contacts.get(0).getId());
+        if(client.isPresent()) {
+            return modelMapper.map(client.get(), ClientVO.class);
+        }
+        throw new DataNotFoundException("Entity with this ID was not found in database!");
+    }
+
 }

@@ -52,4 +52,9 @@ public class ClientController {
         clientService.deleteClient(id);
     }
 
+    @GetMapping("/by_login/{id}")
+    public ClientVO findByLoginId(@PathVariable int id) {
+        return clientService.findByLoginId(id);
+    }
+
 }

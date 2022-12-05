@@ -1,6 +1,5 @@
 package com.mo1ty.medcenterapp.config.security;
 
-import com.mo1ty.medcenterapp.config.security.filter.CsrfCookieFilter;
 import com.mo1ty.medcenterapp.config.security.filter.JWTTokenGeneratorFilter;
 import com.mo1ty.medcenterapp.config.security.filter.JWTTokenValidatorFilter;
 import org.springframework.context.annotation.Bean;
@@ -13,12 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -46,7 +43,6 @@ public class SecurityConfig {
                 })
                 .and().csrf().ignoringAntMatchers("/doctor/*", "/auth/*").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
