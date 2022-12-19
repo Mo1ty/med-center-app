@@ -1,4 +1,5 @@
 # med-center-app
+
 Medcenter backend app - alternative branch with more backend and less frontend functionality, but with an authentication implemented.
 
 Uses reworked database with better (but unrealised) potentional.
