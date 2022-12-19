@@ -1,56 +1,53 @@
 package com.mo1ty.medcenterapp.service;
 
-import com.mo1ty.medcenterapp.entity.Address;
+import com.mo1ty.medcenterapp.config.mapper.AddressVO;
 import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.controller.error.exception.InvalidInputException;
+import com.mo1ty.medcenterapp.entity.Address;
+import com.mo1ty.medcenterapp.repository.AddressRepository;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
     private AddressRepository addressRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public AddressServiceImpl(AddressRepository addressRepository) {
+    public AddressServiceImpl(AddressRepository addressRepository, ModelMapper modelMapper) {
         this.addressRepository = addressRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public Address createAddress(Address address) {
-        // It is meant to be called on address objects with id = 0 (null/unassigned)
-        return addressRepository.save(address);
+    public AddressVO createAddress(AddressVO addressVO) {
+        Address address = modelMapper.map(addressVO, Address.class);
+        addressRepository.save(address);
+        return modelMapper.map(addressRepository.findById(address.getId()).orElse(null), AddressVO.class);
     }
 
     @Override
-    public Address updateAddress(Address address) {
-        Optional<Address> result = addressRepository.findById(address.getAddressId());
-
-        if(result.isPresent()){
-            addressRepository.save(address);
-            return address;
-        }
-        else{
-            throw new InvalidInputException("Address with this id does not exist!");
-        }
-    }
-
-    @Override
-    public List<Address> findAll(){
-        return addressRepository.findAll();
-    }
-
-    @Override
-    public Address findById(int addressId) {
-        Optional<Address> result = addressRepository.findById(addressId);
-
+    public AddressVO updateAddress(AddressVO addressVO) {
+        Optional<Address> result = addressRepository.findById(addressVO.getId());
         if(result.isPresent()) {
-            return result.get();
+            Address address = modelMapper.map(addressVO, Address.class);
+            addressRepository.save(address);
+            return modelMapper.map(addressRepository.findById(address.getId()).orElse(null), AddressVO.class);
+        }
+        else
+            throw new InvalidInputException("Address with this id does not exist!");
+    }
+
+    @Override
+    public AddressVO findById(int addressId) {
+        Optional<Address> result = addressRepository.findById(addressId);
+        if(result.isPresent()) {
+            return modelMapper.map(result.get(), AddressVO.class);
         }
         else {
             throw new DataNotFoundException("Address with id " + addressId + " was not found!");
@@ -59,9 +56,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void deleteAddress(int addressId) {
-        Optional<Address> addr = addressRepository.findById(addressId);
-
-        if(addr.isPresent()){
+        Optional<Address> address = addressRepository.findById(addressId);
+        if(address.isPresent()){
             addressRepository.deleteById(addressId);
         }
         else {

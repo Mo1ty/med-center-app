@@ -1,8 +1,7 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
-import com.mo1ty.medcenterapp.mapper.VisitVO;
+import com.mo1ty.medcenterapp.config.mapper.VisitVO;
 
-import java.util.Date;
 import java.util.List;
 
 public interface VisitsService {

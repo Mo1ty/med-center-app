@@ -1,12 +1,8 @@
 package com.mo1ty.medcenterapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -14,34 +10,25 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
+    @Column(name="client_id")
     private int clientId;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "email")
-    private String email;
+    @Column(name="total_spendings")
+    private int totalSpent;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @JoinColumn(name = "loyalty_level_id")
+    private LoyaltyLevel loyaltyLevel;
 
-    @OneToMany(mappedBy = "clientVisited", cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Visit> allVisits;
-
-    public Client(String firstName, String lastName, Address addressId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = addressId;
-    }
 }

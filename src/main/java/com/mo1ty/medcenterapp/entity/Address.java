@@ -1,11 +1,10 @@
 package com.mo1ty.medcenterapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "addresses")
@@ -13,29 +12,31 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
-    private int addressId;
+    @Column(name="address_id")
+    private int id;
 
-    @Column
+    @Column(name="city")
     private String city;
 
-    @Column(name = "postal_code")
+    @Column(name="postal_code")
     private String postalCode;
 
-    @Column
+    @Column(name="street")
     private String street;
 
-    @Column(name = "house_number")
+    @Column(name="house_number")
     private int houseNumber;
 
-    public Address(String city, String postalCode, String street, int houseNumber) {
-        this.city = city;
-        this.postalCode = postalCode;
-        this.street = street;
-        this.houseNumber = houseNumber;
-    }
+    @OneToMany(
+            mappedBy = "address",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
+    )
+    @JsonIgnore
+    private List<Contact> persons;
+
 }

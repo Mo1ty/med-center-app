@@ -1,19 +1,15 @@
 package com.mo1ty.medcenterapp.service.interfaces;
 
+import com.mo1ty.medcenterapp.config.mapper.AddressVO;
 import com.mo1ty.medcenterapp.entity.Address;
-
-import java.util.List;
 
 public interface AddressService {
 
-    Address createAddress(Address address);
+    AddressVO createAddress(AddressVO address);
 
-    Address updateAddress(Address address);
+    AddressVO updateAddress(AddressVO address);
 
-    List<Address> findAll();
+    AddressVO findById(int id);
 
-    Address findById(int addressId);
-
-    void deleteAddress(int addressId);
-
+    void deleteAddress(int id);
 }

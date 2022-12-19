@@ -1,23 +1,24 @@
 package com.mo1ty.medcenterapp.service;
 
+import com.mo1ty.medcenterapp.config.mapper.VisitVO;
+import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
 import com.mo1ty.medcenterapp.controller.error.exception.InvalidInputException;
 import com.mo1ty.medcenterapp.entity.Client;
-import com.mo1ty.medcenterapp.entity.Doctor;
 import com.mo1ty.medcenterapp.entity.Treatment;
-import com.mo1ty.medcenterapp.entity.Visit;
-import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
-import com.mo1ty.medcenterapp.mapper.VisitVO;
+import com.mo1ty.medcenterapp.entity.internal.Doctor;
+import com.mo1ty.medcenterapp.entity.publ.Visit;
 import com.mo1ty.medcenterapp.repository.ClientRepository;
-import com.mo1ty.medcenterapp.repository.DoctorRepository;
 import com.mo1ty.medcenterapp.repository.TreatmentRepository;
 import com.mo1ty.medcenterapp.repository.VisitsRepository;
+import com.mo1ty.medcenterapp.repository.priv.DoctorRepository;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,9 +49,10 @@ public class VisitsServiceImpl implements VisitsService {
             Visit visit = new Visit();
             modelMapper.map(visitVO, visit);
             // Set all fields of an entity using data from VO
-            visit.setClientVisited(clientRepository.getReferenceById(visitVO.getClientVisitedId()));
-            visit.setDoctorAccepted(doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId()));
-            visit.setTreatmentDone(treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId()));
+            visit.setClient(clientRepository.getReferenceById(visitVO.getClientVisitedId()));
+            visit.setDoctor(doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId()));
+            visit.setTreatment(treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId()));
+            visit.setTotalPrice(visit.getTreatment().getRegularPrice());
             // Save new entity
             visitsRepository.save(visit);
         }
@@ -65,15 +67,11 @@ public class VisitsServiceImpl implements VisitsService {
 
         if(result.isPresent() && isDataExistent(visitVO)){
 
-            // Create entities that will be put into the visit
-            Treatment treatmentDone = treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId());
-            Client clientVisited = clientRepository.getReferenceById(visitVO.getClientVisitedId());
-            Doctor doctorAccepted = doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId());
             // Get the new result itself and set the values
             Visit visit = result.get();
-            visit.setTreatmentDone(treatmentDone);
-            visit.setClientVisited(clientVisited);
-            visit.setDoctorAccepted(doctorAccepted);
+            visit.setTreatment(treatmentRepository.getReferenceById(visitVO.getTreatmentDoneId()));
+            visit.setClient(clientRepository.getReferenceById(visitVO.getClientVisitedId()));
+            visit.setDoctor(doctorRepository.getReferenceById(visitVO.getDoctorAcceptedId()));
             // Save the entity
             visitsRepository.save(visit);
         }
@@ -135,7 +133,7 @@ public class VisitsServiceImpl implements VisitsService {
     @Override
     public List<VisitVO> findAllPendingVisits() {
         // Get all visits that will be in a future
-        return visitsRepository.findAllByDate(Date.from(Instant.now()))
+        return visitsRepository.findAllByDate(Timestamp.from(Instant.now()))
                 .stream()
                 .map(visit -> modelMapper.map(visit, VisitVO.class))
                 .collect(Collectors.toList());
@@ -145,17 +143,17 @@ public class VisitsServiceImpl implements VisitsService {
     public List<VisitVO> findAllPendingVisitsByClientId(int clientId) {
         // Get all the visits that client may cancel, i.e. tomorrow or later
         return visitsRepository.findAllByDateAndClientId
-                        (Date.from(Instant.now()), clientId)
-                        .stream()
-                        .map(visit -> modelMapper.map(visit, VisitVO.class))
-                        .collect(Collectors.toList());
+                        (Timestamp.from(Instant.now()), clientId)
+                .stream()
+                .map(visit -> modelMapper.map(visit, VisitVO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<VisitVO> findAllPreviousVisitsByClientId(int clientId) {
         // Get all the visits that were in the past
         return visitsRepository.findAllBeforeDateAndClientId
-                        (Date.from(Instant.now()), clientId)
+                        (Timestamp.from(Instant.now()), clientId)
                 .stream()
                 .map(visit -> modelMapper.map(visit, VisitVO.class))
                 .collect(Collectors.toList());
@@ -163,7 +161,7 @@ public class VisitsServiceImpl implements VisitsService {
 
     public List<Long> findAllOccupiedTimes(int doctorId) {
         // Get all visits that will be done by this doctor
-        List<Visit> visitsByDoctor = visitsRepository.findAllByDateAndDoctorId(Date.from(Instant.now()), doctorId);
+        List<Visit> visitsByDoctor = visitsRepository.findAllByDateAndDoctorId(Timestamp.from(Instant.now()), doctorId);
 
         // Get datetime from them to get the collection of occupied times
         return visitsByDoctor.stream()
@@ -178,4 +176,5 @@ public class VisitsServiceImpl implements VisitsService {
 
         return treatmentExists && clientExists && doctorExists;
     }
+
 }

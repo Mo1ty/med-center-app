@@ -1,16 +1,15 @@
 package com.mo1ty.medcenterapp.controller;
 
+import com.mo1ty.medcenterapp.config.mapper.AddressVO;
 import com.mo1ty.medcenterapp.entity.Address;
 import com.mo1ty.medcenterapp.service.interfaces.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/address")
 public class AddressController {
-
 
     private AddressService addressService;
 
@@ -19,30 +18,24 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping
-    public List<Address> getAllAddresses(){
-        return addressService.findAll();
-    }
-
     @GetMapping("/{addressId}")
-    public Address getAddress(@PathVariable int addressId){
+    public AddressVO getAddressById(@PathVariable int addressId){
         return addressService.findById(addressId);
     }
 
     @PostMapping
-    public Address addAddress(@RequestBody Address address){
-        return addressService.createAddress(address);
+    public AddressVO addAddress(@RequestBody AddressVO addressVO){
+        return addressService.createAddress(addressVO);
     }
 
     @PutMapping
-    public Address updateAddress(@RequestBody Address address){
-        return addressService.updateAddress(address);
+    public AddressVO updateAddress(@RequestBody AddressVO addressVO){
+        return addressService.updateAddress(addressVO);
     }
 
     @DeleteMapping("/{addressId}")
-    public Address deleteAddress(@PathVariable int addressId){
-        Address address = addressService.findById(addressId);
+    public void deleteAddress(@PathVariable int addressId){
         addressService.deleteAddress(addressId);
-        return address;
     }
+
 }

@@ -1,11 +1,10 @@
 package com.mo1ty.medcenterapp.controller;
 
-import com.mo1ty.medcenterapp.mapper.VisitVO;
+import com.mo1ty.medcenterapp.config.mapper.VisitVO;
 import com.mo1ty.medcenterapp.service.interfaces.VisitsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -60,4 +59,5 @@ public class VisitsController {
     public void deleteVisit(@PathVariable int visitId){
         visitsService.deleteVisit(visitId);
     }
+
 }

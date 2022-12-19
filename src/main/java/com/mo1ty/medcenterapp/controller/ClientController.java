@@ -1,52 +1,60 @@
 package com.mo1ty.medcenterapp.controller;
 
-import com.mo1ty.medcenterapp.mapper.ClientVO;
+import com.mo1ty.medcenterapp.config.mapper.ClientVO;
+import com.mo1ty.medcenterapp.controller.error.exception.DataNotFoundException;
+import com.mo1ty.medcenterapp.entity.Client;
+import com.mo1ty.medcenterapp.entity.Contact;
+import com.mo1ty.medcenterapp.repository.ClientRepository;
+import com.mo1ty.medcenterapp.repository.ContactRepository;
+import com.mo1ty.medcenterapp.repository.LoyaltyLevelRepository;
 import com.mo1ty.medcenterapp.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/client")
 public class ClientController {
 
-    private ClientService clientService;
+    ClientService clientService;
 
     @Autowired
-    public ClientController(ClientService clientService){
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
-    @GetMapping
-    public List<ClientVO> getAllClients(){
-        return clientService.findAll();
-    }
-
-    @GetMapping("/{clientId}")
-    public ClientVO getClient(@PathVariable int clientId){
-        return clientService.findById(clientId);
-    }
-
     @PostMapping
-    public ClientVO addClient(@RequestBody ClientVO client){
-        return clientService.createClient(client);
+    public ClientVO createClient(ClientVO clientVO) {
+        return clientService.createClient(clientVO);
     }
 
     @PutMapping
-    public ClientVO updateClient(@RequestBody ClientVO client){
-        return clientService.updateClient(client);
+    public ClientVO updateClient(ClientVO clientVO) {
+        return clientService.updateClient(clientVO);
     }
 
-    @DeleteMapping("/{clientId}")
-    public ResponseEntity<String> deleteClient(@PathVariable int clientId){
+    @GetMapping("/{id}")
+    public ClientVO findById(@PathVariable int id) {
+        return clientService.findById(id);
+    }
 
-        // Will not execute if any visit has this client, fix later
-        clientService.deleteClient(clientId);
+    @GetMapping("/by-contact/{id}")
+    public ClientVO findByContactId(@PathVariable int id) {
+        return clientService.findByContactId(id);
+    }
 
-        return new ResponseEntity<>("200: The entity was successfully deleted!", HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public void deleteClient(@PathVariable int id) {
+        clientService.deleteClient(id);
+    }
+
+    @GetMapping("/by_login/{id}")
+    public ClientVO findByLoginId(@PathVariable int id) {
+        return clientService.findByLoginId(id);
     }
 
 }

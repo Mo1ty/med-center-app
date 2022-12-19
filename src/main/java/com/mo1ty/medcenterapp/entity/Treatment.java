@@ -3,33 +3,35 @@ package com.mo1ty.medcenterapp.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "treatments")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Treatment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "treatment_id")
+    @Column(name="treatment_id")
     private int treatmentId;
 
-    @Column(name = "treatment_name")
-    private String treatmentName;
+    @ManyToOne(cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH
+    })
+    @JoinColumn(name = "speciality_id")
+    private Speciality speciality;
 
     @Column
-    private int price;
+    private String name;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(
-            name="treatments_has_doctors",
-            joinColumns = @JoinColumn(name="treatment_id"),
-            inverseJoinColumns = @JoinColumn(name="doctor_id")
-    )
-    private List<Doctor> doctors;
+    @Column(name = "regular_price")
+    private int regularPrice;
+
+    @Column(name = "required_qualification")
+    private int requiredQualification;
+
 }
